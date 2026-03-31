@@ -10,4 +10,5 @@ package vuelos.database;
  * @author Jose
  */
 public class Conexion {
+    
 }
