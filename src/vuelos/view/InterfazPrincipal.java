@@ -3,11 +3,12 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package vuelos.database;
+package vuelos.view;
 
 /**
  *
  * @author Jose
  */
-public class Conexion {
+public class InterfazPrincipal {
+    
 }
