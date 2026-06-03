@@ -298,6 +298,11 @@ public class MainLogin extends javax.swing.JFrame {
         btnIngresar.setForeground(new java.awt.Color(255, 255, 255));
         btnIngresar.setText("Ingresar");
         btnIngresar.setPreferredSize(new java.awt.Dimension(83, 50));
+        btnIngresar.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                btnIngresarMouseClicked(evt);
+            }
+        });
         btnIngresar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnIngresarActionPerformed(evt);
@@ -529,6 +534,11 @@ public class MainLogin extends javax.swing.JFrame {
         btnRegistrar.setForeground(new java.awt.Color(255, 255, 255));
         btnRegistrar.setText("Registrar");
         btnRegistrar.setPreferredSize(new java.awt.Dimension(87, 50));
+        btnRegistrar.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                btnRegistrarMouseClicked(evt);
+            }
+        });
         btnRegistrar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnRegistrarActionPerformed(evt);
@@ -965,6 +975,68 @@ public class MainLogin extends javax.swing.JFrame {
             evt.consume();
         }
     }//GEN-LAST:event_campoCorreoKeyTyped
+
+    private void btnIngresarMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnIngresarMouseClicked
+        java.awt.Color colorRojoError = new java.awt.Color(255, 51, 51);
+    javax.swing.border.Border padding = javax.swing.BorderFactory.createEmptyBorder(5, 8, 5, 8);
+    javax.swing.border.Border bordeRojo = javax.swing.BorderFactory.createCompoundBorder(
+        javax.swing.BorderFactory.createLineBorder(colorRojoError, 1), padding
+    );
+    
+    boolean faltanCampos = false;
+
+    // 2. Validamos el campo de Correo
+    if (campoCorreo.getText().trim().isEmpty()) {
+        campoCorreo.setBorder(bordeRojo);
+        faltanCampos = true;
+    }
+
+    // 3. Validamos la Contraseña
+    if (new String(campoContrasena.getPassword()).trim().isEmpty()) {
+        campoContrasena.setBorder(bordeRojo);
+        faltanCampos = true;
+    }
+
+    // 4. Verificamos el resultado
+    if (faltanCampos) {
+        // Ventana flotante moderna de advertencia
+        javax.swing.JOptionPane.showMessageDialog(this, 
+            "Por favor, complete todos los campos obligatorios.", 
+            "Campos Incompletos", 
+            javax.swing.JOptionPane.WARNING_MESSAGE);
+    } else {
+        // ¡Todo está lleno! Aquí colocas tu lógica normal para iniciar sesión
+        System.out.println("Procediendo al login...");
+    }
+    }//GEN-LAST:event_btnIngresarMouseClicked
+
+    private void btnRegistrarMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnRegistrarMouseClicked
+        java.awt.Color colorRojoError = new java.awt.Color(255, 51, 51);
+    javax.swing.border.Border padding = javax.swing.BorderFactory.createEmptyBorder(5, 8, 5, 8);
+    javax.swing.border.Border bordeRojo = javax.swing.BorderFactory.createCompoundBorder(
+        javax.swing.BorderFactory.createLineBorder(colorRojoError, 1), padding
+    );
+    
+    boolean faltanCampos = false;
+
+    // Barrido de los 6 campos
+    if (campoNombreRegistro.getText().trim().isEmpty()) { campoNombreRegistro.setBorder(bordeRojo); faltanCampos = true; }
+    if (campoApellidoRegistro.getText().trim().isEmpty()) { campoApellidoRegistro.setBorder(bordeRojo); faltanCampos = true; }
+    if (campoCedulaRegistro.getText().trim().isEmpty()) { campoCedulaRegistro.setBorder(bordeRojo); faltanCampos = true; }
+    if (campoTelefonoRegistro.getText().trim().isEmpty()) { campoTelefonoRegistro.setBorder(bordeRojo); faltanCampos = true; }
+    if (campoCorreoRegistro.getText().trim().isEmpty()) { campoCorreoRegistro.setBorder(bordeRojo); faltanCampos = true; }
+    if (campoContrasenaRegistro.getText().trim().isEmpty()) { campoContrasenaRegistro.setBorder(bordeRojo); faltanCampos = true; }
+
+    if (faltanCampos) {
+        javax.swing.JOptionPane.showMessageDialog(this, 
+            "Faltan campos por rellenar en el formulario de registro.", 
+            "Registro Incompleto", 
+            javax.swing.JOptionPane.WARNING_MESSAGE);
+    } else {
+        // ¡Espectacular! Todo está lleno. Aquí creas tu objeto Usuario y guardas
+        System.out.println("Procediendo a registrar usuario...");
+    }
+    }//GEN-LAST:event_btnRegistrarMouseClicked
 
     /**
      * @param args the command line arguments
