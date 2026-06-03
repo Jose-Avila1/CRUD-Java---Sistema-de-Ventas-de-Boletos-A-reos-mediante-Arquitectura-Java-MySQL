@@ -22,6 +22,7 @@ public class MainLogin extends javax.swing.JFrame {
      */
     public MainLogin() {
         initComponents();
+        javax.swing.ToolTipManager.sharedInstance().setInitialDelay(50);
         panelDerecha.requestFocusInWindow();
         this.setResizable(false);
        // 1. El borde exterior gris de 1px
@@ -153,6 +154,8 @@ public class MainLogin extends javax.swing.JFrame {
         campoCorreoRegistro = new javax.swing.JTextField();
         campoContrasenaRegistro = new javax.swing.JTextField();
         btnRegistrar = new javax.swing.JButton();
+        labelAviso1 = new javax.swing.JLabel();
+        labelAviso2 = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setMinimumSize(new java.awt.Dimension(750, 450));
@@ -212,7 +215,7 @@ public class MainLogin extends javax.swing.JFrame {
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, panelIzquierdaLayout.createSequentialGroup()
                 .addGap(33, 33, 33)
                 .addComponent(labelBienvenida)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 61, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 93, Short.MAX_VALUE)
                 .addComponent(labelLogo)
                 .addGap(34, 34, 34)
                 .addComponent(labelTitulo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -246,6 +249,7 @@ public class MainLogin extends javax.swing.JFrame {
         labelContrasena.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
         labelContrasena.setText("CONTRASEÑA:");
 
+        campoCorreo.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
         campoCorreo.setPreferredSize(new java.awt.Dimension(30, 35));
         campoCorreo.setSelectionColor(new java.awt.Color(0, 51, 204));
         campoCorreo.addFocusListener(new java.awt.event.FocusAdapter() {
@@ -266,7 +270,13 @@ public class MainLogin extends javax.swing.JFrame {
                 campoCorreoActionPerformed(evt);
             }
         });
+        campoCorreo.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                campoCorreoKeyTyped(evt);
+            }
+        });
 
+        campoContrasena.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
         campoContrasena.setEchoChar('\u2022');
         campoContrasena.setPreferredSize(new java.awt.Dimension(30, 35));
         campoContrasena.addFocusListener(new java.awt.event.FocusAdapter() {
@@ -345,15 +355,15 @@ public class MainLogin extends javax.swing.JFrame {
             .addGroup(panelLoginLayout.createSequentialGroup()
                 .addGap(30, 30, 30)
                 .addComponent(laberIniciarSesion)
-                .addGap(123, 123, 123)
+                .addGap(97, 97, 97)
                 .addGroup(panelLoginLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(labelUsuario)
                     .addComponent(campoCorreo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(38, 38, 38)
+                .addGap(49, 49, 49)
                 .addGroup(panelLoginLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(labelContrasena)
                     .addComponent(campoContrasena, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(49, 49, 49)
+                .addGap(122, 122, 122)
                 .addComponent(btnIngresar, javax.swing.GroupLayout.PREFERRED_SIZE, 43, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(btnRegistro)
@@ -401,6 +411,7 @@ public class MainLogin extends javax.swing.JFrame {
         labelContrasenaRegistro.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
         labelContrasenaRegistro.setText("CONTRASEÑA:");
 
+        campoNombreRegistro.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
         campoNombreRegistro.addFocusListener(new java.awt.event.FocusAdapter() {
             public void focusGained(java.awt.event.FocusEvent evt) {
                 campoNombreRegistroFocusGained(evt);
@@ -409,7 +420,16 @@ public class MainLogin extends javax.swing.JFrame {
                 campoNombreRegistroFocusLost(evt);
             }
         });
+        campoNombreRegistro.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyPressed(java.awt.event.KeyEvent evt) {
+                campoNombreRegistroKeyPressed(evt);
+            }
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                campoNombreRegistroKeyTyped(evt);
+            }
+        });
 
+        campoApellidoRegistro.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
         campoApellidoRegistro.addFocusListener(new java.awt.event.FocusAdapter() {
             public void focusGained(java.awt.event.FocusEvent evt) {
                 campoApellidoRegistroFocusGained(evt);
@@ -418,7 +438,19 @@ public class MainLogin extends javax.swing.JFrame {
                 campoApellidoRegistroFocusLost(evt);
             }
         });
+        campoApellidoRegistro.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyPressed(java.awt.event.KeyEvent evt) {
+                campoApellidoRegistroKeyPressed(evt);
+            }
+            public void keyReleased(java.awt.event.KeyEvent evt) {
+                campoApellidoRegistroKeyReleased(evt);
+            }
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                campoApellidoRegistroKeyTyped(evt);
+            }
+        });
 
+        campoCedulaRegistro.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
         campoCedulaRegistro.addFocusListener(new java.awt.event.FocusAdapter() {
             public void focusGained(java.awt.event.FocusEvent evt) {
                 campoCedulaRegistroFocusGained(evt);
@@ -427,7 +459,16 @@ public class MainLogin extends javax.swing.JFrame {
                 campoCedulaRegistroFocusLost(evt);
             }
         });
+        campoCedulaRegistro.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyPressed(java.awt.event.KeyEvent evt) {
+                campoCedulaRegistroKeyPressed(evt);
+            }
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                campoCedulaRegistroKeyTyped(evt);
+            }
+        });
 
+        campoTelefonoRegistro.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
         campoTelefonoRegistro.addFocusListener(new java.awt.event.FocusAdapter() {
             public void focusGained(java.awt.event.FocusEvent evt) {
                 campoTelefonoRegistroFocusGained(evt);
@@ -441,7 +482,16 @@ public class MainLogin extends javax.swing.JFrame {
                 campoTelefonoRegistroActionPerformed(evt);
             }
         });
+        campoTelefonoRegistro.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyPressed(java.awt.event.KeyEvent evt) {
+                campoTelefonoRegistroKeyPressed(evt);
+            }
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                campoTelefonoRegistroKeyTyped(evt);
+            }
+        });
 
+        campoCorreoRegistro.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
         campoCorreoRegistro.addFocusListener(new java.awt.event.FocusAdapter() {
             public void focusGained(java.awt.event.FocusEvent evt) {
                 campoCorreoRegistroFocusGained(evt);
@@ -450,7 +500,21 @@ public class MainLogin extends javax.swing.JFrame {
                 campoCorreoRegistroFocusLost(evt);
             }
         });
+        campoCorreoRegistro.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                campoCorreoRegistroActionPerformed(evt);
+            }
+        });
+        campoCorreoRegistro.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyPressed(java.awt.event.KeyEvent evt) {
+                campoCorreoRegistroKeyPressed(evt);
+            }
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                campoCorreoRegistroKeyTyped(evt);
+            }
+        });
 
+        campoContrasenaRegistro.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
         campoContrasenaRegistro.addFocusListener(new java.awt.event.FocusAdapter() {
             public void focusGained(java.awt.event.FocusEvent evt) {
                 campoContrasenaRegistroFocusGained(evt);
@@ -465,6 +529,23 @@ public class MainLogin extends javax.swing.JFrame {
         btnRegistrar.setForeground(new java.awt.Color(255, 255, 255));
         btnRegistrar.setText("Registrar");
         btnRegistrar.setPreferredSize(new java.awt.Dimension(87, 50));
+        btnRegistrar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnRegistrarActionPerformed(evt);
+            }
+        });
+
+        labelAviso1.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
+        labelAviso1.setForeground(new java.awt.Color(11, 29, 58));
+        labelAviso1.setText("[?]");
+        labelAviso1.setToolTipText("<html><body style='font-family: \"Segoe UI\"; font-size: 11px; padding: 3px; color: #333333;'>Máximo 8 caracteres</body></html>");
+        labelAviso1.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+
+        labelAviso2.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
+        labelAviso2.setForeground(new java.awt.Color(11, 29, 58));
+        labelAviso2.setText("[?]");
+        labelAviso2.setToolTipText("<html><body style='font-family: \"Segoe UI\"; font-size: 11px; padding: 3px; color: #333333;'>Máximo 11 caracteres</body></html>");
+        labelAviso2.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
 
         javax.swing.GroupLayout panelRegistroLayout = new javax.swing.GroupLayout(panelRegistro);
         panelRegistro.setLayout(panelRegistroLayout);
@@ -487,7 +568,11 @@ public class MainLogin extends javax.swing.JFrame {
                     .addComponent(campoCedulaRegistro, javax.swing.GroupLayout.PREFERRED_SIZE, 156, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(campoApellidoRegistro, javax.swing.GroupLayout.PREFERRED_SIZE, 156, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(campoNombreRegistro, javax.swing.GroupLayout.PREFERRED_SIZE, 156, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap(59, Short.MAX_VALUE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addGroup(panelRegistroLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(labelAviso1)
+                    .addComponent(labelAviso2))
+                .addContainerGap(33, Short.MAX_VALUE))
             .addGroup(panelRegistroLayout.createSequentialGroup()
                 .addContainerGap()
                 .addComponent(btnRegresar, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -497,14 +582,14 @@ public class MainLogin extends javax.swing.JFrame {
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, panelRegistroLayout.createSequentialGroup()
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addComponent(labelRegistro)
-                .addGap(104, 104, 104))
+                .addGap(94, 94, 94))
         );
         panelRegistroLayout.setVerticalGroup(
             panelRegistroLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, panelRegistroLayout.createSequentialGroup()
-                .addGap(30, 30, 30)
+                .addGap(28, 28, 28)
                 .addComponent(labelRegistro)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 24, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 34, Short.MAX_VALUE)
                 .addGroup(panelRegistroLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(labelNombreRegistro)
                     .addComponent(campoNombreRegistro, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
@@ -515,11 +600,13 @@ public class MainLogin extends javax.swing.JFrame {
                 .addGap(30, 30, 30)
                 .addGroup(panelRegistroLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(labelCedulaRegistro)
-                    .addComponent(campoCedulaRegistro, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(campoCedulaRegistro, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(labelAviso1))
                 .addGap(24, 24, 24)
                 .addGroup(panelRegistroLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(labelTelefonoRegistro)
-                    .addComponent(campoTelefonoRegistro, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(campoTelefonoRegistro, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(labelAviso2))
                 .addGap(31, 31, 31)
                 .addGroup(panelRegistroLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(labelCorreoRegistro)
@@ -590,6 +677,13 @@ public class MainLogin extends javax.swing.JFrame {
             
             System.out.println(e);
         }
+        
+        Entidad.UsuarioInicio usuarioInicio = new Entidad.UsuarioInicio(
+                campoCorreo.getText(),
+                new String(campoContrasena.getText()));
+        
+        System.out.println(usuarioInicio.getCorreo());
+        System.out.println(usuarioInicio.getPassword());
         
     }//GEN-LAST:event_btnIngresarActionPerformed
 
@@ -758,6 +852,120 @@ public class MainLogin extends javax.swing.JFrame {
         campo.setBorder(javax.swing.BorderFactory.createCompoundBorder(bordeAzul, padding));
     }//GEN-LAST:event_campoContrasenaRegistroFocusGained
 
+    private void campoNombreRegistroKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_campoNombreRegistroKeyTyped
+        
+        char c = evt.getKeyChar();
+        // Si no es una letra, ni un espacio, ni la tecla borrar se cancela el tipeo
+        if (!Character.isLetter(c) && c != ' ' && c != java.awt.event.KeyEvent.VK_BACK_SPACE) {
+            evt.consume(); // Destruye el evento (el carácter no se escribe)
+        }
+    }//GEN-LAST:event_campoNombreRegistroKeyTyped
+
+    private void campoApellidoRegistroKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_campoApellidoRegistroKeyTyped
+        char c = evt.getKeyChar();
+        // Si no es una letra, ni un espacio, ni la tecla borrar se cancela el tipeo
+        if (!Character.isLetter(c) && c != ' ' && c != java.awt.event.KeyEvent.VK_BACK_SPACE) {
+            evt.consume(); // Destruye el evento (el carácter no se escribe)
+        }
+    }//GEN-LAST:event_campoApellidoRegistroKeyTyped
+
+    private void campoCedulaRegistroKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_campoCedulaRegistroKeyTyped
+        char c = evt.getKeyChar();
+        // 1. Validar que sea número
+        if (!Character.isDigit(c) && c != java.awt.event.KeyEvent.VK_BACK_SPACE) {
+            evt.consume();
+        }
+        // 2. Validar el tamaño máximo de 8 dígitos
+        if (campoCedulaRegistro.getText().length() >= 8 && c != java.awt.event.KeyEvent.VK_BACK_SPACE) {
+            evt.consume();
+        }
+    }//GEN-LAST:event_campoCedulaRegistroKeyTyped
+
+    private void campoTelefonoRegistroKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_campoTelefonoRegistroKeyTyped
+        char c = evt.getKeyChar();
+        if (!Character.isDigit(c) && c != java.awt.event.KeyEvent.VK_BACK_SPACE) {
+            evt.consume();
+        }
+        if (campoTelefonoRegistro.getText().length() >= 11 && c != java.awt.event.KeyEvent.VK_BACK_SPACE) {
+            evt.consume();
+        }
+    }//GEN-LAST:event_campoTelefonoRegistroKeyTyped
+
+    private void campoCorreoRegistroKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_campoCorreoRegistroKeyTyped
+        char c = evt.getKeyChar();
+        // Permite letras, números, arroba, punto, guion y borrar
+        if (!Character.isLetterOrDigit(c) && c != '@' && c != '.' && c != '-' && c != '_' && c != java.awt.event.KeyEvent.VK_BACK_SPACE) {
+            evt.consume();
+        }
+    }//GEN-LAST:event_campoCorreoRegistroKeyTyped
+
+    private void campoNombreRegistroKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_campoNombreRegistroKeyPressed
+        if (evt.getKeyCode() == java.awt.event.KeyEvent.VK_ENTER) {
+            // Le transfiere automáticamente el foco al siguiente componente en orden
+            ((javax.swing.JComponent) evt.getSource()).transferFocus();}
+    }//GEN-LAST:event_campoNombreRegistroKeyPressed
+
+    private void campoApellidoRegistroKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_campoApellidoRegistroKeyReleased
+        // TODO add your handling code here:
+    }//GEN-LAST:event_campoApellidoRegistroKeyReleased
+
+    private void campoApellidoRegistroKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_campoApellidoRegistroKeyPressed
+        if (evt.getKeyCode() == java.awt.event.KeyEvent.VK_ENTER) {
+            // Le transfiere automáticamente el foco al siguiente componente en orden
+            ((javax.swing.JComponent) evt.getSource()).transferFocus();}
+    }//GEN-LAST:event_campoApellidoRegistroKeyPressed
+
+    private void campoCedulaRegistroKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_campoCedulaRegistroKeyPressed
+        if (evt.getKeyCode() == java.awt.event.KeyEvent.VK_ENTER) {
+            // Le transfiere automáticamente el foco al siguiente componente en orden
+            ((javax.swing.JComponent) evt.getSource()).transferFocus();}
+    }//GEN-LAST:event_campoCedulaRegistroKeyPressed
+
+    private void campoTelefonoRegistroKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_campoTelefonoRegistroKeyPressed
+        if (evt.getKeyCode() == java.awt.event.KeyEvent.VK_ENTER) {
+            // Le transfiere automáticamente el foco al siguiente componente en orden
+            ((javax.swing.JComponent) evt.getSource()).transferFocus();}
+    }//GEN-LAST:event_campoTelefonoRegistroKeyPressed
+
+    private void campoCorreoRegistroKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_campoCorreoRegistroKeyPressed
+        if (evt.getKeyCode() == java.awt.event.KeyEvent.VK_ENTER) {
+            // Le transfiere automáticamente el foco al siguiente componente en orden
+            ((javax.swing.JComponent) evt.getSource()).transferFocus();}
+    }//GEN-LAST:event_campoCorreoRegistroKeyPressed
+
+    private void btnRegistrarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnRegistrarActionPerformed
+        
+        Entidad.Usuario nuevoUsuario = new Entidad.Usuario(
+            campoNombreRegistro.getText(),
+            campoApellidoRegistro.getText(),
+            campoCedulaRegistro.getText(),
+            campoTelefonoRegistro.getText(),
+            campoCorreoRegistro.getText(),
+            campoContrasenaRegistro.getText());
+        
+        System.out.println(nuevoUsuario.getNombre());
+        System.out.println(nuevoUsuario.getApellido());
+        System.out.println(nuevoUsuario.getCedula());
+        System.out.println(nuevoUsuario.getTelefono());
+        System.out.println(nuevoUsuario.getCorreo());
+        System.out.println(nuevoUsuario.getContrasena());
+        
+
+// ¡Listo! Ya tienes toda la información del pasajero compactada en un solo objeto 'nuevoUsuario'
+    }//GEN-LAST:event_btnRegistrarActionPerformed
+
+    private void campoCorreoRegistroActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_campoCorreoRegistroActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_campoCorreoRegistroActionPerformed
+
+    private void campoCorreoKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_campoCorreoKeyTyped
+        char c = evt.getKeyChar();
+        // Permite letras, números, arroba, punto, guion y borrar
+        if (!Character.isLetterOrDigit(c) && c != '@' && c != '.' && c != '-' && c != '_' && c != java.awt.event.KeyEvent.VK_BACK_SPACE) {
+            evt.consume();
+        }
+    }//GEN-LAST:event_campoCorreoKeyTyped
+
     /**
      * @param args the command line arguments
      */
@@ -807,6 +1015,8 @@ public class MainLogin extends javax.swing.JFrame {
     private javax.swing.JTextField campoNombreRegistro;
     private javax.swing.JTextField campoTelefonoRegistro;
     private javax.swing.JLabel labelApellidoRegistro;
+    private javax.swing.JLabel labelAviso1;
+    private javax.swing.JLabel labelAviso2;
     private javax.swing.JLabel labelBienvenida;
     private javax.swing.JLabel labelCedulaRegistro;
     private javax.swing.JLabel labelContrasena;
