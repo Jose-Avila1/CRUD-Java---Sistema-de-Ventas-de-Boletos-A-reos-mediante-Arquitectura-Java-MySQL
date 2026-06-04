@@ -11,4 +11,8 @@ package vuelos.view;
  */
 public class InterfazPrincipal {
     
+    public static void hola(){
+    
+        System.out.println("hola mundo");}
+    
 }
