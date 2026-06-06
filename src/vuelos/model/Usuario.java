@@ -1,4 +1,4 @@
-package Entidad;
+package vuelos.model;
 
 public class Usuario {
     // 1. Atributos privados (Encapsulamiento)
