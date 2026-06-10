@@ -680,8 +680,9 @@ public class MainLogin extends javax.swing.JFrame {
         
         try {
             InterfazPrincipal principal = new InterfazPrincipal();
-            principal.hola();
+            principal.InterfazPrincipal();
             System.out.println("Interfaz principal inicializada correctamente");
+            this.dispose();//por ahora
             
         } catch (Exception e) {
             
