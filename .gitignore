@@ -26,4 +26,4 @@ replay_pid*
 
 #Ignorar archivos
 nbproject/private/
-/dist/
+/dist/nbproject/private/
