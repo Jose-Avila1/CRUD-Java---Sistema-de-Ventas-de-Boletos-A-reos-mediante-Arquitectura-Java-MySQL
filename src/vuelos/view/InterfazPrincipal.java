@@ -1,11 +1,19 @@
 package vuelos.view;
 import java.awt.BorderLayout;
+import java.awt.Color;
+import java.awt.Font;
+import java.awt.Window;
 import vuelos.controller.ProgressBar;
 import java.util.Date;
 import vuelos.controller.*;
 import java.text.SimpleDateFormat;
 import java.util.List;
 import javax.swing.JFrame;
+import javax.swing.JLabel;
+import javax.swing.JOptionPane;
+import javax.swing.JPanel;
+import javax.swing.SwingConstants;
+import javax.swing.SwingUtilities;
 /**
  *
  * @author Todos
@@ -16,6 +24,18 @@ public class InterfazPrincipal extends javax.swing.JFrame {
     
     public InterfazPrincipal() {
         initComponents();
+        
+        // Cambiamos el comportamiento y diseño del botón existente usando nuestra nueva clase
+        
+        
+
+        // Cambiamos su tipografía y color de letras para que combine con el estilo nuevo
+        jButtonSiguiente.setForeground(Color.WHITE);
+        jButtonSiguiente.setFont(new Font("Arial", Font.PLAIN, 14));
+
+        // Sobreescribimos el método de dibujo del botón existente directamente en tu interfaz
+       
+
         // Instancias tu nuevo componente de cabina
         
        
@@ -316,10 +336,16 @@ public class InterfazPrincipal extends javax.swing.JFrame {
 
         jLabelLeyendaAND.setText("Asientos No Disponibles:");
 
-        jButtonSiguiente.setBackground(new java.awt.Color(11, 29, 58));
+        jButtonSiguiente.setBackground(new java.awt.Color(51, 51, 255));
         jButtonSiguiente.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
         jButtonSiguiente.setForeground(new java.awt.Color(255, 255, 255));
-        jButtonSiguiente.setText("Siguente");
+        jButtonSiguiente.setText("Siguiente");
+        jButtonSiguiente.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        jButtonSiguiente.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButtonSiguienteActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout jPanelSiguienteLayout = new javax.swing.GroupLayout(jPanelSiguiente);
         jPanelSiguiente.setLayout(jPanelSiguienteLayout);
@@ -470,6 +496,39 @@ public class InterfazPrincipal extends javax.swing.JFrame {
         }
     }//GEN-LAST:event_btnBuscarActionPerformed
 
+    private void jButtonSiguienteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonSiguienteActionPerformed
+        
+        // 1. Mostrar ventana de confirmación (JOptionPane)
+        int respuesta = JOptionPane.showConfirmDialog(
+            null, 
+            "¿Desea continuar realmente con la reserva o prefiere elegir más asientos?, LUEGO NO PODRAS REGRESAR", 
+            "Confirmar Selección de Asientos", 
+            JOptionPane.YES_NO_OPTION, 
+            JOptionPane.QUESTION_MESSAGE
+        );
+
+        // Si el usuario presiona "Sí" (YES_OPTION)
+         if (respuesta == JOptionPane.YES_OPTION) {
+            // 1. Guardamos el ancho y el alto actuales del panel contenedor
+           
+            PanelLogo.remove(jPanelProgreso);
+             PanelLogo.revalidate();
+             PanelLogo.repaint();
+            
+            
+            Panel4 nuevoPanel = new Panel4();
+            
+             cambiarDePanel(nuevoPanel);
+                   
+            // 9. Forzar actualización de la ventana principal completa
+            Window ventanaPadre = SwingUtilities.getWindowAncestor(PanelOrigenDestino);
+            if (ventanaPadre != null) {
+                ventanaPadre.validate();
+                ventanaPadre.repaint();
+            }
+        }
+    }//GEN-LAST:event_jButtonSiguienteActionPerformed
+
    
     private void mostrarResumenConsola() {
     System.out.println("\n=================================================");
@@ -507,6 +566,26 @@ public class InterfazPrincipal extends javax.swing.JFrame {
         });
         
     }
+    
+    public void cambiarDePanel(JPanel nuevoPanel) {
+    // 1. Limpieza absoluta
+    PanelOrigenDestino.removeAll();
+    
+    // 2. Le asignamos un diseño de cuadrícula simple (ocupa el 100% del espacio)
+    PanelOrigenDestino.setLayout(new java.awt.GridLayout(1, 1));
+    
+    // 3. Agregamos el nuevo panel
+    PanelOrigenDestino.add(nuevoPanel);
+    
+    // 4. Ciclo de refresco estructural profundo
+    PanelOrigenDestino.revalidate();
+    PanelOrigenDestino.repaint();
+    
+    // 5. Forzar actualización de la ventana completa
+    this.pack(); // Reajusta el contenedor a la pantalla
+    this.repaint();
+}
+
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
