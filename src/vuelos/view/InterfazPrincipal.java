@@ -143,7 +143,7 @@ public class InterfazPrincipal extends javax.swing.JFrame {
         });
 
         jLabelFechaAbor.setFont(new java.awt.Font("Segoe UI", 0, 11)); // NOI18N
-        jLabelFechaAbor.setText("Fecha de abordaje");
+        jLabelFechaAbor.setText("Fecha de abordaje (Opcional)");
 
         jLabelOrigen.setFont(new java.awt.Font("Segoe UI", 0, 11)); // NOI18N
         jLabelOrigen.setText("Origen:");
@@ -167,7 +167,7 @@ public class InterfazPrincipal extends javax.swing.JFrame {
                     .addComponent(jDateChooserIda, javax.swing.GroupLayout.PREFERRED_SIZE, 126, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(44, 44, 44)
                 .addComponent(btnBuscar, javax.swing.GroupLayout.PREFERRED_SIZE, 79, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(22, Short.MAX_VALUE))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         jPanelSeleccionDeDatosLayout.setVerticalGroup(
             jPanelSeleccionDeDatosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -262,7 +262,7 @@ public class InterfazPrincipal extends javax.swing.JFrame {
         jPanelSeleccionDeVuelos.setLayout(jPanelSeleccionDeVuelosLayout);
         jPanelSeleccionDeVuelosLayout.setHorizontalGroup(
             jPanelSeleccionDeVuelosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 678, Short.MAX_VALUE)
+            .addGap(0, 691, Short.MAX_VALUE)
         );
         jPanelSeleccionDeVuelosLayout.setVerticalGroup(
             jPanelSeleccionDeVuelosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -398,7 +398,7 @@ public class InterfazPrincipal extends javax.swing.JFrame {
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(PanelLogo, javax.swing.GroupLayout.DEFAULT_SIZE, 900, Short.MAX_VALUE)
+            .addComponent(PanelLogo, javax.swing.GroupLayout.DEFAULT_SIZE, 913, Short.MAX_VALUE)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                 .addContainerGap()
                 .addComponent(PanelOrigenDestino, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
@@ -459,7 +459,7 @@ public class InterfazPrincipal extends javax.swing.JFrame {
 
                     // 3. Enviamos los resultados y el contenedor izquierdo para que se actualice solo
                     // 'panelVuelosDisponibles' hace referencia al JPanel que está dentro del recuadro "Vuelos Disponibles"
-                    buscador.actualizarPanelVuelos(jPanelVuelos, resultados,jPanelSeleccionDeVuelos,barra,jPanelSiguiente);
+                    buscador.actualizarPanelVuelos(jPanelVuelos, resultados,jPanelSeleccionDeVuelos,barra,jPanelSiguiente,jButtonSiguiente);
                                                                      
                      barra.setPasoActual(2); 
 
