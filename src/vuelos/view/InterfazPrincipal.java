@@ -1,21 +1,46 @@
 package vuelos.view;
-
+import java.awt.BorderLayout;
+import vuelos.controller.ProgressBar;
 import java.util.Date;
-import vuelos.controller.ControladorRutas;
-import vuelos.controller.ValidarCampos;
+import vuelos.controller.*;
 import java.text.SimpleDateFormat;
+import java.util.List;
+import javax.swing.JFrame;
 /**
  *
  * @author Todos
  */
 public class InterfazPrincipal extends javax.swing.JFrame {
     private ControladorRutas controladorRutas;
+    private ProgressBar barra;
     
     public InterfazPrincipal() {
         initComponents();
+        // Instancias tu nuevo componente de cabina
+        
+       
+
+        /*// Buscas tu panel vacío de NetBeans donde irá el mapa (ej. jPanelContenedorAsientos)
+        jPanelSeleccionDeVuelos.setLayout(new BorderLayout());
+        jPanelSeleccionDeVuelos.add(cabina, BorderLayout.CENTER);
+        jPanelSeleccionDeVuelos.validate();
+        jPanelSeleccionDeVuelos.repaint();*/
+
+        
+        barra = new ProgressBar();
+        jPanelProgreso.setLayout(new java.awt.BorderLayout()); 
+        jPanelProgreso.add(barra, java.awt.BorderLayout.CENTER); 
+        jPanelProgreso.validate();
+        jPanelProgreso.repaint();
+
+        jPanelVuelos.setVisible(false);
+        jPanelSeleccionDeVuelos.setVisible(true);
+        
+        jPanelSiguiente.setVisible(false);
         controladorRutas = new ControladorRutas(jComboBoxOrigen, jComboBoxDestino);
         Date fechaActual = new Date();
         jDateChooserIda.setMinSelectableDate(fechaActual);
+        
     }
 
     @SuppressWarnings("unchecked")
@@ -28,6 +53,7 @@ public class InterfazPrincipal extends javax.swing.JFrame {
         buttonGroup4 = new javax.swing.ButtonGroup();
         PanelLogo = new javax.swing.JPanel();
         jLabel1 = new javax.swing.JLabel();
+        jPanelProgreso = new javax.swing.JPanel();
         PanelOrigenDestino = new javax.swing.JPanel();
         jPanelSeleccionDeDatos = new javax.swing.JPanel();
         jComboBoxOrigen = new javax.swing.JComboBox<>();
@@ -38,38 +64,21 @@ public class InterfazPrincipal extends javax.swing.JFrame {
         jLabelOrigen = new javax.swing.JLabel();
         jDateChooserIda = new com.toedter.calendar.JDateChooser();
         jPanelVuelos = new javax.swing.JPanel();
-        jPanel1 = new javax.swing.JPanel();
-        jLabel3 = new javax.swing.JLabel();
-        jLabel7 = new javax.swing.JLabel();
-        jLabel8 = new javax.swing.JLabel();
-        jLabel4 = new javax.swing.JLabel();
-        jLabel17 = new javax.swing.JLabel();
-        jLabel14 = new javax.swing.JLabel();
-        jLabel15 = new javax.swing.JLabel();
-        jLabel16 = new javax.swing.JLabel();
-        jPanel3 = new javax.swing.JPanel();
-        jLabel13 = new javax.swing.JLabel();
-        jLabel18 = new javax.swing.JLabel();
-        jLabel19 = new javax.swing.JLabel();
-        jLabel20 = new javax.swing.JLabel();
-        jLabel21 = new javax.swing.JLabel();
-        jLabel22 = new javax.swing.JLabel();
-        jLabel23 = new javax.swing.JLabel();
-        jLabel24 = new javax.swing.JLabel();
-        jLabelLeyendaAND = new javax.swing.JLabel();
-        jPanellLeyendaAND = new javax.swing.JPanel();
-        jLabelLeyendaAS = new javax.swing.JLabel();
-        jPanellLeyendaAS = new javax.swing.JPanel();
-        jLabelLeyendaAD = new javax.swing.JLabel();
-        jPanellLeyendaAD = new javax.swing.JPanel();
         jPanelInformacion = new javax.swing.JPanel();
         jLabel2 = new javax.swing.JLabel();
         jLabel6 = new javax.swing.JLabel();
         jLabel10 = new javax.swing.JLabel();
         jLabelHora = new javax.swing.JLabel();
         jLabelFecha = new javax.swing.JLabel();
-        jButtonSiguiente = new javax.swing.JButton();
         jPanelSeleccionDeVuelos = new javax.swing.JPanel();
+        jPanelSiguiente = new javax.swing.JPanel();
+        jLabelLeyendaAD = new javax.swing.JLabel();
+        jPanellLeyendaAD = new javax.swing.JPanel();
+        jLabelLeyendaAS = new javax.swing.JLabel();
+        jPanellLeyendaAND = new javax.swing.JPanel();
+        jPanellLeyendaAS = new javax.swing.JPanel();
+        jLabelLeyendaAND = new javax.swing.JLabel();
+        jButtonSiguiente = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setBackground(new java.awt.Color(255, 255, 255));
@@ -83,17 +92,38 @@ public class InterfazPrincipal extends javax.swing.JFrame {
 
         jLabel1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagenes/avionProyecto.PNG"))); // NOI18N
 
+        jPanelProgreso.setMinimumSize(new java.awt.Dimension(409, 45));
+
+        javax.swing.GroupLayout jPanelProgresoLayout = new javax.swing.GroupLayout(jPanelProgreso);
+        jPanelProgreso.setLayout(jPanelProgresoLayout);
+        jPanelProgresoLayout.setHorizontalGroup(
+            jPanelProgresoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 409, Short.MAX_VALUE)
+        );
+        jPanelProgresoLayout.setVerticalGroup(
+            jPanelProgresoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 45, Short.MAX_VALUE)
+        );
+
         javax.swing.GroupLayout PanelLogoLayout = new javax.swing.GroupLayout(PanelLogo);
         PanelLogo.setLayout(PanelLogoLayout);
         PanelLogoLayout.setHorizontalGroup(
             PanelLogoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(PanelLogoLayout.createSequentialGroup()
                 .addComponent(jLabel1)
-                .addGap(0, 750, Short.MAX_VALUE))
+                .addGap(122, 122, 122)
+                .addComponent(jPanelProgreso, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(0, 0, Short.MAX_VALUE))
         );
         PanelLogoLayout.setVerticalGroup(
             PanelLogoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jLabel1)
+            .addGroup(PanelLogoLayout.createSequentialGroup()
+                .addGroup(PanelLogoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jLabel1)
+                    .addGroup(PanelLogoLayout.createSequentialGroup()
+                        .addGap(24, 24, 24)
+                        .addComponent(jPanelProgreso, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addGap(2, 2, 2))
         );
 
         jPanelSeleccionDeDatos.setBorder(javax.swing.BorderFactory.createTitledBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)), "Detalle de salida"));
@@ -163,226 +193,15 @@ public class InterfazPrincipal extends javax.swing.JFrame {
 
         jPanelVuelos.setBorder(javax.swing.BorderFactory.createTitledBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)), "Vuelos Disponibles"));
 
-        jPanel1.setBackground(new java.awt.Color(255, 255, 255));
-        jPanel1.setBorder(javax.swing.BorderFactory.createEtchedBorder(java.awt.Color.lightGray, java.awt.Color.black));
-        jPanel1.setPreferredSize(new java.awt.Dimension(160, 100));
-
-        jLabel3.setText("Vuelo:");
-
-        jLabel7.setText("Origen:");
-
-        jLabel8.setText("Destino:");
-
-        jLabel4.setText("Hora de Salida:");
-
-        jLabel17.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
-        jLabel17.setForeground(new java.awt.Color(11, 29, 58));
-        jLabel17.setText("8521");
-
-        jLabel14.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
-        jLabel14.setForeground(new java.awt.Color(11, 29, 58));
-        jLabel14.setText("Barquisimeto");
-
-        jLabel15.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
-        jLabel15.setForeground(new java.awt.Color(11, 29, 58));
-        jLabel15.setText("Nueva Esparta");
-
-        jLabel16.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
-        jLabel16.setForeground(new java.awt.Color(11, 29, 58));
-        jLabel16.setText("09:40 PM");
-
-        javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
-        jPanel1.setLayout(jPanel1Layout);
-        jPanel1Layout.setHorizontalGroup(
-            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel1Layout.createSequentialGroup()
-                .addContainerGap()
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(jPanel1Layout.createSequentialGroup()
-                                .addComponent(jLabel4)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(jLabel16))
-                            .addGroup(jPanel1Layout.createSequentialGroup()
-                                .addComponent(jLabel3, javax.swing.GroupLayout.PREFERRED_SIZE, 38, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(jLabel17, javax.swing.GroupLayout.PREFERRED_SIZE, 38, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                        .addGap(0, 0, Short.MAX_VALUE))
-                    .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jLabel7)
-                            .addComponent(jLabel8))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jLabel15)
-                            .addComponent(jLabel14))
-                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
-        );
-        jPanel1Layout.setVerticalGroup(
-            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel1Layout.createSequentialGroup()
-                .addContainerGap()
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel3)
-                    .addComponent(jLabel17))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel7)
-                    .addComponent(jLabel14))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel8)
-                    .addComponent(jLabel15))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel4)
-                    .addComponent(jLabel16))
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-        );
-
-        jPanel3.setBackground(new java.awt.Color(255, 255, 255));
-        jPanel3.setBorder(javax.swing.BorderFactory.createEtchedBorder(java.awt.Color.lightGray, java.awt.Color.black));
-        jPanel3.setPreferredSize(new java.awt.Dimension(160, 100));
-
-        jLabel13.setText("Hora de Salida:");
-
-        jLabel18.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
-        jLabel18.setForeground(new java.awt.Color(11, 29, 58));
-        jLabel18.setText("05:45 PM");
-
-        jLabel19.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
-        jLabel19.setForeground(new java.awt.Color(11, 29, 58));
-        jLabel19.setText("Barinas");
-
-        jLabel20.setText("Destino:");
-
-        jLabel21.setText("Origen:");
-
-        jLabel22.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
-        jLabel22.setForeground(new java.awt.Color(11, 29, 58));
-        jLabel22.setText("Delta Amacuro");
-
-        jLabel23.setText("Vuelo:");
-
-        jLabel24.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
-        jLabel24.setForeground(new java.awt.Color(11, 29, 58));
-        jLabel24.setText("7581");
-
-        javax.swing.GroupLayout jPanel3Layout = new javax.swing.GroupLayout(jPanel3);
-        jPanel3.setLayout(jPanel3Layout);
-        jPanel3Layout.setHorizontalGroup(
-            jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel3Layout.createSequentialGroup()
-                .addContainerGap()
-                .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(jPanel3Layout.createSequentialGroup()
-                        .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(jPanel3Layout.createSequentialGroup()
-                                .addComponent(jLabel13)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(jLabel18))
-                            .addGroup(jPanel3Layout.createSequentialGroup()
-                                .addComponent(jLabel23, javax.swing.GroupLayout.PREFERRED_SIZE, 38, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(jLabel24, javax.swing.GroupLayout.PREFERRED_SIZE, 38, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                        .addGap(0, 0, Short.MAX_VALUE))
-                    .addGroup(jPanel3Layout.createSequentialGroup()
-                        .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jLabel21)
-                            .addComponent(jLabel20))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jLabel19)
-                            .addComponent(jLabel22))
-                        .addContainerGap(20, Short.MAX_VALUE))))
-        );
-        jPanel3Layout.setVerticalGroup(
-            jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel3Layout.createSequentialGroup()
-                .addContainerGap()
-                .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel23)
-                    .addComponent(jLabel24))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel21)
-                    .addComponent(jLabel22))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel20)
-                    .addComponent(jLabel19))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel13)
-                    .addComponent(jLabel18))
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-        );
-
         javax.swing.GroupLayout jPanelVuelosLayout = new javax.swing.GroupLayout(jPanelVuelos);
         jPanelVuelos.setLayout(jPanelVuelosLayout);
         jPanelVuelosLayout.setHorizontalGroup(
             jPanelVuelosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanelVuelosLayout.createSequentialGroup()
-                .addContainerGap()
-                .addGroup(jPanelVuelosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, 164, Short.MAX_VALUE)
-                    .addComponent(jPanel3, javax.swing.GroupLayout.DEFAULT_SIZE, 164, Short.MAX_VALUE))
-                .addContainerGap())
+            .addGap(0, 184, Short.MAX_VALUE)
         );
         jPanelVuelosLayout.setVerticalGroup(
             jPanelVuelosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanelVuelosLayout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(jPanel3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(250, Short.MAX_VALUE))
-        );
-
-        jLabelLeyendaAND.setText("Asientos No Disponibles:");
-
-        jPanellLeyendaAND.setBackground(new java.awt.Color(255, 51, 51));
-
-        javax.swing.GroupLayout jPanellLeyendaANDLayout = new javax.swing.GroupLayout(jPanellLeyendaAND);
-        jPanellLeyendaAND.setLayout(jPanellLeyendaANDLayout);
-        jPanellLeyendaANDLayout.setHorizontalGroup(
-            jPanellLeyendaANDLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 23, Short.MAX_VALUE)
-        );
-        jPanellLeyendaANDLayout.setVerticalGroup(
-            jPanellLeyendaANDLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 25, Short.MAX_VALUE)
-        );
-
-        jLabelLeyendaAS.setText("Asientos Selecionado:");
-
-        jPanellLeyendaAS.setBackground(new java.awt.Color(0, 204, 102));
-
-        javax.swing.GroupLayout jPanellLeyendaASLayout = new javax.swing.GroupLayout(jPanellLeyendaAS);
-        jPanellLeyendaAS.setLayout(jPanellLeyendaASLayout);
-        jPanellLeyendaASLayout.setHorizontalGroup(
-            jPanellLeyendaASLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 23, Short.MAX_VALUE)
-        );
-        jPanellLeyendaASLayout.setVerticalGroup(
-            jPanellLeyendaASLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 25, Short.MAX_VALUE)
-        );
-
-        jLabelLeyendaAD.setText("Asientos Disponibles:");
-
-        jPanellLeyendaAD.setBackground(new java.awt.Color(153, 153, 153));
-
-        javax.swing.GroupLayout jPanellLeyendaADLayout = new javax.swing.GroupLayout(jPanellLeyendaAD);
-        jPanellLeyendaAD.setLayout(jPanellLeyendaADLayout);
-        jPanellLeyendaADLayout.setHorizontalGroup(
-            jPanellLeyendaADLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 23, Short.MAX_VALUE)
-        );
-        jPanellLeyendaADLayout.setVerticalGroup(
-            jPanellLeyendaADLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 25, Short.MAX_VALUE)
+            .addGap(0, 0, Short.MAX_VALUE)
         );
 
         jPanelInformacion.setBorder(javax.swing.BorderFactory.createTitledBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)), "Información Del dia"));
@@ -436,11 +255,6 @@ public class InterfazPrincipal extends javax.swing.JFrame {
                 .addContainerGap())
         );
 
-        jButtonSiguiente.setBackground(new java.awt.Color(11, 29, 58));
-        jButtonSiguiente.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
-        jButtonSiguiente.setForeground(new java.awt.Color(255, 255, 255));
-        jButtonSiguiente.setText("Siguente");
-
         jPanelSeleccionDeVuelos.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
         jPanelSeleccionDeVuelos.setToolTipText("background");
 
@@ -448,11 +262,100 @@ public class InterfazPrincipal extends javax.swing.JFrame {
         jPanelSeleccionDeVuelos.setLayout(jPanelSeleccionDeVuelosLayout);
         jPanelSeleccionDeVuelosLayout.setHorizontalGroup(
             jPanelSeleccionDeVuelosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 0, Short.MAX_VALUE)
+            .addGap(0, 678, Short.MAX_VALUE)
         );
         jPanelSeleccionDeVuelosLayout.setVerticalGroup(
             jPanelSeleccionDeVuelosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 437, Short.MAX_VALUE)
+        );
+
+        jPanelSiguiente.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
+
+        jLabelLeyendaAD.setText("Asientos Disponibles:");
+
+        jPanellLeyendaAD.setBackground(new java.awt.Color(110, 169, 74));
+
+        javax.swing.GroupLayout jPanellLeyendaADLayout = new javax.swing.GroupLayout(jPanellLeyendaAD);
+        jPanellLeyendaAD.setLayout(jPanellLeyendaADLayout);
+        jPanellLeyendaADLayout.setHorizontalGroup(
+            jPanellLeyendaADLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 23, Short.MAX_VALUE)
+        );
+        jPanellLeyendaADLayout.setVerticalGroup(
+            jPanellLeyendaADLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGap(0, 0, Short.MAX_VALUE)
+        );
+
+        jLabelLeyendaAS.setText("Asientos Selecionado:");
+
+        jPanellLeyendaAND.setBackground(new java.awt.Color(210, 48, 54));
+
+        javax.swing.GroupLayout jPanellLeyendaANDLayout = new javax.swing.GroupLayout(jPanellLeyendaAND);
+        jPanellLeyendaAND.setLayout(jPanellLeyendaANDLayout);
+        jPanellLeyendaANDLayout.setHorizontalGroup(
+            jPanellLeyendaANDLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 23, Short.MAX_VALUE)
+        );
+        jPanellLeyendaANDLayout.setVerticalGroup(
+            jPanellLeyendaANDLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 0, Short.MAX_VALUE)
+        );
+
+        jPanellLeyendaAS.setBackground(new java.awt.Color(18, 92, 173));
+
+        javax.swing.GroupLayout jPanellLeyendaASLayout = new javax.swing.GroupLayout(jPanellLeyendaAS);
+        jPanellLeyendaAS.setLayout(jPanellLeyendaASLayout);
+        jPanellLeyendaASLayout.setHorizontalGroup(
+            jPanellLeyendaASLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 23, Short.MAX_VALUE)
+        );
+        jPanellLeyendaASLayout.setVerticalGroup(
+            jPanellLeyendaASLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 0, Short.MAX_VALUE)
+        );
+
+        jLabelLeyendaAND.setText("Asientos No Disponibles:");
+
+        jButtonSiguiente.setBackground(new java.awt.Color(11, 29, 58));
+        jButtonSiguiente.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
+        jButtonSiguiente.setForeground(new java.awt.Color(255, 255, 255));
+        jButtonSiguiente.setText("Siguente");
+
+        javax.swing.GroupLayout jPanelSiguienteLayout = new javax.swing.GroupLayout(jPanelSiguiente);
+        jPanelSiguiente.setLayout(jPanelSiguienteLayout);
+        jPanelSiguienteLayout.setHorizontalGroup(
+            jPanelSiguienteLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanelSiguienteLayout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(jLabelLeyendaAD, javax.swing.GroupLayout.PREFERRED_SIZE, 102, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(8, 8, 8)
+                .addComponent(jPanellLeyendaAD, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(18, 18, 18)
+                .addComponent(jLabelLeyendaAS, javax.swing.GroupLayout.PREFERRED_SIZE, 110, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jPanellLeyendaAS, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(18, 18, 18)
+                .addComponent(jLabelLeyendaAND, javax.swing.GroupLayout.PREFERRED_SIZE, 118, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jPanellLeyendaAND, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(jButtonSiguiente, javax.swing.GroupLayout.PREFERRED_SIZE, 133, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap())
+        );
+        jPanelSiguienteLayout.setVerticalGroup(
+            jPanelSiguienteLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanelSiguienteLayout.createSequentialGroup()
+                .addContainerGap()
+                .addGroup(jPanelSiguienteLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jButtonSiguiente, javax.swing.GroupLayout.PREFERRED_SIZE, 34, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addGroup(jPanelSiguienteLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                        .addComponent(jLabelLeyendaAND, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, 25, Short.MAX_VALUE)
+                        .addComponent(jPanellLeyendaAND, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(jPanellLeyendaAD, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(jLabelLeyendaAS, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(jPanellLeyendaAS, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(jLabelLeyendaAD, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
         javax.swing.GroupLayout PanelOrigenDestinoLayout = new javax.swing.GroupLayout(PanelOrigenDestino);
@@ -468,26 +371,10 @@ public class InterfazPrincipal extends javax.swing.JFrame {
                         .addComponent(jPanelInformacion, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                     .addGroup(PanelOrigenDestinoLayout.createSequentialGroup()
                         .addComponent(jPanelVuelos, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addGroup(PanelOrigenDestinoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(PanelOrigenDestinoLayout.createSequentialGroup()
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(jPanelSeleccionDeVuelos, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                            .addGroup(PanelOrigenDestinoLayout.createSequentialGroup()
-                                .addGap(21, 21, 21)
-                                .addComponent(jLabelLeyendaAD, javax.swing.GroupLayout.PREFERRED_SIZE, 102, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                .addComponent(jPanellLeyendaAD, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addGap(23, 23, 23)
-                                .addComponent(jLabelLeyendaAS, javax.swing.GroupLayout.PREFERRED_SIZE, 110, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                .addComponent(jPanellLeyendaAS, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                .addComponent(jLabelLeyendaAND, javax.swing.GroupLayout.PREFERRED_SIZE, 118, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                .addComponent(jPanellLeyendaAND, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                .addComponent(jButtonSiguiente, javax.swing.GroupLayout.PREFERRED_SIZE, 133, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addGap(24, 24, 24))))))
+                            .addComponent(jPanelSeleccionDeVuelos, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(jPanelSiguiente, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))))
         );
         PanelOrigenDestinoLayout.setVerticalGroup(
             PanelOrigenDestinoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -496,23 +383,15 @@ public class InterfazPrincipal extends javax.swing.JFrame {
                 .addGroup(PanelOrigenDestinoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                     .addComponent(jPanelSeleccionDeDatos, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(jPanelInformacion, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                .addGroup(PanelOrigenDestinoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                .addGap(15, 15, 15)
+                .addGroup(PanelOrigenDestinoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(PanelOrigenDestinoLayout.createSequentialGroup()
-                        .addGap(15, 15, 15)
                         .addComponent(jPanelSeleccionDeVuelos, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addGroup(PanelOrigenDestinoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jLabelLeyendaAND, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jPanellLeyendaAND, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jLabelLeyendaAS, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jPanellLeyendaAS, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jLabelLeyendaAD, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jPanellLeyendaAD, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jButtonSiguiente, javax.swing.GroupLayout.PREFERRED_SIZE, 34, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(jPanelSiguiente, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(PanelOrigenDestinoLayout.createSequentialGroup()
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(jPanelVuelos, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addContainerGap())
+                        .addComponent(jPanelVuelos, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addContainerGap())))
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
@@ -539,12 +418,52 @@ public class InterfazPrincipal extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void btnBuscarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnBuscarActionPerformed
-       // Validar primero las rutas
+       
+        
+        
+        //Inicializar metodo para busqueda de vuelos
+        
+        BuscadorVuelos buscador = new BuscadorVuelos();
+
+        // Validar primero las rutas
         boolean rutasOk = ValidarCampos.validar(controladorRutas, jComboBoxOrigen, jComboBoxDestino);
         
         if (rutasOk) {
                     //javax.swing.JOptionPane.showMessageDialog(this, "¡Ruta, Fechas y Pasajeros procesados con éxito!");
                     mostrarResumenConsola();
+                    
+                    //cargamos paneles
+                    jPanelVuelos.setVisible(true);
+                    
+                    //llamamos el objeto de buscador de Vuelos
+                    
+                    String origenSeleccionado = jComboBoxOrigen.getSelectedItem().toString();
+                    String destinoSeleccionado = jComboBoxDestino.getSelectedItem().toString();
+                    SimpleDateFormat formatoFecha = new SimpleDateFormat("dd/MM/yyyy");
+                   
+                    String fechaSeleccionada = ""; 
+        
+                    // Reemplaza "jDateChooser" por el nombre real de tu variable de calendario
+                    if (jDateChooserIda.getDate() != null) {
+                        // Solo si el usuario eligió una fecha, la formateamos
+                        SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy"); // O el formato que uses
+                        fechaSeleccionada = sdf.format(jDateChooserIda.getDate());
+                    } else {
+                        // Si no seleccionó fecha, queda vacía o puedes asignarle null si tu BD lo prefiere
+                        fechaSeleccionada = null; 
+                    }
+                    
+                     // 2. Ejecutamos la consulta (por ahora simulará con los datos de prueba)
+                    List<BuscadorVuelos.VueloInfo> resultados = buscador.buscarVuelosEnBD(origenSeleccionado, destinoSeleccionado, fechaSeleccionada);
+
+
+                    // 3. Enviamos los resultados y el contenedor izquierdo para que se actualice solo
+                    // 'panelVuelosDisponibles' hace referencia al JPanel que está dentro del recuadro "Vuelos Disponibles"
+                    buscador.actualizarPanelVuelos(jPanelVuelos, resultados,jPanelSeleccionDeVuelos,barra,jPanelSiguiente);
+                                                                     
+                     barra.setPasoActual(2); 
+
+
 
         } else {
             System.out.println("No se pudo procesar: Datos de las ciudades incorrectos.");
@@ -604,24 +523,8 @@ public class InterfazPrincipal extends javax.swing.JFrame {
     private com.toedter.calendar.JDateChooser jDateChooserIda;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel10;
-    private javax.swing.JLabel jLabel13;
-    private javax.swing.JLabel jLabel14;
-    private javax.swing.JLabel jLabel15;
-    private javax.swing.JLabel jLabel16;
-    private javax.swing.JLabel jLabel17;
-    private javax.swing.JLabel jLabel18;
-    private javax.swing.JLabel jLabel19;
     private javax.swing.JLabel jLabel2;
-    private javax.swing.JLabel jLabel20;
-    private javax.swing.JLabel jLabel21;
-    private javax.swing.JLabel jLabel22;
-    private javax.swing.JLabel jLabel23;
-    private javax.swing.JLabel jLabel24;
-    private javax.swing.JLabel jLabel3;
-    private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel6;
-    private javax.swing.JLabel jLabel7;
-    private javax.swing.JLabel jLabel8;
     private javax.swing.JLabel jLabelDestino;
     private javax.swing.JLabel jLabelFecha;
     private javax.swing.JLabel jLabelFechaAbor;
@@ -630,11 +533,11 @@ public class InterfazPrincipal extends javax.swing.JFrame {
     private javax.swing.JLabel jLabelLeyendaAND;
     private javax.swing.JLabel jLabelLeyendaAS;
     private javax.swing.JLabel jLabelOrigen;
-    private javax.swing.JPanel jPanel1;
-    private javax.swing.JPanel jPanel3;
     private javax.swing.JPanel jPanelInformacion;
+    public static javax.swing.JPanel jPanelProgreso;
     private javax.swing.JPanel jPanelSeleccionDeDatos;
     private javax.swing.JPanel jPanelSeleccionDeVuelos;
+    private javax.swing.JPanel jPanelSiguiente;
     private javax.swing.JPanel jPanelVuelos;
     private javax.swing.JPanel jPanellLeyendaAD;
     private javax.swing.JPanel jPanellLeyendaAND;
