@@ -677,12 +677,43 @@ public class MainLogin extends javax.swing.JFrame {
     }//GEN-LAST:event_btnRegistroActionPerformed
 
     private void btnIngresarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnIngresarActionPerformed
+
+java.awt.Color colorRojoError = new java.awt.Color(255, 51, 51);
+    javax.swing.border.Border padding = javax.swing.BorderFactory.createEmptyBorder(5, 8, 5, 8);
+    javax.swing.border.Border bordeRojo = javax.swing.BorderFactory.createCompoundBorder(
+        javax.swing.BorderFactory.createLineBorder(colorRojoError, 1), padding
+    );
+    
+    boolean faltanCampos = false;
+
+    // 2. Validamos el campo de Correo
+    if (campoCorreo.getText().trim().isEmpty()) {
+        campoCorreo.setBorder(bordeRojo);
+        faltanCampos = true;
+    }
+
+    // 3. Validamos la Contraseña
+    if (new String(campoContrasena.getPassword()).trim().isEmpty()) {
+        campoContrasena.setBorder(bordeRojo);
+        faltanCampos = true;
+    }
+
+    // 4. Verificamos el resultado
+    if (faltanCampos) {
+        // Ventana flotante moderna de advertencia
+        javax.swing.JOptionPane.showMessageDialog(this, 
+            "Por favor, complete todos los campos obligatorios.", 
+            "Campos Incompletos", 
+            javax.swing.JOptionPane.WARNING_MESSAGE);
+    } else {
+        // ¡Todo está lleno! Aquí colocas tu lógica normal para iniciar sesión
+        System.out.println("Procediendo al login...");
         
-        try {
+         try {
             InterfazPrincipal principal = new InterfazPrincipal();
             principal.InterfazPrincipal();
             System.out.println("Interfaz principal inicializada correctamente");
-            this.dispose();//por ahora
+            this.dispose();
             
         } catch (Exception e) {
             
@@ -695,6 +726,11 @@ public class MainLogin extends javax.swing.JFrame {
         
         System.out.println(usuarioInicio.getCorreo());
         System.out.println(usuarioInicio.getPassword());
+    }
+
+
+        
+       
         
     }//GEN-LAST:event_btnIngresarActionPerformed
 
@@ -961,8 +997,6 @@ public class MainLogin extends javax.swing.JFrame {
         System.out.println(nuevoUsuario.getCorreo());
         System.out.println(nuevoUsuario.getContrasena());
         
-
-// ¡Listo! Ya tienes toda la información del pasajero compactada en un solo objeto 'nuevoUsuario'
     }//GEN-LAST:event_btnRegistrarActionPerformed
 
     private void campoCorreoRegistroActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_campoCorreoRegistroActionPerformed

@@ -81,7 +81,7 @@
                   <Component id="jLabel3" min="-2" max="-2" attributes="0"/>
                   <EmptySpace max="-2" attributes="0"/>
                   <Component id="jPanel2" min="-2" max="-2" attributes="0"/>
-                  <EmptySpace pref="16" max="32767" attributes="0"/>
+                  <EmptySpace pref="62" max="32767" attributes="0"/>
               </Group>
           </Group>
         </DimensionLayout>
@@ -139,7 +139,7 @@
           <SubComponents>
             <Component class="javax.swing.JLabel" name="jLabel2">
               <Properties>
-                <Property name="text" type="java.lang.String" value="&lt;html&gt;&#xa;&lt;div style=&quot;font-family: Arial, sans-serif; font-size: 12px; padding: 10px;&quot;&gt;&#xa;    &lt;h3 style=&quot;margin-top: 0; color: #14325F;&quot;&gt;Ticket de Confirmaci&#xf3;n&lt;/h3&gt;&#xa;    &lt;hr style=&quot;border: 0; border-top: 1px solid #ccc; margin-bottom: 8px;&quot;&gt;&#xa;    &#xa;    &lt;b&gt;C&#xf3;digo Vuelo:&lt;/b&gt; &lt;font color=&quot;#555555&quot;&gt;2&lt;/font&gt;&lt;br&gt;&#xa;    &lt;b&gt;Ruta:&lt;/b&gt; &lt;font color=&quot;#555555&quot;&gt;Maracaibo (MAR) &#x2192;Margarita (MAG)&lt;/font&gt;&lt;br&gt;&#xa;    &lt;b&gt;Salida:&lt;/b&gt; &lt;font color=&quot;#555555&quot;&gt;15/10/2026 - 08:30 AM&lt;/font&gt;&lt;br&gt;&#xa;    &lt;b&gt;Asiento:&lt;/b&gt; &lt;font color=&quot;#555555&quot;&gt;Fila 3, Columna C&lt;/font&gt;&lt;br&gt;&#xa;    &#xa;    &#xa;    &lt;hr style=&quot;border: 0; border-top: 1px dotted #ccc; margin: 8px 0;&quot;&gt;&#xa;    &#xa;    &lt;b&gt;M&#xe9;todo Pago:&lt;/b&gt; &lt;font color=&quot;#555555&quot;&gt;Tarjeta VISA&lt;/font&gt;&lt;br&gt;&#xa;    &lt;b&gt;Total Neto:&lt;/b&gt; &lt;span style=&quot;color: #14325F; font-weight: bold;&quot;&gt;$22.5 USD&lt;/span&gt;&#xa;&lt;/div&gt;&#xa;&lt;/html&gt;&#xa;"/>
+                <Property name="text" type="java.lang.String" value="&lt;html&gt;&#xa;&lt;div style=&quot;font-family: Arial, sans-serif; font-size: 12px; padding: 10px;&quot;&gt;&#xa;    &#xa;    &lt;hr style=&quot;border: 0; border-top: 1px solid #ccc; margin-bottom: 8px;&quot;&gt;&#xa;    &#xa;    &lt;b&gt;C&#xf3;digo Vuelo:&lt;/b&gt; &lt;font color=&quot;#555555&quot;&gt;2&lt;/font&gt;&lt;br&gt;&#xa;    &lt;b&gt;Ruta:&lt;/b&gt; &lt;font color=&quot;#555555&quot;&gt;Maracaibo (MAR) &#x2192;Margarita (MAG)&lt;/font&gt;&lt;br&gt;&#xa;    &lt;b&gt;Salida:&lt;/b&gt; &lt;font color=&quot;#555555&quot;&gt;15/10/2026 - 08:30 AM&lt;/font&gt;&lt;br&gt;&#xa;    &lt;b&gt;Asiento:&lt;/b&gt; &lt;font color=&quot;#555555&quot;&gt;Fila 3, Columna C&lt;/font&gt;&lt;br&gt;&#xa;    &#xa;    &#xa;    &lt;hr style=&quot;border: 0; border-top: 1px dotted #ccc; margin: 8px 0;&quot;&gt;&#xa;    &#xa;    &#xa;    &lt;b&gt;Total Neto:&lt;/b&gt; &lt;span style=&quot;color: #14325F; font-weight: bold;&quot;&gt;$22.5 USD&lt;/span&gt;&#xa;&lt;/div&gt;&#xa;&lt;/html&gt;&#xa;"/>
               </Properties>
             </Component>
           </SubComponents>
