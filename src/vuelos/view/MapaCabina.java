@@ -10,11 +10,21 @@ public class MapaCabina extends JPanel {
 
     private BuscadorVuelos controladorVuelos;
     private String numeroVueloActual;
+    
+    // NUEVOS ATRIBUTOS: Referencia al botón real y contador de asientos elegidos
+    private JButton btnSiguienteReal;
+    private int asientosSeleccionadosContador = 0;
 
-    // AHORA EL CONSTRUCTOR RECIBE LAS REFERENCIAS DEL CONTROLADOR Y DEL VUELO SELECCIONADO
-    public MapaCabina(BuscadorVuelos controlador, String numeroVuelo) {
+    // EL CONSTRUCTOR AHORA RECIBE TAMBIÉN EL BOTÓN SIGUIENTE DE LA INTERFAZ PRINCIPAL
+    public MapaCabina(BuscadorVuelos controlador, String numeroVuelo, JButton btnSiguiente) {
         this.controladorVuelos = controlador;
         this.numeroVueloActual = numeroVuelo;
+        this.btnSiguienteReal = btnSiguiente;
+
+        // Forzamos que empiece deshabilitado hasta que el usuario marque un asiento
+        if (this.btnSiguienteReal != null) {
+            this.btnSiguienteReal.setEnabled(false);
+        }
 
         // 1. Configuración del panel base contenedor
         setLayout(new BorderLayout());
@@ -105,7 +115,6 @@ public class MapaCabina extends JPanel {
                     botonAsiento.setBorderPainted(false);
                     botonAsiento.setFocusPainted(false);
 
-                    // LLAMADA MODIFICADA: Ahora le pregunta al controlador externo pasando el vuelo dinámico
                     boolean estaOcupado = controladorVuelos.estaAsientoOcupado(numeroFila, letraColumna, numeroVueloActual);
 
                     if (estaOcupado) {
@@ -123,10 +132,17 @@ public class MapaCabina extends JPanel {
                                 if (!seleccionado) {
                                     botonAsiento.setIcon(selIcon);
                                     seleccionado = true;
+                                    asientosSeleccionadosContador++; // Añade asiento
                                     System.out.println("Asiento seleccionado: " + numeroFila + letraColumna + " para el vuelo " + numeroVueloActual);
                                 } else {
                                     botonAsiento.setIcon(dispIcon);
                                     seleccionado = false;
+                                    asientosSeleccionadosContador--; // Quita asiento
+                                }
+                                
+                                // EVALUACIÓN DINÁMICA: Modifica el estado del botón Siguiente en tiempo real
+                                if (btnSiguienteReal != null) {
+                                    btnSiguienteReal.setEnabled(asientosSeleccionadosContador > 0);
                                 }
                             }
                         });
@@ -137,4 +153,5 @@ public class MapaCabina extends JPanel {
         }
     }
 }
+
 

@@ -139,7 +139,7 @@ public class BuscadorVuelos {
     /**
      * Renderiza las etiquetas de vuelos y maneja el evento clic para incrustar la cabina.
      */
-    public void actualizarPanelVuelos(JPanel panelVuelosDisponibles, List<VueloInfo> vuelosEncontrados, JPanel panelContenedorCabina,ProgressBar barraProgresoReal,JPanel Siguiente) {
+    public void actualizarPanelVuelos(JPanel panelVuelosDisponibles, List<VueloInfo> vuelosEncontrados, JPanel panelContenedorCabina,ProgressBar barraProgresoReal,JPanel Siguiente,JButton BtnSiguiente) {
         panelVuelosDisponibles.removeAll();
         panelVuelosDisponibles.setLayout(new BoxLayout(panelVuelosDisponibles, BoxLayout.Y_AXIS));
         
@@ -198,7 +198,7 @@ public class BuscadorVuelos {
                                 panelContenedorCabina.removeAll();
                                 
                                 // Pasamos 'BuscadorVuelos.this' (este controlador) y el identificador del vuelo actual
-                                MapaCabina mapa = new MapaCabina(BuscadorVuelos.this, vuelo.numeroVuelo); 
+                                MapaCabina mapa = new MapaCabina(BuscadorVuelos.this, vuelo.numeroVuelo,BtnSiguiente); 
                                 
                                 panelContenedorCabina.setLayout(new BorderLayout());
                                 panelContenedorCabina.add(mapa, BorderLayout.CENTER);

@@ -1,11 +1,19 @@
 package vuelos.view;
 import java.awt.BorderLayout;
+import java.awt.Color;
+import java.awt.Font;
+import java.awt.Window;
 import vuelos.controller.ProgressBar;
 import java.util.Date;
 import vuelos.controller.*;
 import java.text.SimpleDateFormat;
 import java.util.List;
 import javax.swing.JFrame;
+import javax.swing.JLabel;
+import javax.swing.JOptionPane;
+import javax.swing.JPanel;
+import javax.swing.SwingConstants;
+import javax.swing.SwingUtilities;
 /**
  *
  * @author Todos
@@ -16,6 +24,18 @@ public class InterfazPrincipal extends javax.swing.JFrame {
     
     public InterfazPrincipal() {
         initComponents();
+        
+        // Cambiamos el comportamiento y diseño del botón existente usando nuestra nueva clase
+        
+        
+
+        // Cambiamos su tipografía y color de letras para que combine con el estilo nuevo
+        jButtonSiguiente.setForeground(Color.WHITE);
+        jButtonSiguiente.setFont(new Font("Arial", Font.PLAIN, 14));
+
+        // Sobreescribimos el método de dibujo del botón existente directamente en tu interfaz
+       
+
         // Instancias tu nuevo componente de cabina
         
         /*// Buscas tu panel vacío de NetBeans donde irá el mapa (ej. jPanelContenedorAsientos)
@@ -361,7 +381,7 @@ public class InterfazPrincipal extends javax.swing.JFrame {
         });
 
         jLabelFechaAbor.setFont(new java.awt.Font("Segoe UI", 0, 11)); // NOI18N
-        jLabelFechaAbor.setText("Fecha de abordaje");
+        jLabelFechaAbor.setText("Fecha de abordaje (Opcional)");
 
         jLabelOrigen.setFont(new java.awt.Font("Segoe UI", 0, 11)); // NOI18N
         jLabelOrigen.setText("Origen:");
@@ -385,7 +405,7 @@ public class InterfazPrincipal extends javax.swing.JFrame {
                     .addComponent(jDateChooserIda, javax.swing.GroupLayout.PREFERRED_SIZE, 126, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(44, 44, 44)
                 .addComponent(btnBuscar, javax.swing.GroupLayout.PREFERRED_SIZE, 79, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(22, Short.MAX_VALUE))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         jPanelSeleccionDeDatosLayout.setVerticalGroup(
             jPanelSeleccionDeDatosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -480,7 +500,7 @@ public class InterfazPrincipal extends javax.swing.JFrame {
         jPanelSeleccionDeVuelos.setLayout(jPanelSeleccionDeVuelosLayout);
         jPanelSeleccionDeVuelosLayout.setHorizontalGroup(
             jPanelSeleccionDeVuelosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 678, Short.MAX_VALUE)
+            .addGap(0, 691, Short.MAX_VALUE)
         );
         jPanelSeleccionDeVuelosLayout.setVerticalGroup(
             jPanelSeleccionDeVuelosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -534,10 +554,11 @@ public class InterfazPrincipal extends javax.swing.JFrame {
 
         jLabelLeyendaAND.setText("Asientos No Disponibles:");
 
-        jButtonSiguiente.setBackground(new java.awt.Color(11, 29, 58));
+        jButtonSiguiente.setBackground(new java.awt.Color(51, 51, 255));
         jButtonSiguiente.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
         jButtonSiguiente.setForeground(new java.awt.Color(255, 255, 255));
-        jButtonSiguiente.setText("Siguente");
+        jButtonSiguiente.setText("Siguiente");
+        jButtonSiguiente.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         jButtonSiguiente.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jButtonSiguienteActionPerformed(evt);
@@ -621,7 +642,7 @@ public class InterfazPrincipal extends javax.swing.JFrame {
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(PanelLogo, javax.swing.GroupLayout.DEFAULT_SIZE, 900, Short.MAX_VALUE)
+            .addComponent(PanelLogo, javax.swing.GroupLayout.DEFAULT_SIZE, 913, Short.MAX_VALUE)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                 .addContainerGap()
                 .addComponent(PanelOrigenDestino, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
@@ -680,7 +701,7 @@ public class InterfazPrincipal extends javax.swing.JFrame {
 
                     // 3. Enviamos los resultados y el contenedor izquierdo para que se actualice solo
                     // 'panelVuelosDisponibles' hace referencia al JPanel que está dentro del recuadro "Vuelos Disponibles"
-                    buscador.actualizarPanelVuelos(jPanelVuelos, resultados,jPanelSeleccionDeVuelos,barra,jPanelSiguiente);
+                    buscador.actualizarPanelVuelos(jPanelVuelos, resultados,jPanelSeleccionDeVuelos,barra,jPanelSiguiente,jButtonSiguiente);
                                                                      
                      barra.setPasoActual(2); 
 
@@ -706,7 +727,36 @@ public class InterfazPrincipal extends javax.swing.JFrame {
     }//GEN-LAST:event_btnMenuActionPerformed
 
     private void jButtonSiguienteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonSiguienteActionPerformed
-        // TODO add your handling code here:
+        
+        // 1. Mostrar ventana de confirmación (JOptionPane)
+        int respuesta = JOptionPane.showConfirmDialog(
+            null, 
+            "¿Desea continuar realmente con la reserva o prefiere elegir más asientos?, LUEGO NO PODRAS REGRESAR", 
+            "Confirmar Selección de Asientos", 
+            JOptionPane.YES_NO_OPTION, 
+            JOptionPane.QUESTION_MESSAGE
+        );
+
+        // Si el usuario presiona "Sí" (YES_OPTION)
+         if (respuesta == JOptionPane.YES_OPTION) {
+            // 1. Guardamos el ancho y el alto actuales del panel contenedor
+           
+            PanelLogo.remove(jPanelProgreso);
+             PanelLogo.revalidate();
+             PanelLogo.repaint();
+            
+            
+            Panel4 nuevoPanel = new Panel4();
+            
+             cambiarDePanel(nuevoPanel);
+                   
+            // 9. Forzar actualización de la ventana principal completa
+            Window ventanaPadre = SwingUtilities.getWindowAncestor(PanelOrigenDestino);
+            if (ventanaPadre != null) {
+                ventanaPadre.validate();
+                ventanaPadre.repaint();
+            }
+        }
     }//GEN-LAST:event_jButtonSiguienteActionPerformed
 
    
@@ -749,6 +799,28 @@ public class InterfazPrincipal extends javax.swing.JFrame {
         
     }
     
+
+    public void cambiarDePanel(JPanel nuevoPanel) {
+    // 1. Limpieza absoluta
+    PanelOrigenDestino.removeAll();
+    
+    // 2. Le asignamos un diseño de cuadrícula simple (ocupa el 100% del espacio)
+    PanelOrigenDestino.setLayout(new java.awt.GridLayout(1, 1));
+    
+    // 3. Agregamos el nuevo panel
+    PanelOrigenDestino.add(nuevoPanel);
+    
+    // 4. Ciclo de refresco estructural profundo
+    PanelOrigenDestino.revalidate();
+    PanelOrigenDestino.repaint();
+    
+    // 5. Forzar actualización de la ventana completa
+    this.pack(); // Reajusta el contenedor a la pantalla
+    this.repaint();
+}
+
+
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JPanel PanelLogo;
