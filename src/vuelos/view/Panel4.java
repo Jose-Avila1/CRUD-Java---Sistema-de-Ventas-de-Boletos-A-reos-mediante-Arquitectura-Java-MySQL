@@ -129,7 +129,7 @@ public class Panel4 extends javax.swing.JPanel {
 
         jPanel2.setBackground(new java.awt.Color(255, 255, 255));
 
-        jLabel2.setText("<html>\n<div style=\"font-family: Arial, sans-serif; font-size: 12px; padding: 10px;\">\n    <h3 style=\"margin-top: 0; color: #14325F;\">Ticket de Confirmación</h3>\n    <hr style=\"border: 0; border-top: 1px solid #ccc; margin-bottom: 8px;\">\n    \n    <b>Código Vuelo:</b> <font color=\"#555555\">2</font><br>\n    <b>Ruta:</b> <font color=\"#555555\">Maracaibo (MAR) →Margarita (MAG)</font><br>\n    <b>Salida:</b> <font color=\"#555555\">15/10/2026 - 08:30 AM</font><br>\n    <b>Asiento:</b> <font color=\"#555555\">Fila 3, Columna C</font><br>\n    \n    \n    <hr style=\"border: 0; border-top: 1px dotted #ccc; margin: 8px 0;\">\n    \n    <b>Método Pago:</b> <font color=\"#555555\">Tarjeta VISA</font><br>\n    <b>Total Neto:</b> <span style=\"color: #14325F; font-weight: bold;\">$22.5 USD</span>\n</div>\n</html>\n");
+        jLabel2.setText("<html>\n<div style=\"font-family: Arial, sans-serif; font-size: 12px; padding: 10px;\">\n    \n    <hr style=\"border: 0; border-top: 1px solid #ccc; margin-bottom: 8px;\">\n    \n    <b>Código Vuelo:</b> <font color=\"#555555\">2</font><br>\n    <b>Ruta:</b> <font color=\"#555555\">Maracaibo (MAR) →Margarita (MAG)</font><br>\n    <b>Salida:</b> <font color=\"#555555\">15/10/2026 - 08:30 AM</font><br>\n    <b>Asiento:</b> <font color=\"#555555\">Fila 3, Columna C</font><br>\n    \n    \n    <hr style=\"border: 0; border-top: 1px dotted #ccc; margin: 8px 0;\">\n    \n    \n    <b>Total Neto:</b> <span style=\"color: #14325F; font-weight: bold;\">$22.5 USD</span>\n</div>\n</html>\n");
 
         javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
         jPanel2.setLayout(jPanel2Layout);
@@ -177,7 +177,7 @@ public class Panel4 extends javax.swing.JPanel {
                 .addComponent(jLabel3)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(16, Short.MAX_VALUE))
+                .addContainerGap(62, Short.MAX_VALUE))
         );
 
         add(resumenvuelo, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 470, 597));
