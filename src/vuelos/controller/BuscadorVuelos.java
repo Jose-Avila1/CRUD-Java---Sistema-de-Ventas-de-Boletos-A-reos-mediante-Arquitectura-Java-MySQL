@@ -162,7 +162,7 @@ public class BuscadorVuelos {
                 lblVuelo.addMouseListener(new MouseAdapter() {
                     @Override
                     public void mouseEntered(MouseEvent e) {
-                        if (lblVuelo.getBackground() != Color.CYAN) {
+                        if (lblVuelo.getBackground() != Color.ORANGE) {
                             lblVuelo.setBackground(new Color(230, 242, 255));
                         }
                     }
@@ -181,7 +181,7 @@ public class BuscadorVuelos {
                                 c.setBackground(Color.WHITE);
                             }
                         }
-                        lblVuelo.setBackground(Color.CYAN);
+                        lblVuelo.setBackground(Color.ORANGE);
                         System.out.println("Has seleccionado el vuelo: " + vuelo.numeroVuelo);
                         
 

@@ -19,6 +19,7 @@ public class Panel4 extends javax.swing.JPanel {
      */
     public Panel4() {
         initComponents();
+        resumenvuelo.requestFocusInWindow();
             try {
                 // 1. Crear el margen interno exacto (Arriba, Izquierda, Abajo, Derecha)
                 javax.swing.border.Border margenInterno = javax.swing.BorderFactory.createEmptyBorder(2, 8, 2, 8);
@@ -83,6 +84,8 @@ public class Panel4 extends javax.swing.JPanel {
         jLabel3 = new javax.swing.JLabel();
         jLabel4 = new javax.swing.JLabel();
         jLabel14 = new javax.swing.JLabel();
+        jPanel2 = new javax.swing.JPanel();
+        jLabel2 = new javax.swing.JLabel();
         preciovuelo = new javax.swing.JPanel();
         jLabel1 = new javax.swing.JLabel();
         jLabel5 = new javax.swing.JLabel();
@@ -100,10 +103,14 @@ public class Panel4 extends javax.swing.JPanel {
         Cvv = new javax.swing.JPasswordField();
         jLabel13 = new javax.swing.JLabel();
         NombreTarjeta = new javax.swing.JTextField();
-        BtnComprar = new javax.swing.JButton();
+        BtnComprar = new vuelos.controller.BotonEstilizado("Comprar");
+        ;
         jPanel1 = new javax.swing.JPanel();
-        jButton2 = new javax.swing.JButton();
-        jButton3 = new javax.swing.JButton();
+        BtnVisa = new javax.swing.JButton();
+        BtnMasterCard = new javax.swing.JButton();
+        jLabel15 = new javax.swing.JLabel();
+        jLabel16 = new javax.swing.JLabel();
+        jLabel17 = new javax.swing.JLabel();
 
         setMinimumSize(new java.awt.Dimension(850, 597));
         setPreferredSize(new java.awt.Dimension(850, 595));
@@ -120,6 +127,26 @@ public class Panel4 extends javax.swing.JPanel {
         jLabel14.setFont(new java.awt.Font("Segoe UI", 1, 20)); // NOI18N
         jLabel14.setText("!UNEFACITY¡");
 
+        jPanel2.setBackground(new java.awt.Color(255, 255, 255));
+
+        jLabel2.setText("<html>\n<div style=\"font-family: Arial, sans-serif; font-size: 12px; padding: 10px;\">\n    <h3 style=\"margin-top: 0; color: #14325F;\">Ticket de Confirmación</h3>\n    <hr style=\"border: 0; border-top: 1px solid #ccc; margin-bottom: 8px;\">\n    \n    <b>Código Vuelo:</b> <font color=\"#555555\">2</font><br>\n    <b>Ruta:</b> <font color=\"#555555\">Maracaibo (MAR) →Margarita (MAG)</font><br>\n    <b>Salida:</b> <font color=\"#555555\">15/10/2026 - 08:30 AM</font><br>\n    <b>Asiento:</b> <font color=\"#555555\">Fila 3, Columna C</font><br>\n    \n    \n    <hr style=\"border: 0; border-top: 1px dotted #ccc; margin: 8px 0;\">\n    \n    <b>Método Pago:</b> <font color=\"#555555\">Tarjeta VISA</font><br>\n    <b>Total Neto:</b> <span style=\"color: #14325F; font-weight: bold;\">$22.5 USD</span>\n</div>\n</html>\n");
+
+        javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
+        jPanel2.setLayout(jPanel2Layout);
+        jPanel2Layout.setHorizontalGroup(
+            jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel2Layout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(19, Short.MAX_VALUE))
+        );
+        jPanel2Layout.setVerticalGroup(
+            jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel2Layout.createSequentialGroup()
+                .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(0, 50, Short.MAX_VALUE))
+        );
+
         javax.swing.GroupLayout resumenvueloLayout = new javax.swing.GroupLayout(resumenvuelo);
         resumenvuelo.setLayout(resumenvueloLayout);
         resumenvueloLayout.setHorizontalGroup(
@@ -130,11 +157,14 @@ public class Panel4 extends javax.swing.JPanel {
                         .addGap(102, 102, 102)
                         .addGroup(resumenvueloLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(jLabel4, javax.swing.GroupLayout.PREFERRED_SIZE, 207, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jLabel3)))
+                            .addComponent(jLabel3, javax.swing.GroupLayout.PREFERRED_SIZE, 487, javax.swing.GroupLayout.PREFERRED_SIZE)))
                     .addGroup(resumenvueloLayout.createSequentialGroup()
                         .addGap(158, 158, 158)
-                        .addComponent(jLabel14)))
-                .addContainerGap(128, Short.MAX_VALUE))
+                        .addComponent(jLabel14))
+                    .addGroup(resumenvueloLayout.createSequentialGroup()
+                        .addGap(72, 72, 72)
+                        .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         resumenvueloLayout.setVerticalGroup(
             resumenvueloLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -145,7 +175,9 @@ public class Panel4 extends javax.swing.JPanel {
                 .addComponent(jLabel4, javax.swing.GroupLayout.PREFERRED_SIZE, 165, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jLabel3)
-                .addContainerGap(285, Short.MAX_VALUE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(16, Short.MAX_VALUE))
         );
 
         add(resumenvuelo, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 470, 597));
@@ -218,7 +250,7 @@ public class Panel4 extends javax.swing.JPanel {
         });
 
         BtnComprar.setBackground(new java.awt.Color(11, 29, 58));
-        BtnComprar.setFont(new java.awt.Font("Segoe UI", 1, 11)); // NOI18N
+        BtnComprar.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
         BtnComprar.setForeground(new java.awt.Color(255, 255, 255));
         BtnComprar.setText("Comprar");
         BtnComprar.setBorder(null);
@@ -280,17 +312,30 @@ public class Panel4 extends javax.swing.JPanel {
 
         jPanel1.setBackground(new java.awt.Color(255, 255, 255));
 
-        jButton2.setText("Visa");
-        jButton2.addActionListener(new java.awt.event.ActionListener() {
+        BtnVisa.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagenes/Visa_logo.png"))); // NOI18N
+        BtnVisa.setBorderPainted(false);
+        BtnVisa.setContentAreaFilled(false);
+        BtnVisa.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        BtnVisa.setFocusPainted(false);
+        BtnVisa.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton2ActionPerformed(evt);
+                BtnVisaActionPerformed(evt);
             }
         });
 
-        jButton3.setText("Mastercard");
-        jButton3.addActionListener(new java.awt.event.ActionListener() {
+        BtnMasterCard.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagenes/MasterCard_Logo.png"))); // NOI18N
+        BtnMasterCard.setBorderPainted(false);
+        BtnMasterCard.setContentAreaFilled(false);
+        BtnMasterCard.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        BtnMasterCard.setFocusPainted(false);
+        BtnMasterCard.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                BtnMasterCardMouseClicked(evt);
+            }
+        });
+        BtnMasterCard.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton3ActionPerformed(evt);
+                BtnMasterCardActionPerformed(evt);
             }
         });
 
@@ -300,54 +345,70 @@ public class Panel4 extends javax.swing.JPanel {
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(jButton2, javax.swing.GroupLayout.PREFERRED_SIZE, 80, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(49, 49, 49)
-                .addComponent(jButton3)
-                .addGap(22, 22, 22))
+                .addComponent(BtnVisa, javax.swing.GroupLayout.PREFERRED_SIZE, 102, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(26, 26, 26)
+                .addComponent(BtnMasterCard, javax.swing.GroupLayout.PREFERRED_SIZE, 106, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(68, 68, 68))
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jButton2, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jButton3, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addContainerGap()
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addComponent(BtnVisa, javax.swing.GroupLayout.PREFERRED_SIZE, 45, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(BtnMasterCard))
+                .addContainerGap(16, Short.MAX_VALUE))
         );
+
+        jLabel15.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
+        jLabel15.setText("19$");
+
+        jLabel16.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
+        jLabel16.setText("3.5$");
+
+        jLabel17.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
+        jLabel17.setText("22.5$");
 
         javax.swing.GroupLayout preciovueloLayout = new javax.swing.GroupLayout(preciovuelo);
         preciovuelo.setLayout(preciovueloLayout);
         preciovueloLayout.setHorizontalGroup(
             preciovueloLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(preciovueloLayout.createSequentialGroup()
-                .addGroup(preciovueloLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                .addGroup(preciovueloLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(preciovueloLayout.createSequentialGroup()
-                        .addGroup(preciovueloLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(preciovueloLayout.createSequentialGroup()
-                                .addGap(50, 50, 50)
-                                .addComponent(jLabel1))
-                            .addGroup(preciovueloLayout.createSequentialGroup()
-                                .addContainerGap()
-                                .addComponent(Formulario, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                        .addGap(0, 19, Short.MAX_VALUE))
+                        .addGap(50, 50, 50)
+                        .addComponent(jLabel1))
                     .addGroup(preciovueloLayout.createSequentialGroup()
+                        .addContainerGap()
+                        .addComponent(Formulario, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, preciovueloLayout.createSequentialGroup()
                         .addGroup(preciovueloLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(preciovueloLayout.createSequentialGroup()
                                 .addGap(19, 19, 19)
                                 .addComponent(jLabel10)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, preciovueloLayout.createSequentialGroup()
-                                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, 244, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addContainerGap(92, Short.MAX_VALUE)
+                                .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, 280, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)))
                         .addComponent(jLabel7)
-                        .addGap(65, 65, 65)))
-                .addContainerGap(1, Short.MAX_VALUE))
+                        .addGap(46, 46, 46)))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, preciovueloLayout.createSequentialGroup()
                 .addGap(0, 0, Short.MAX_VALUE)
                 .addGroup(preciovueloLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jLabel5)
-                    .addComponent(jLabel6)
-                    .addComponent(jLabel9)
+                    .addGroup(preciovueloLayout.createSequentialGroup()
+                        .addComponent(jLabel5)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addComponent(jLabel15))
+                    .addGroup(preciovueloLayout.createSequentialGroup()
+                        .addComponent(jLabel6)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(jLabel16))
+                    .addGroup(preciovueloLayout.createSequentialGroup()
+                        .addComponent(jLabel9)
+                        .addGap(18, 18, 18)
+                        .addComponent(jLabel17))
                     .addComponent(jLabel8, javax.swing.GroupLayout.PREFERRED_SIZE, 230, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(97, 97, 97))
         );
@@ -362,16 +423,22 @@ public class Panel4 extends javax.swing.JPanel {
                         .addComponent(jLabel7, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                     .addGroup(preciovueloLayout.createSequentialGroup()
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(jLabel5)
+                        .addGroup(preciovueloLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(jLabel5)
+                            .addComponent(jLabel15))
                         .addGap(11, 11, 11)
-                        .addComponent(jLabel6)
+                        .addGroup(preciovueloLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(jLabel6)
+                            .addComponent(jLabel16))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(jLabel8, javax.swing.GroupLayout.PREFERRED_SIZE, 17, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jLabel9)
+                        .addGroup(preciovueloLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(jLabel9)
+                            .addComponent(jLabel17))
                         .addGap(48, 48, 48)
                         .addComponent(jLabel10)
-                        .addGap(18, 18, 18)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(0, 0, Short.MAX_VALUE)))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
@@ -385,14 +452,6 @@ public class Panel4 extends javax.swing.JPanel {
     private void BtnComprarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BtnComprarActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_BtnComprarActionPerformed
-
-    private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_jButton2ActionPerformed
-
-    private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton3ActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_jButton3ActionPerformed
 
     private void NtarjetaFActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_NtarjetaFActionPerformed
         // TODO add your handling code here:
@@ -410,23 +469,51 @@ public class Panel4 extends javax.swing.JPanel {
         // TODO add your handling code here:
     }//GEN-LAST:event_NombreTarjetaActionPerformed
 
+    private void BtnMasterCardActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BtnMasterCardActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_BtnMasterCardActionPerformed
+
+    private void BtnMasterCardMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_BtnMasterCardMouseClicked
+
+        BtnMasterCard.setBorderPainted(true);
+        BtnMasterCard.setBorder(bordeSeleccionado);
+
+        // Le quitamos el borde a Visa para desmarcarla
+        BtnVisa.setBorderPainted(false);
+        System.out.println("Método de pago seleccionado: MASTERCARD");
+
+    }//GEN-LAST:event_BtnMasterCardMouseClicked
+
+    private void BtnVisaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BtnVisaActionPerformed
+        BtnVisa.setBorderPainted(true);
+        BtnVisa.setBorder(bordeSeleccionado);
+
+        // Le quitamos el borde a Mastercard para desmarcarla
+        BtnMasterCard.setBorderPainted(false);
+        System.out.println("Método de pago seleccionado: VISA");
+    }//GEN-LAST:event_BtnVisaActionPerformed
+    javax.swing.border.Border bordeSeleccionado = javax.swing.BorderFactory.createLineBorder(new java.awt.Color(20, 50, 95), 2, true);
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton BtnComprar;
+    private javax.swing.JButton BtnMasterCard;
+    private javax.swing.JButton BtnVisa;
     private javax.swing.JPasswordField Cvv;
     private javax.swing.JFormattedTextField FechaN;
     private javax.swing.JPanel Formulario;
     private javax.swing.JTextField NombreTarjeta;
     private javax.swing.JLabel Ntarjeta;
     private javax.swing.JTextField NtarjetaF;
-    private javax.swing.JButton jButton2;
-    private javax.swing.JButton jButton3;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel10;
     private javax.swing.JLabel jLabel11;
     private javax.swing.JLabel jLabel12;
     private javax.swing.JLabel jLabel13;
     private javax.swing.JLabel jLabel14;
+    private javax.swing.JLabel jLabel15;
+    private javax.swing.JLabel jLabel16;
+    private javax.swing.JLabel jLabel17;
+    private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel5;
@@ -435,6 +522,7 @@ public class Panel4 extends javax.swing.JPanel {
     private javax.swing.JLabel jLabel8;
     private javax.swing.JLabel jLabel9;
     private javax.swing.JPanel jPanel1;
+    private javax.swing.JPanel jPanel2;
     private javax.swing.JPanel preciovuelo;
     private javax.swing.JPanel resumenvuelo;
     // End of variables declaration//GEN-END:variables
