@@ -89,7 +89,7 @@ public class MapaCabina extends JPanel {
         // Fila 0: Letras
         for (String letra : cabecera) {
             if (letra.equals("[aisle]")) {
-                panel.add(new JLabel(""));
+                panel.add(new JLabel("PASILLO")).setFont(new Font("Arial", Font.BOLD, 12));
             } else {
                 JLabel lbl = new JLabel(letra, SwingConstants.CENTER);
                 lbl.setFont(new Font("Arial", Font.BOLD, 12));

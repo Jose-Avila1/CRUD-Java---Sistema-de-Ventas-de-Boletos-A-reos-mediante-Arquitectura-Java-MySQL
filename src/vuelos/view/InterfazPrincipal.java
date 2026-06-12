@@ -24,10 +24,7 @@ public class InterfazPrincipal extends javax.swing.JFrame {
     
     public InterfazPrincipal() {
         initComponents();
-        
-        // Cambiamos el comportamiento y diseño del botón existente usando nuestra nueva clase
-        
-        
+   
 
         // Cambiamos su tipografía y color de letras para que combine con el estilo nuevo
         jButtonSiguiente.setForeground(Color.WHITE);
@@ -287,7 +284,7 @@ public class InterfazPrincipal extends javax.swing.JFrame {
         jComboBoxOrigen = new javax.swing.JComboBox<>();
         jComboBoxDestino = new javax.swing.JComboBox<>();
         jLabelDestino = new javax.swing.JLabel();
-        btnBuscar = new javax.swing.JButton();
+        btnBuscar = new vuelos.controller.BotonEstilizado();
         jLabelFechaAbor = new javax.swing.JLabel();
         jLabelOrigen = new javax.swing.JLabel();
         jDateChooserIda = new com.toedter.calendar.JDateChooser();
@@ -306,7 +303,8 @@ public class InterfazPrincipal extends javax.swing.JFrame {
         jPanellLeyendaAND = new javax.swing.JPanel();
         jPanellLeyendaAS = new javax.swing.JPanel();
         jLabelLeyendaAND = new javax.swing.JLabel();
-        jButtonSiguiente = new javax.swing.JButton();
+        jButtonSiguiente = new vuelos.controller.BotonEstilizado("Siguiente")
+        ;
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setBackground(new java.awt.Color(255, 255, 255));
@@ -364,6 +362,9 @@ public class InterfazPrincipal extends javax.swing.JFrame {
                 .addGap(2, 2, 2))
         );
 
+        PanelOrigenDestino.setBackground(new java.awt.Color(255, 255, 255));
+
+        jPanelSeleccionDeDatos.setBackground(new java.awt.Color(255, 255, 255));
         jPanelSeleccionDeDatos.setBorder(javax.swing.BorderFactory.createTitledBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)), "Detalle de salida"));
 
         jComboBoxOrigen.setEditable(true);
@@ -373,7 +374,10 @@ public class InterfazPrincipal extends javax.swing.JFrame {
         jLabelDestino.setFont(new java.awt.Font("Segoe UI", 0, 11)); // NOI18N
         jLabelDestino.setText("Destino:");
 
-        btnBuscar.setText("buscar");
+        btnBuscar.setBackground(new java.awt.Color(11, 29, 58));
+        btnBuscar.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
+        btnBuscar.setForeground(new java.awt.Color(255, 255, 255));
+        btnBuscar.setText("Buscar");
         btnBuscar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnBuscarActionPerformed(evt);
@@ -402,9 +406,10 @@ public class InterfazPrincipal extends javax.swing.JFrame {
                 .addGap(30, 30, 30)
                 .addGroup(jPanelSeleccionDeDatosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jLabelFechaAbor)
-                    .addComponent(jDateChooserIda, javax.swing.GroupLayout.PREFERRED_SIZE, 126, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(44, 44, 44)
-                .addComponent(btnBuscar, javax.swing.GroupLayout.PREFERRED_SIZE, 79, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addGroup(jPanelSeleccionDeDatosLayout.createSequentialGroup()
+                        .addComponent(jDateChooserIda, javax.swing.GroupLayout.PREFERRED_SIZE, 126, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(65, 65, 65)
+                        .addComponent(btnBuscar)))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         jPanelSeleccionDeDatosLayout.setVerticalGroup(
@@ -416,9 +421,10 @@ public class InterfazPrincipal extends javax.swing.JFrame {
                         .addComponent(jLabelFechaAbor)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addGroup(jPanelSeleccionDeDatosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(btnBuscar, javax.swing.GroupLayout.DEFAULT_SIZE, 32, Short.MAX_VALUE)
-                            .addComponent(jDateChooserIda, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
+                            .addComponent(jDateChooserIda, javax.swing.GroupLayout.DEFAULT_SIZE, 32, Short.MAX_VALUE)
+                            .addComponent(btnBuscar, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
                     .addGroup(jPanelSeleccionDeDatosLayout.createSequentialGroup()
+                        .addGap(0, 0, Short.MAX_VALUE)
                         .addGroup(jPanelSeleccionDeDatosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(jLabelDestino)
                             .addComponent(jLabelOrigen))
@@ -429,6 +435,7 @@ public class InterfazPrincipal extends javax.swing.JFrame {
                 .addGap(20, 20, 20))
         );
 
+        jPanelVuelos.setBackground(new java.awt.Color(255, 255, 255));
         jPanelVuelos.setBorder(javax.swing.BorderFactory.createTitledBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)), "Vuelos Disponibles"));
 
         javax.swing.GroupLayout jPanelVuelosLayout = new javax.swing.GroupLayout(jPanelVuelos);
@@ -442,6 +449,7 @@ public class InterfazPrincipal extends javax.swing.JFrame {
             .addGap(0, 0, Short.MAX_VALUE)
         );
 
+        jPanelInformacion.setBackground(new java.awt.Color(255, 255, 255));
         jPanelInformacion.setBorder(javax.swing.BorderFactory.createTitledBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)), "Información Del dia"));
 
         jLabel2.setFont(new java.awt.Font("Segoe UI", 0, 11)); // NOI18N
@@ -475,7 +483,7 @@ public class InterfazPrincipal extends javax.swing.JFrame {
                             .addComponent(jLabelHora)
                             .addComponent(jLabelFecha)))
                     .addComponent(jLabel10))
-                .addContainerGap(100, Short.MAX_VALUE))
+                .addContainerGap(110, Short.MAX_VALUE))
         );
         jPanelInformacionLayout.setVerticalGroup(
             jPanelInformacionLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -493,6 +501,7 @@ public class InterfazPrincipal extends javax.swing.JFrame {
                 .addContainerGap())
         );
 
+        jPanelSeleccionDeVuelos.setBackground(new java.awt.Color(255, 255, 255));
         jPanelSeleccionDeVuelos.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
         jPanelSeleccionDeVuelos.setToolTipText("");
 
@@ -507,8 +516,10 @@ public class InterfazPrincipal extends javax.swing.JFrame {
             .addGap(0, 437, Short.MAX_VALUE)
         );
 
+        jPanelSiguiente.setBackground(new java.awt.Color(255, 255, 255));
         jPanelSiguiente.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
 
+        jLabelLeyendaAD.setFont(new java.awt.Font("Segoe UI", 0, 12)); // NOI18N
         jLabelLeyendaAD.setText("Asientos Disponibles:");
 
         jPanellLeyendaAD.setBackground(new java.awt.Color(110, 169, 74));
@@ -524,6 +535,7 @@ public class InterfazPrincipal extends javax.swing.JFrame {
             .addGap(0, 0, Short.MAX_VALUE)
         );
 
+        jLabelLeyendaAS.setFont(new java.awt.Font("Segoe UI", 0, 12)); // NOI18N
         jLabelLeyendaAS.setText("Asientos Selecionado:");
 
         jPanellLeyendaAND.setBackground(new java.awt.Color(210, 48, 54));
@@ -552,6 +564,7 @@ public class InterfazPrincipal extends javax.swing.JFrame {
             .addGap(0, 0, Short.MAX_VALUE)
         );
 
+        jLabelLeyendaAND.setFont(new java.awt.Font("Segoe UI", 0, 12)); // NOI18N
         jLabelLeyendaAND.setText("Asientos No Disponibles:");
 
         jButtonSiguiente.setBackground(new java.awt.Color(51, 51, 255));
@@ -571,18 +584,18 @@ public class InterfazPrincipal extends javax.swing.JFrame {
             jPanelSiguienteLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanelSiguienteLayout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(jLabelLeyendaAD, javax.swing.GroupLayout.PREFERRED_SIZE, 102, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(8, 8, 8)
+                .addComponent(jLabelLeyendaAD, javax.swing.GroupLayout.PREFERRED_SIZE, 126, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jPanellLeyendaAD, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
-                .addComponent(jLabelLeyendaAS, javax.swing.GroupLayout.PREFERRED_SIZE, 110, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jLabelLeyendaAS)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(jPanellLeyendaAS, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(18, 18, 18)
-                .addComponent(jLabelLeyendaAND, javax.swing.GroupLayout.PREFERRED_SIZE, 118, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(33, 33, 33)
+                .addComponent(jLabelLeyendaAND)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jPanellLeyendaAND, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 28, Short.MAX_VALUE)
                 .addComponent(jButtonSiguiente, javax.swing.GroupLayout.PREFERRED_SIZE, 133, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap())
         );
@@ -742,8 +755,11 @@ public class InterfazPrincipal extends javax.swing.JFrame {
             // 1. Guardamos el ancho y el alto actuales del panel contenedor
            
             PanelLogo.remove(jPanelProgreso);
+            PanelLogo.remove(btnMenu);
              PanelLogo.revalidate();
              PanelLogo.repaint();
+             
+             
             
             
             Panel4 nuevoPanel = new Panel4();
