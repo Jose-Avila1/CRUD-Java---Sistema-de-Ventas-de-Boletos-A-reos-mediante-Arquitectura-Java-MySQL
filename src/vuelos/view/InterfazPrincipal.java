@@ -38,14 +38,54 @@ public class InterfazPrincipal extends javax.swing.JFrame {
 
         // Instancias tu nuevo componente de cabina
         
-       
-
         /*// Buscas tu panel vacío de NetBeans donde irá el mapa (ej. jPanelContenedorAsientos)
         jPanelSeleccionDeVuelos.setLayout(new BorderLayout());
         jPanelSeleccionDeVuelos.add(cabina, BorderLayout.CENTER);
         jPanelSeleccionDeVuelos.validate();
         jPanelSeleccionDeVuelos.repaint();*/
+        
+        // Estilo moderno para el botón de 3 líneas
+        btnMenu.setText("≡"); // Caracter de hamburguesa
+        btnMenu.setFont(new java.awt.Font("Segoe UI", java.awt.Font.BOLD, 35));
+        btnMenu.setForeground(java.awt.Color.WHITE);
+        btnMenu.setContentAreaFilled(false);
+        btnMenu.setBorderPainted(false);
+        btnMenu.setFocusPainted(false);
+        btnMenu.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        
+        btnMenu.addMouseListener(new java.awt.event.MouseAdapter() {
+    
+        // EFECTO HOVER: Cuando el mouse entra al botón
+        @Override
+        public void mouseEntered(java.awt.event.MouseEvent evt) {
+            // Se ilumina a un amarillo/dorado elegante que combina con aerolíneas
+            btnMenu.setForeground(new java.awt.Color(205, 255, 255)); 
+        }
 
+        // EFECTO HOVER SALIDA: Cuando el mouse sale del botón
+        @Override
+        public void mouseExited(java.awt.event.MouseEvent evt) {
+            btnMenu.setForeground(java.awt.Color.WHITE); // Vuelve a su blanco original
+        }
+
+        // EFECTO CLIC: Cuando el usuario presiona el botón
+        @Override
+        public void mousePressed(java.awt.event.MouseEvent evt) {
+            // Se oscurece un poco el dorado para simular que fue hundido
+            btnMenu.setForeground(new java.awt.Color(148, 231, 255)); 
+        }
+
+        @Override
+        public void mouseReleased(java.awt.event.MouseEvent evt) {
+            // Si el mouse sigue adentro al soltarlo, vuelve al color del hover (dorado)
+            if (btnMenu.getMousePosition() != null) {
+        // EFECTO LIBERAR CLIC: Cuando suelta el botón dentro del área
+                btnMenu.setForeground(new java.awt.Color(212, 175, 55));
+                btnMenu.setForeground(java.awt.Color.WHITE);
+             } else {
+           }
+        }
+    }); 
         
         barra = new ProgressBar();
         jPanelProgreso.setLayout(new java.awt.BorderLayout()); 
@@ -60,7 +100,174 @@ public class InterfazPrincipal extends javax.swing.JFrame {
         controladorRutas = new ControladorRutas(jComboBoxOrigen, jComboBoxDestino);
         Date fechaActual = new Date();
         jDateChooserIda.setMinSelectableDate(fechaActual);
+    }
+    
+    // Contenedor del menú lateral
+    private javax.swing.JPanel panelLateral;
+    private javax.swing.JPanel contenedorTickets;
+
+    private void configurarMenuLateral() {
+       // 1. Crear el panel principal del menú
+        panelLateral = new javax.swing.JPanel();
+        panelLateral.setBackground(new java.awt.Color(239, 246, 252)); // Color celeste claro
+        panelLateral.setLayout(new java.awt.BorderLayout());
+
+        // --- PANEL DE ENCABEZADO PARA TÍTULO Y EQUIS ---
+        javax.swing.JPanel pnlHeader = new javax.swing.JPanel(new java.awt.BorderLayout());
+        pnlHeader.setBackground(new java.awt.Color(239, 246, 252));
+        pnlHeader.setBorder(javax.swing.BorderFactory.createEmptyBorder(15, 15, 15, 10));
+
+        // Título en Azul Oscuro
+        javax.swing.JLabel titulo = new javax.swing.JLabel("GESTIÓN DE VUELOS PENDIENTES");
+        titulo.setFont(new java.awt.Font("Segoe UI", java.awt.Font.BOLD, 15));
+        titulo.setForeground(new java.awt.Color(10, 34, 64)); 
+        pnlHeader.add(titulo, java.awt.BorderLayout.WEST);
+
+        // BOTÓN EQUIS (X) PARA CERRAR
+        javax.swing.JButton btnCerrar = new javax.swing.JButton("X");
+        btnCerrar.setFont(new java.awt.Font("Segoe UI", java.awt.Font.BOLD, 20));
+        btnCerrar.setForeground(new java.awt.Color(10, 34, 64)); // Azul oscuro inicial
+        btnCerrar.setContentAreaFilled(false); 
+        btnCerrar.setBorderPainted(false);    
+        btnCerrar.setFocusPainted(false);
+        btnCerrar.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         
+        // Acción para cerrar el panel al darle clic a la X
+        btnCerrar.addActionListener(e -> {
+            panelLateral.setBounds(this.getWidth(), 0, 350, this.getHeight()); // Lo esconde a la derecha
+            menuAbierto = false; // Resetea el estado para el botón de 3 líneas
+        });
+        
+        // Efecto Hover para la X (Corregido para volver al azul oscuro original en lugar de blanco)
+        btnCerrar.addMouseListener(new java.awt.event.MouseAdapter() {
+            @Override
+            public void mouseEntered(java.awt.event.MouseEvent evt) {
+                btnCerrar.setForeground(new java.awt.Color(255, 100, 100)); // Rojo al pasar encima
+            }
+            @Override
+            public void mouseExited(java.awt.event.MouseEvent evt) {
+                btnCerrar.setForeground(new java.awt.Color(10, 34, 64)); // Vuelve a azul oscuro
+            }
+         });
+
+        // Lógica para cerrar al presionar la X
+        btnCerrar.addActionListener(e -> {
+            panelLateral.setBounds(this.getWidth(), 0, 350, this.getHeight()); // Lo saca de pantalla
+            menuAbierto = false; // Resetea el estado para que el botón de 3 líneas funcione bien
+        });
+
+        pnlHeader.add(btnCerrar, java.awt.BorderLayout.EAST);
+        panelLateral.add(pnlHeader, java.awt.BorderLayout.NORTH);
+        // -----------------------------------------------------
+
+        // 2. Contenedor de los tickets (donde se irán sumando)
+        contenedorTickets = new javax.swing.JPanel();
+        contenedorTickets.setBackground(new java.awt.Color(239, 246, 252));
+        contenedorTickets.setLayout(new javax.swing.BoxLayout(contenedorTickets, javax.swing.BoxLayout.Y_AXIS));
+
+        // Scroll para cuando haya muchos vuelos
+        javax.swing.JScrollPane scroll = new javax.swing.JScrollPane(contenedorTickets);
+        scroll.setBorder(null);
+        scroll.getVerticalScrollBar().setUnitIncrement(16);
+        panelLateral.add(scroll, java.awt.BorderLayout.CENTER);
+
+        // 3. Añadir el panel al LayeredPane del Frame (para que flote sobre todo)
+        panelLateral.setBounds(this.getWidth(), 0, 350, this.getHeight()); 
+        this.getLayeredPane().add(panelLateral, javax.swing.JLayeredPane.PALETTE_LAYER);
+
+        // Ejemplo: Agregar un vuelo de prueba
+        agregarVueloAlMenu("Vuelo #102", "Maracaibo -> Bogotá", "12/10/2024", "$150.00");
+    }
+
+    // MÉDITO PARA AGREGAR TICKETS DINÁMICAMENTE
+    public void agregarVueloAlMenu(String id, String ruta, String fecha, String precio) {
+        // 1. Crear el panel contenedor del ticket
+         javax.swing.JPanel ticket = new javax.swing.JPanel();
+         ticket.setBackground(java.awt.Color.WHITE); // Fondo blanco puro
+         ticket.setMaximumSize(new java.awt.Dimension(330, 120)); // Un pelín más alto para la sombra curva
+    
+        // 2. EL TRUCO: BORDE PERSONALIZADO REDONDEADO CON SOMBRA SUAVE
+        javax.swing.border.Border bordeSombraRedondeado = new javax.swing.border.AbstractBorder() {
+            @Override
+            public void paintBorder(java.awt.Component c, java.awt.Graphics g, int x, int y, int width, int height) {
+                java.awt.Graphics2D g2 = (java.awt.Graphics2D) g.create();
+                g2.setRenderingHint(java.awt.RenderingHints.KEY_ANTIALIASING, java.awt.RenderingHints.VALUE_ANTIALIAS_ON);
+
+                // Pintar la Sombra Difuminada de la esquina (Gris azulado traslúcido)
+                g2.setColor(new java.awt.Color(180, 195, 210, 90));
+                g2.fillRoundRect(x + 2, y + 3, width - 4, height - 5, 18, 18);
+                g2.setColor(new java.awt.Color(180, 195, 210, 45));
+                g2.fillRoundRect(x + 1, y + 2, width - 2, height - 3, 18, 18);
+
+                // Pintar el fondo blanco de la tarjeta para que tape la sombra interna
+                g2.setColor(java.awt.Color.WHITE);
+                g2.fillRoundRect(x, y, width - 4, height - 5, 16, 16);
+
+                // Pintar el contorno Gris Claro del Ticket
+                g2.setColor(new java.awt.Color(210, 215, 220));
+                g2.setStroke(new java.awt.BasicStroke(1.2f)); // Grosor de línea suave
+                g2.drawRoundRect(x, y, width - 4, height - 5, 16, 16);
+
+                g2.dispose();
+            }
+
+            @Override
+            public java.awt.Insets getBorderInsets(java.awt.Component c) {
+                // Define el espacio que ocupa el borde (arriba, izquierda, abajo, derecha)
+                return new java.awt.Insets(1, 1, 6, 5);
+            }
+        };
+
+        // 3. MARGEN INTERNO: Para que los textos no toquen las curvas
+        javax.swing.border.Border margenInterno = javax.swing.BorderFactory.createEmptyBorder(12, 14, 12, 14);
+
+        // 4. Fusionar el diseño personalizado con los márgenes internos
+        ticket.setBorder(javax.swing.BorderFactory.createCompoundBorder(bordeSombraRedondeado, margenInterno));
+        ticket.setOpaque(false); // IMPORTANTE: true haría que las esquinas muestren un fondo cuadrado feo
+
+        // Layout base de tu tarjeta
+        ticket.setLayout(new java.awt.GridLayout(3, 1, 4, 4));
+
+        contenedorTickets.add(ticket);
+        // Agrega una separación vertical de 12 píxeles antes del siguiente ticket
+        contenedorTickets.add(javax.swing.Box.createRigidArea(new java.awt.Dimension(0, 12))); 
+        contenedorTickets.revalidate();
+        
+        javax.swing.JLabel lblRuta = new javax.swing.JLabel("✈ " + ruta);
+        lblRuta.setForeground(new java.awt.Color(65, 65, 65));
+        lblRuta.setFont(new java.awt.Font("Segoe UI", java.awt.Font.BOLD, 15));
+
+        javax.swing.JLabel lblDetalle = new javax.swing.JLabel(fecha + " | " + precio);
+        lblDetalle.setForeground(new java.awt.Color(65, 65, 65));
+
+        // Panel de botones (Modificar y Eliminar)
+        javax.swing.JPanel pnlBotones = new javax.swing.JPanel(new java.awt.FlowLayout(java.awt.FlowLayout.LEFT));
+        pnlBotones.setOpaque(false);
+
+        javax.swing.JButton btnEdit = new javax.swing.JButton("Modificar");
+        btnEdit.setFont(new java.awt.Font("Segoe UI", 0, 10));
+
+        javax.swing.JButton btnDelete = new javax.swing.JButton("Eliminar");
+        btnDelete.setBackground(new java.awt.Color(255, 65, 65));
+        btnDelete.setForeground(java.awt.Color.WHITE);
+
+        pnlBotones.add(btnEdit);
+        pnlBotones.add(btnDelete);
+
+        ticket.add(lblRuta);
+        ticket.add(lblDetalle);
+        ticket.add(pnlBotones);
+
+        // Lógica para eliminar
+        btnDelete.addActionListener(e -> {
+            contenedorTickets.remove(ticket);
+            contenedorTickets.revalidate();
+            contenedorTickets.repaint();
+        });
+
+        contenedorTickets.add(ticket);
+        contenedorTickets.add(javax.swing.Box.createRigidArea(new java.awt.Dimension(0, 5)));
+        contenedorTickets.revalidate();
     }
 
     @SuppressWarnings("unchecked")
@@ -74,6 +281,7 @@ public class InterfazPrincipal extends javax.swing.JFrame {
         PanelLogo = new javax.swing.JPanel();
         jLabel1 = new javax.swing.JLabel();
         jPanelProgreso = new javax.swing.JPanel();
+        btnMenu = new javax.swing.JButton();
         PanelOrigenDestino = new javax.swing.JPanel();
         jPanelSeleccionDeDatos = new javax.swing.JPanel();
         jComboBoxOrigen = new javax.swing.JComboBox<>();
@@ -125,6 +333,13 @@ public class InterfazPrincipal extends javax.swing.JFrame {
             .addGap(0, 45, Short.MAX_VALUE)
         );
 
+        btnMenu.setText("Menu");
+        btnMenu.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnMenuActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout PanelLogoLayout = new javax.swing.GroupLayout(PanelLogo);
         PanelLogo.setLayout(PanelLogoLayout);
         PanelLogoLayout.setHorizontalGroup(
@@ -133,7 +348,8 @@ public class InterfazPrincipal extends javax.swing.JFrame {
                 .addComponent(jLabel1)
                 .addGap(122, 122, 122)
                 .addComponent(jPanelProgreso, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(0, 0, Short.MAX_VALUE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(btnMenu, javax.swing.GroupLayout.PREFERRED_SIZE, 61, javax.swing.GroupLayout.PREFERRED_SIZE))
         );
         PanelLogoLayout.setVerticalGroup(
             PanelLogoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -142,7 +358,9 @@ public class InterfazPrincipal extends javax.swing.JFrame {
                     .addComponent(jLabel1)
                     .addGroup(PanelLogoLayout.createSequentialGroup()
                         .addGap(24, 24, 24)
-                        .addComponent(jPanelProgreso, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addGroup(PanelLogoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(btnMenu)
+                            .addComponent(jPanelProgreso, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))))
                 .addGap(2, 2, 2))
         );
 
@@ -276,7 +494,7 @@ public class InterfazPrincipal extends javax.swing.JFrame {
         );
 
         jPanelSeleccionDeVuelos.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
-        jPanelSeleccionDeVuelos.setToolTipText("background");
+        jPanelSeleccionDeVuelos.setToolTipText("");
 
         javax.swing.GroupLayout jPanelSeleccionDeVuelosLayout = new javax.swing.GroupLayout(jPanelSeleccionDeVuelos);
         jPanelSeleccionDeVuelos.setLayout(jPanelSeleccionDeVuelosLayout);
@@ -445,8 +663,6 @@ public class InterfazPrincipal extends javax.swing.JFrame {
 
     private void btnBuscarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnBuscarActionPerformed
        
-        
-        
         //Inicializar metodo para busqueda de vuelos
         
         BuscadorVuelos buscador = new BuscadorVuelos();
@@ -495,6 +711,20 @@ public class InterfazPrincipal extends javax.swing.JFrame {
             System.out.println("No se pudo procesar: Datos de las ciudades incorrectos.");
         }
     }//GEN-LAST:event_btnBuscarActionPerformed
+
+    private boolean menuAbierto = false;
+    private void btnMenuActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnMenuActionPerformed
+        if (panelLateral == null) configurarMenuLateral(); // Inicializa si no existe
+    
+    // Animación simple: si está abierto lo esconde, si está cerrado lo muestra
+        if (!menuAbierto) {
+            panelLateral.setBounds(this.getWidth() - 350, 0, 350, this.getHeight());
+            menuAbierto = true;
+        } else {
+            panelLateral.setBounds(this.getWidth(), 0, 350, this.getHeight());
+            menuAbierto = false;
+        }
+    }//GEN-LAST:event_btnMenuActionPerformed
 
     private void jButtonSiguienteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonSiguienteActionPerformed
         
@@ -565,8 +795,11 @@ public class InterfazPrincipal extends javax.swing.JFrame {
             new InterfazPrincipal().setVisible(true);
         });
         
+        
+        
     }
     
+
     public void cambiarDePanel(JPanel nuevoPanel) {
     // 1. Limpieza absoluta
     PanelOrigenDestino.removeAll();
@@ -588,10 +821,12 @@ public class InterfazPrincipal extends javax.swing.JFrame {
 
 
 
+
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JPanel PanelLogo;
     private javax.swing.JPanel PanelOrigenDestino;
     private javax.swing.JButton btnBuscar;
+    private javax.swing.JButton btnMenu;
     private javax.swing.ButtonGroup buttonGroup1;
     private javax.swing.ButtonGroup buttonGroup2;
     private javax.swing.ButtonGroup buttonGroup3;
