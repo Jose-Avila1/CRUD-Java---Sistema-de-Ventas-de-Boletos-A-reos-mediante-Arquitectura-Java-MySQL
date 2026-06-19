@@ -22,6 +22,11 @@ public class InterfazPrincipal extends javax.swing.JFrame {
     private ControladorRutas controladorRutas;
     private ProgressBar barra;
     
+    // Variables para almacenar el respaldo de la pantalla de búsqueda
+    private java.awt.Component[] componentesOrigenDestinoRespaldados;
+    private java.awt.LayoutManager layoutOrigenDestinoOriginal;
+
+    
     public InterfazPrincipal() {
         initComponents();
    
@@ -98,6 +103,58 @@ public class InterfazPrincipal extends javax.swing.JFrame {
         Date fechaActual = new Date();
         jDateChooserIda.setMinSelectableDate(fechaActual);
     }
+    
+    
+            /**
+         * Guarda en memoria los combos, listas y asientos antes de cambiar de pantalla.
+         */
+        public void guardarPantallaBusquedaOriginal() {
+            if (this.PanelOrigenDestino != null) {
+                this.componentesOrigenDestinoRespaldados = this.PanelOrigenDestino.getComponents();
+                this.layoutOrigenDestinoOriginal = this.PanelOrigenDestino.getLayout();
+            }
+        }
+
+        /**
+         * Restaura los paneles originales dentro de PanelOrigenDestino y resetea la barra.
+         */
+        public void restaurarTodoAlEstadoInicial() {
+            if (this.PanelOrigenDestino != null && this.componentesOrigenDestinoRespaldados != null) {
+                // 1. Limpiamos el Panel4 actual del contenedor de abajo
+                this.PanelOrigenDestino.removeAll();
+
+                // 2. Le devolvemos el Layout original de NetBeans
+                this.PanelOrigenDestino.setLayout(this.layoutOrigenDestinoOriginal);
+
+                // 3. Reinyectamos todos los componentes iniciales respaldados
+                for (java.awt.Component comp : this.componentesOrigenDestinoRespaldados) {
+                    this.PanelOrigenDestino.add(comp);
+                }
+
+                // 4. Como PanelLogo nunca se borró, reseteamos la barra de progreso al Paso 1
+                // NOTA: Reemplaza "barra" por el nombre real de tu variable de la barra de progreso
+                if (this.barra != null) {
+                    this.barra.setPasoActual(1);
+                }
+
+                // 5. Forzamos el redibujado inmediato de la interfaz
+                this.PanelOrigenDestino.revalidate();
+                this.PanelOrigenDestino.repaint();
+                this.revalidate();
+                this.repaint();
+            }
+        }
+
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
     
     // Contenedor del menú lateral
     private javax.swing.JPanel panelLateral;
@@ -311,7 +368,7 @@ public class InterfazPrincipal extends javax.swing.JFrame {
         setIconImage(new javax.swing.ImageIcon(getClass().getResource("/imagenes/logoAvion.png")).getImage());
         setMinimumSize(new java.awt.Dimension(500, 0));
         setResizable(false);
-        setSize(new java.awt.Dimension(900, 700));
+        setSize(new java.awt.Dimension(900, 600));
 
         PanelLogo.setBackground(new java.awt.Color(11, 29, 58));
         PanelLogo.setPreferredSize(new java.awt.Dimension(150, 100));
@@ -421,8 +478,8 @@ public class InterfazPrincipal extends javax.swing.JFrame {
                         .addComponent(jLabelFechaAbor)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addGroup(jPanelSeleccionDeDatosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jDateChooserIda, javax.swing.GroupLayout.DEFAULT_SIZE, 32, Short.MAX_VALUE)
-                            .addComponent(btnBuscar, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
+                            .addComponent(jDateChooserIda, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(btnBuscar, javax.swing.GroupLayout.DEFAULT_SIZE, 32, Short.MAX_VALUE)))
                     .addGroup(jPanelSeleccionDeDatosLayout.createSequentialGroup()
                         .addGap(0, 0, Short.MAX_VALUE)
                         .addGroup(jPanelSeleccionDeDatosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
@@ -446,7 +503,7 @@ public class InterfazPrincipal extends javax.swing.JFrame {
         );
         jPanelVuelosLayout.setVerticalGroup(
             jPanelVuelosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 0, Short.MAX_VALUE)
+            .addGap(0, 426, Short.MAX_VALUE)
         );
 
         jPanelInformacion.setBackground(new java.awt.Color(255, 255, 255));
@@ -504,17 +561,8 @@ public class InterfazPrincipal extends javax.swing.JFrame {
         jPanelSeleccionDeVuelos.setBackground(new java.awt.Color(255, 255, 255));
         jPanelSeleccionDeVuelos.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
         jPanelSeleccionDeVuelos.setToolTipText("");
-
-        javax.swing.GroupLayout jPanelSeleccionDeVuelosLayout = new javax.swing.GroupLayout(jPanelSeleccionDeVuelos);
-        jPanelSeleccionDeVuelos.setLayout(jPanelSeleccionDeVuelosLayout);
-        jPanelSeleccionDeVuelosLayout.setHorizontalGroup(
-            jPanelSeleccionDeVuelosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 691, Short.MAX_VALUE)
-        );
-        jPanelSeleccionDeVuelosLayout.setVerticalGroup(
-            jPanelSeleccionDeVuelosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 437, Short.MAX_VALUE)
-        );
+        jPanelSeleccionDeVuelos.setMaximumSize(new java.awt.Dimension(693, 415));
+        jPanelSeleccionDeVuelos.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
         jPanelSiguiente.setBackground(new java.awt.Color(255, 255, 255));
         jPanelSiguiente.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
@@ -636,19 +684,20 @@ public class InterfazPrincipal extends javax.swing.JFrame {
         PanelOrigenDestinoLayout.setVerticalGroup(
             PanelOrigenDestinoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(PanelOrigenDestinoLayout.createSequentialGroup()
-                .addContainerGap()
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addGroup(PanelOrigenDestinoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                     .addComponent(jPanelSeleccionDeDatos, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(jPanelInformacion, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                .addGap(15, 15, 15)
                 .addGroup(PanelOrigenDestinoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(PanelOrigenDestinoLayout.createSequentialGroup()
-                        .addComponent(jPanelSeleccionDeVuelos, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jPanelSiguiente, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addComponent(jPanelVuelos, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(PanelOrigenDestinoLayout.createSequentialGroup()
-                        .addComponent(jPanelVuelos, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addContainerGap())))
+                        .addGap(3, 3, 3)
+                        .addComponent(jPanelSeleccionDeVuelos, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(jPanelSiguiente, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addGap(0, 0, 0))
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
@@ -666,8 +715,7 @@ public class InterfazPrincipal extends javax.swing.JFrame {
             .addGroup(layout.createSequentialGroup()
                 .addComponent(PanelLogo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(1, 1, 1)
-                .addComponent(PanelOrigenDestino, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addComponent(PanelOrigenDestino, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
         );
 
         pack();
@@ -753,11 +801,13 @@ public class InterfazPrincipal extends javax.swing.JFrame {
         // Si el usuario presiona "Sí" (YES_OPTION)
          if (respuesta == JOptionPane.YES_OPTION) {
             // 1. Guardamos el ancho y el alto actuales del panel contenedor
-           
-            PanelLogo.remove(jPanelProgreso);
+           // 1. Guardamos los paneles de búsqueda y asientos en la memoria privada
+            guardarPantallaBusquedaOriginal();
             PanelLogo.remove(btnMenu);
              PanelLogo.revalidate();
              PanelLogo.repaint();
+             barra.setPasoActual(4);
+             
              
              
             
@@ -818,6 +868,8 @@ public class InterfazPrincipal extends javax.swing.JFrame {
 
     public void cambiarDePanel(JPanel nuevoPanel) {
     // 1. Limpieza absoluta
+    
+    
     PanelOrigenDestino.removeAll();
     
     // 2. Le asignamos un diseño de cuadrícula simple (ocupa el 100% del espacio)

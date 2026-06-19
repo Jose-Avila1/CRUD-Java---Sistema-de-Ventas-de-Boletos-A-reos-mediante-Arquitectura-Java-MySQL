@@ -6,7 +6,10 @@
 package vuelos.view;
 
 import java.awt.Image;
+import java.awt.Window;
 import javax.swing.ImageIcon;
+import javax.swing.JOptionPane;
+import javax.swing.SwingUtilities;
 
 /**
  *
@@ -112,8 +115,9 @@ public class Panel4 extends javax.swing.JPanel {
         jLabel16 = new javax.swing.JLabel();
         jLabel17 = new javax.swing.JLabel();
 
-        setMinimumSize(new java.awt.Dimension(850, 597));
-        setPreferredSize(new java.awt.Dimension(850, 595));
+        setMinimumSize(new java.awt.Dimension(850, 550));
+        setPreferredSize(new java.awt.Dimension(850, 550));
+        setVerifyInputWhenFocusTarget(false);
         setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
         resumenvuelo.setBackground(new java.awt.Color(255, 255, 255));
@@ -291,7 +295,7 @@ public class Panel4 extends javax.swing.JPanel {
         FormularioLayout.setVerticalGroup(
             FormularioLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(FormularioLayout.createSequentialGroup()
-                .addContainerGap()
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addGroup(FormularioLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(NtarjetaF, javax.swing.GroupLayout.PREFERRED_SIZE, 29, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(Ntarjeta))
@@ -305,7 +309,7 @@ public class Panel4 extends javax.swing.JPanel {
                 .addGroup(FormularioLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel13)
                     .addComponent(NombreTarjeta, javax.swing.GroupLayout.PREFERRED_SIZE, 28, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 73, Short.MAX_VALUE)
+                .addGap(25, 25, 25)
                 .addComponent(BtnComprar, javax.swing.GroupLayout.PREFERRED_SIZE, 33, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap())
         );
@@ -373,26 +377,21 @@ public class Panel4 extends javax.swing.JPanel {
         preciovuelo.setLayout(preciovueloLayout);
         preciovueloLayout.setHorizontalGroup(
             preciovueloLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(preciovueloLayout.createSequentialGroup()
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, preciovueloLayout.createSequentialGroup()
                 .addGroup(preciovueloLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(preciovueloLayout.createSequentialGroup()
-                        .addGap(50, 50, 50)
-                        .addComponent(jLabel1))
-                    .addGroup(preciovueloLayout.createSequentialGroup()
-                        .addContainerGap()
-                        .addComponent(Formulario, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGap(19, 19, 19)
+                        .addComponent(jLabel10)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, preciovueloLayout.createSequentialGroup()
-                        .addGroup(preciovueloLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(preciovueloLayout.createSequentialGroup()
-                                .addGap(19, 19, 19)
-                                .addComponent(jLabel10)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, preciovueloLayout.createSequentialGroup()
-                                .addContainerGap(92, Short.MAX_VALUE)
-                                .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, 280, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)))
-                        .addComponent(jLabel7)
-                        .addGap(46, 46, 46)))
+                        .addContainerGap(92, Short.MAX_VALUE)
+                        .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, 280, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)))
+                .addComponent(jLabel7)
+                .addContainerGap(53, Short.MAX_VALUE))
+            .addGroup(preciovueloLayout.createSequentialGroup()
+                .addGap(50, 50, 50)
+                .addComponent(jLabel1)
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, preciovueloLayout.createSequentialGroup()
                 .addGap(0, 0, Short.MAX_VALUE)
@@ -411,6 +410,10 @@ public class Panel4 extends javax.swing.JPanel {
                         .addComponent(jLabel17))
                     .addComponent(jLabel8, javax.swing.GroupLayout.PREFERRED_SIZE, 230, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(97, 97, 97))
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, preciovueloLayout.createSequentialGroup()
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(Formulario, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap())
         );
         preciovueloLayout.setVerticalGroup(
             preciovueloLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -443,14 +446,32 @@ public class Panel4 extends javax.swing.JPanel {
                         .addGap(0, 0, Short.MAX_VALUE)))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(Formulario, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap())
+                .addGap(70, 70, 70))
         );
 
         add(preciovuelo, new org.netbeans.lib.awtextra.AbsoluteConstraints(465, 0, 435, 597));
     }// </editor-fold>//GEN-END:initComponents
 
     private void BtnComprarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BtnComprarActionPerformed
-        // TODO add your handling code here:
+        
+        //Mostramos mensaje de compra exitosa
+        JOptionPane.showMessageDialog(
+            Panel4.this, 
+            "¡Su compra ha sido exitosa!\nGracias por viajar con UNEFACITY AIRLINES.", 
+            "Compra Completada", 
+            JOptionPane.INFORMATION_MESSAGE
+        );
+        
+        //volvemos a la interfaz principal
+        
+        // 2. Localizamos la ventana JFrame principal en la memoria del programa
+        Window ventana = SwingUtilities.getWindowAncestor(Panel4.this);
+        if (ventana instanceof InterfazPrincipal) {
+            // 3. Ordenamos la restauración del panel inferior y reinicio de la barra
+            ((InterfazPrincipal) ventana).restaurarTodoAlEstadoInicial();
+        
+        }
+        
     }//GEN-LAST:event_BtnComprarActionPerformed
 
     private void NtarjetaFActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_NtarjetaFActionPerformed

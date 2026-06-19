@@ -28,16 +28,16 @@ public class MapaCabina extends JPanel {
 
         // 1. Configuración del panel base contenedor
         setLayout(new BorderLayout());
-        setPreferredSize(new Dimension(680, 439));
+        setPreferredSize(new Dimension(680, 380));
 
         // 2. Crear el contenedor por capas (JLayeredPane)
         JLayeredPane layeredPane = new JLayeredPane();
-        layeredPane.setPreferredSize(new Dimension(680, 439));
+        layeredPane.setPreferredSize(new Dimension(680, 380));
 
         // 4. CAPA SUPERIOR: Cuadrícula de asientos (GridLayout)
         JPanel panelAsientos = new JPanel(new GridLayout(7, 7, 5, 5));
         panelAsientos.setOpaque(false); // IMPORTANTE: Transparente
-        panelAsientos.setBounds(160, 90, 380, 260);
+        panelAsientos.setBounds(160, 55, 380, 260);
 
         // 5. Llenar la cuadrícula (Letras y Botones)
         inicializarMatrizAsientos(panelAsientos);
@@ -83,12 +83,12 @@ public class MapaCabina extends JPanel {
         ImageIcon dispIcon = new ImageIcon(imgVerdeEscalada);
         ImageIcon selIcon = new ImageIcon(imgAzulEscalada);
 
-        String[] cabecera = {"A", "B", "C", "[aisle]", "D", "E", "F"};
+        String[] cabecera = {"A", "B", "C", "[aislado]", "D", "E", "F"};
         int[] filasNum = {1, 2, 3, 4, 5, 6};
 
         // Fila 0: Letras
         for (String letra : cabecera) {
-            if (letra.equals("[aisle]")) {
+            if (letra.equals("[aislado]")) {
                 panel.add(new JLabel("PASILLO")).setFont(new Font("Arial", Font.BOLD, 12));
             } else {
                 JLabel lbl = new JLabel(letra, SwingConstants.CENTER);

@@ -1,4 +1,4 @@
-package vuelos.controller; // <-- Cambia esto por el nombre real de tu paquete
+package vuelos.controller; 
 
 import javax.swing.JPanel;
 import java.awt.Color;
@@ -9,17 +9,18 @@ import java.awt.BasicStroke;
 
 public class ProgressBar extends JPanel {
     
+    // Cambiamos el límite máximo a 4 pasos
     private int pasoActual = 1;
 
     public ProgressBar() {
         // Configuraciones iniciales básicas
-        this.setPreferredSize(new java.awt.Dimension(400, 80)); 
+        this.setPreferredSize(new java.awt.Dimension(500, 80)); // Ampliado ligeramente para acomodar 4 textos
         this.setBackground(new java.awt.Color(11, 29, 58));
     }
 
-    // Método público para actualizar el paso desde cualquier lugar
+    // Método público modificado para aceptar hasta el paso 4
     public void setPasoActual(int paso) {
-        if (paso >= 1 && paso <= 3) {
+        if (paso >= 1 && paso <= 4) {
             this.pasoActual = paso;
             this.repaint(); // Redibuja automáticamente al cambiar el paso
         }
@@ -33,20 +34,22 @@ public class ProgressBar extends JPanel {
 
         int w = getWidth();
         int h = getHeight();
-        int centerY = (h / 2) -10 ;
+        int centerY = (h / 2) - 10;
 
-        int x1 = w / 6;
-        int x2 = w / 2;
-        int x3 = (w * 5) / 6;
+        // NUEVA DISTRIBUCIÓN MATEMÁTICA EN 8 PARTES PARA 4 PUNTOS COMPLETAMENTE EQUIDISTANTES
+        int x1 = w / 8;
+        int x2 = (w * 3) / 8;
+        int x3 = (w * 5) / 8;
+        int x4 = (w * 7) / 8;
         int radio = 16;
 
         Color colorBlanco = new Color(245, 242, 235);
         Color colorVerde = new Color(76, 175, 137);
 
-        // Línea conectora base
+        // Línea conectora base (ahora se extiende hasta el cuarto círculo x4)
         g2.setColor(colorBlanco);
         g2.setStroke(new BasicStroke(6));
-        g2.drawLine(x1, centerY, x3, centerY);
+        g2.drawLine(x1, centerY, x4, centerY);
 
         // --- PASO 1 ---
         if (pasoActual >= 1) {
@@ -77,30 +80,42 @@ public class ProgressBar extends JPanel {
             g2.setColor(colorBlanco);
             g2.fillOval(x3 - radio, centerY - radio, radio * 2, radio * 2);
         }
-    
-    
-        g2.setFont(new java.awt.Font("Segoe UI", java.awt.Font.BOLD, 12)); // Tipo de letra
-        g2.setColor(colorBlanco); // Color del texto
 
-        // Textos correspondientes a cada fase
+        // --- NUEVO PASO 4 ---
+        if (pasoActual >= 4) {
+            g2.setColor(colorBlanco);
+            g2.fillOval(x4 - radio - 2, centerY - radio - 2, (radio * 2) + 4, (radio * 2) + 4);
+            g2.setColor(colorVerde);
+            g2.fillOval(x4 - radio, centerY - radio, radio * 2, radio * 2);
+        } else {
+            g2.setColor(colorBlanco);
+            g2.fillOval(x4 - radio, centerY - radio, radio * 2, radio * 2);
+        }
+    
+        g2.setFont(new java.awt.Font("Segoe UI", java.awt.Font.PLAIN, 11)); // Reducido a 11 para que no choquen los textos
+        g2.setColor(colorBlanco); 
+
+        // Textos correspondientes a cada fase (Incluyendo la nueva fase)
         String t1 = "Selección de Destino";
         String t2 = "Selección de vuelo";
         String t3 = "Selección de asientos";
+        String t4 = "Confirmar compra";
 
-        // Calculamos el ancho de cada texto para centrarlo perfectamente bajo su círculo
+        // Calculamos el ancho de cada texto
         int anchoT1 = g2.getFontMetrics().stringWidth(t1);
         int anchoT2 = g2.getFontMetrics().stringWidth(t2);
         int anchoT3 = g2.getFontMetrics().stringWidth(t3);
+        int anchoT4 = g2.getFontMetrics().stringWidth(t4);
 
         // Posición vertical del texto (debajo de los círculos)
         int textoY = centerY + radio + 20; 
 
-        // Dibujamos cada texto en su coordenada correspondiente
+        // Dibujamos los cuatro textos centrados bajo su respectivo punto
         g2.drawString(t1, x1 - (anchoT1 / 2), textoY);
         g2.drawString(t2, x2 - (anchoT2 / 2), textoY);
         g2.drawString(t3, x3 - (anchoT3 / 2), textoY);
+        g2.drawString(t4, x4 - (anchoT4 / 2), textoY);
     }
 }
-    
-    
+
 
