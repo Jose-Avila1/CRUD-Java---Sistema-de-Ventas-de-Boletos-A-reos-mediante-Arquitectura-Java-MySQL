@@ -5,6 +5,7 @@
  */
 package vuelos.view;
 
+import vuelos.controller.AdminController;
 import java.awt.Image;
 import java.awt.Toolkit;
 import java.awt.Graphics;
@@ -16,6 +17,8 @@ import java.awt.event.ActionListener;
  * @author Kasey
  */
 public class MainLogin extends javax.swing.JFrame {
+    
+    private vuelos.controller.AdminController adminLogin = new vuelos.controller.AdminController();
 
     /**
      * Creates new form MainLogin
@@ -38,6 +41,8 @@ public class MainLogin extends javax.swing.JFrame {
         campoCedulaRegistro.setBorder(bordeFinal);
         campoTelefonoRegistro.setBorder(bordeFinal);
         campoContrasenaRegistro.setBorder(bordeFinal);
+        campoCorreoAdmin.setBorder(bordeFinal);
+        campoContrasenaAdmin.setBorder(bordeFinal);
         
         try {
     // 1. Buscamos la imagen dentro del paquete del proyecto usando la ruta relativa
@@ -56,6 +61,7 @@ public class MainLogin extends javax.swing.JFrame {
     System.err.println("Error al cargar el icono de la ventana: " + e.getMessage());
 }
     }
+    
     
     public void Focusear(){
     
@@ -137,6 +143,7 @@ public class MainLogin extends javax.swing.JFrame {
         campoCorreo = new javax.swing.JTextField();
         campoContrasena = new javax.swing.JPasswordField();
         btnIngresar = new javax.swing.JButton();
+        btnAdmin = new javax.swing.JButton();
         btnRegistro = new javax.swing.JButton();
         panelRegistro = new javax.swing.JPanel();
         btnRegresar = new javax.swing.JButton();
@@ -156,6 +163,14 @@ public class MainLogin extends javax.swing.JFrame {
         btnRegistrar = new javax.swing.JButton();
         labelAviso1 = new javax.swing.JLabel();
         labelAviso2 = new javax.swing.JLabel();
+        panelAdmin = new javax.swing.JPanel();
+        labelAdmin = new javax.swing.JLabel();
+        labelCorreoAdmin = new javax.swing.JLabel();
+        campoCorreoAdmin = new javax.swing.JTextField();
+        labelContrasenaAdmin = new javax.swing.JLabel();
+        campoContrasenaAdmin = new javax.swing.JPasswordField();
+        btnIngresarAdmin = new javax.swing.JButton();
+        btnRegresar2 = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setMinimumSize(new java.awt.Dimension(750, 450));
@@ -309,6 +324,24 @@ public class MainLogin extends javax.swing.JFrame {
             }
         });
 
+        btnAdmin.setBackground(new java.awt.Color(255, 255, 255));
+        btnAdmin.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
+        btnAdmin.setForeground(new java.awt.Color(0, 102, 204));
+        btnAdmin.setText("ADMIN");
+        btnAdmin.setActionCommand("<html><u>¿No tienes cuenta? Regístrate aquí</u></html>");
+        btnAdmin.setAlignmentX(0.5F);
+        btnAdmin.setBorder(javax.swing.BorderFactory.createEmptyBorder(1, 1, 1, 1));
+        btnAdmin.setBorderPainted(false);
+        btnAdmin.setContentAreaFilled(false);
+        btnAdmin.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        btnAdmin.setFocusPainted(false);
+        btnAdmin.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
+        btnAdmin.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnAdminActionPerformed(evt);
+            }
+        });
+
         btnRegistro.setBackground(new java.awt.Color(255, 255, 255));
         btnRegistro.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
         btnRegistro.setForeground(new java.awt.Color(0, 102, 204));
@@ -335,24 +368,27 @@ public class MainLogin extends javax.swing.JFrame {
                 .addGap(0, 0, Short.MAX_VALUE)
                 .addComponent(laberIniciarSesion)
                 .addGap(79, 79, 79))
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, panelLoginLayout.createSequentialGroup()
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addGroup(panelLoginLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, panelLoginLayout.createSequentialGroup()
-                        .addComponent(btnIngresar, javax.swing.GroupLayout.PREFERRED_SIZE, 91, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(140, 140, 140))
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, panelLoginLayout.createSequentialGroup()
-                        .addComponent(btnRegistro)
-                        .addGap(96, 96, 96))))
             .addGroup(panelLoginLayout.createSequentialGroup()
-                .addGap(16, 16, 16)
-                .addGroup(panelLoginLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addComponent(labelContrasena)
-                    .addComponent(labelUsuario))
-                .addGap(18, 18, 18)
                 .addGroup(panelLoginLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(campoContrasena, javax.swing.GroupLayout.PREFERRED_SIZE, 173, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(campoCorreo, javax.swing.GroupLayout.PREFERRED_SIZE, 173, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(panelLoginLayout.createSequentialGroup()
+                        .addGap(16, 16, 16)
+                        .addGroup(panelLoginLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                            .addComponent(labelContrasena)
+                            .addComponent(labelUsuario))
+                        .addGap(18, 18, 18)
+                        .addGroup(panelLoginLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(campoContrasena, javax.swing.GroupLayout.PREFERRED_SIZE, 173, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(campoCorreo, javax.swing.GroupLayout.PREFERRED_SIZE, 173, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                    .addGroup(panelLoginLayout.createSequentialGroup()
+                        .addGap(142, 142, 142)
+                        .addComponent(btnIngresar, javax.swing.GroupLayout.PREFERRED_SIZE, 91, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(panelLoginLayout.createSequentialGroup()
+                        .addGap(96, 96, 96)
+                        .addGroup(panelLoginLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(btnRegistro)
+                            .addGroup(panelLoginLayout.createSequentialGroup()
+                                .addGap(66, 66, 66)
+                                .addComponent(btnAdmin)))))
                 .addContainerGap(70, Short.MAX_VALUE))
         );
         panelLoginLayout.setVerticalGroup(
@@ -368,11 +404,13 @@ public class MainLogin extends javax.swing.JFrame {
                 .addGroup(panelLoginLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(labelContrasena)
                     .addComponent(campoContrasena, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(122, 122, 122)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 72, Short.MAX_VALUE)
                 .addComponent(btnIngresar, javax.swing.GroupLayout.PREFERRED_SIZE, 43, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(btnRegistro)
-                .addContainerGap())
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(btnAdmin)
+                .addGap(28, 28, 28))
         );
 
         panelDerecha.add(panelLogin, "panelLogin");
@@ -423,6 +461,11 @@ public class MainLogin extends javax.swing.JFrame {
             }
             public void focusLost(java.awt.event.FocusEvent evt) {
                 campoNombreRegistroFocusLost(evt);
+            }
+        });
+        campoNombreRegistro.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                campoNombreRegistroActionPerformed(evt);
             }
         });
         campoNombreRegistro.addKeyListener(new java.awt.event.KeyAdapter() {
@@ -634,6 +677,135 @@ public class MainLogin extends javax.swing.JFrame {
 
         panelDerecha.add(panelRegistro, "panelRegistro");
 
+        panelAdmin.setBackground(new java.awt.Color(255, 255, 255));
+
+        labelAdmin.setFont(new java.awt.Font("Segoe UI", 1, 24)); // NOI18N
+        labelAdmin.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        labelAdmin.setText("ADMIN");
+        labelAdmin.setAlignmentX(0.5F);
+
+        labelCorreoAdmin.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
+        labelCorreoAdmin.setText("CORREO:");
+
+        campoCorreoAdmin.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
+        campoCorreoAdmin.setPreferredSize(new java.awt.Dimension(30, 35));
+        campoCorreoAdmin.setSelectionColor(new java.awt.Color(0, 51, 204));
+        campoCorreoAdmin.addFocusListener(new java.awt.event.FocusAdapter() {
+            public void focusGained(java.awt.event.FocusEvent evt) {
+                campoCorreoAdminFocusGained(evt);
+            }
+            public void focusLost(java.awt.event.FocusEvent evt) {
+                campoCorreoAdminFocusLost(evt);
+            }
+        });
+        campoCorreoAdmin.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                campoCorreoAdminMouseClicked(evt);
+            }
+        });
+        campoCorreoAdmin.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                campoCorreoAdminActionPerformed(evt);
+            }
+        });
+        campoCorreoAdmin.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                campoCorreoAdminKeyTyped(evt);
+            }
+        });
+
+        labelContrasenaAdmin.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
+        labelContrasenaAdmin.setText("CONTRASEÑA:");
+
+        campoContrasenaAdmin.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
+        campoContrasenaAdmin.setEchoChar('\u2022');
+        campoContrasenaAdmin.setPreferredSize(new java.awt.Dimension(30, 35));
+        campoContrasenaAdmin.addFocusListener(new java.awt.event.FocusAdapter() {
+            public void focusGained(java.awt.event.FocusEvent evt) {
+                campoContrasenaAdminFocusGained(evt);
+            }
+            public void focusLost(java.awt.event.FocusEvent evt) {
+                campoContrasenaAdminFocusLost(evt);
+            }
+        });
+        campoContrasenaAdmin.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                campoContrasenaAdminActionPerformed(evt);
+            }
+        });
+
+        btnIngresarAdmin.setBackground(new java.awt.Color(11, 29, 58));
+        btnIngresarAdmin.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
+        btnIngresarAdmin.setForeground(new java.awt.Color(255, 255, 255));
+        btnIngresarAdmin.setText("Ingresar");
+        btnIngresarAdmin.setPreferredSize(new java.awt.Dimension(83, 50));
+        btnIngresarAdmin.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                btnIngresarAdminMouseClicked(evt);
+            }
+        });
+        btnIngresarAdmin.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnIngresarAdminActionPerformed(evt);
+            }
+        });
+
+        btnRegresar2.setBackground(new java.awt.Color(11, 29, 58));
+        btnRegresar2.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
+        btnRegresar2.setForeground(new java.awt.Color(255, 255, 255));
+        btnRegresar2.setText("Regresar");
+        btnRegresar2.setPreferredSize(new java.awt.Dimension(85, 50));
+        btnRegresar2.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnRegresar2ActionPerformed(evt);
+            }
+        });
+
+        javax.swing.GroupLayout panelAdminLayout = new javax.swing.GroupLayout(panelAdmin);
+        panelAdmin.setLayout(panelAdminLayout);
+        panelAdminLayout.setHorizontalGroup(
+            panelAdminLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(panelAdminLayout.createSequentialGroup()
+                .addGroup(panelAdminLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(panelAdminLayout.createSequentialGroup()
+                        .addGap(32, 32, 32)
+                        .addGroup(panelAdminLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                            .addComponent(labelContrasenaAdmin)
+                            .addComponent(labelCorreoAdmin))
+                        .addGap(18, 18, 18)
+                        .addGroup(panelAdminLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(campoCorreoAdmin, javax.swing.GroupLayout.PREFERRED_SIZE, 173, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(campoContrasenaAdmin, javax.swing.GroupLayout.PREFERRED_SIZE, 173, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(btnIngresarAdmin, javax.swing.GroupLayout.PREFERRED_SIZE, 91, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(labelAdmin)))
+                    .addGroup(panelAdminLayout.createSequentialGroup()
+                        .addContainerGap()
+                        .addComponent(btnRegresar2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addContainerGap(54, Short.MAX_VALUE))
+        );
+        panelAdminLayout.setVerticalGroup(
+            panelAdminLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(panelAdminLayout.createSequentialGroup()
+                .addGap(28, 28, 28)
+                .addComponent(labelAdmin)
+                .addGap(97, 97, 97)
+                .addGroup(panelAdminLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(campoCorreoAdmin, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(labelCorreoAdmin))
+                .addGap(51, 51, 51)
+                .addGroup(panelAdminLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(campoContrasenaAdmin, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(labelContrasenaAdmin))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 72, Short.MAX_VALUE)
+                .addComponent(btnIngresarAdmin, javax.swing.GroupLayout.PREFERRED_SIZE, 43, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(28, 28, 28)
+                .addComponent(btnRegresar2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap())
+        );
+
+        panelDerecha.add(panelAdmin, "panelAdmin");
+        panelAdmin.getAccessibleContext().setAccessibleName("panelAdmin");
+
         getContentPane().add(panelDerecha);
 
         pack();
@@ -669,12 +841,12 @@ public class MainLogin extends javax.swing.JFrame {
         Focusear();
     }//GEN-LAST:event_panelLoginMouseClicked
 
-    private void btnRegistroActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnRegistroActionPerformed
+    private void btnAdminActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAdminActionPerformed
                                              
     // (Panel contenedor, panel que sale, panel que entra, "Nombre de la carta destino")
-        transicionCardLayout(panelDerecha, panelLogin, panelRegistro, "panelRegistro");
+        transicionCardLayout(panelDerecha, panelAdmin, panelLogin, "panelAdmin");
 
-    }//GEN-LAST:event_btnRegistroActionPerformed
+    }//GEN-LAST:event_btnAdminActionPerformed
 
     private void btnIngresarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnIngresarActionPerformed
 
@@ -1073,6 +1245,98 @@ java.awt.Color colorRojoError = new java.awt.Color(255, 51, 51);
     }
     }//GEN-LAST:event_btnRegistrarMouseClicked
 
+    private void campoCorreoAdminFocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_campoCorreoAdminFocusGained
+        // TODO add your handling code here:
+    }//GEN-LAST:event_campoCorreoAdminFocusGained
+
+    private void campoCorreoAdminFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_campoCorreoAdminFocusLost
+        // TODO add your handling code here:
+    }//GEN-LAST:event_campoCorreoAdminFocusLost
+
+    private void campoCorreoAdminMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_campoCorreoAdminMouseClicked
+        // TODO add your handling code here:
+    }//GEN-LAST:event_campoCorreoAdminMouseClicked
+
+    private void campoCorreoAdminActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_campoCorreoAdminActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_campoCorreoAdminActionPerformed
+
+    private void campoCorreoAdminKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_campoCorreoAdminKeyTyped
+        // TODO add your handling code here:
+    }//GEN-LAST:event_campoCorreoAdminKeyTyped
+
+    private void campoContrasenaAdminFocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_campoContrasenaAdminFocusGained
+        // TODO add your handling code here:
+    }//GEN-LAST:event_campoContrasenaAdminFocusGained
+
+    private void campoContrasenaAdminFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_campoContrasenaAdminFocusLost
+        // TODO add your handling code here:
+    }//GEN-LAST:event_campoContrasenaAdminFocusLost
+
+    private void campoContrasenaAdminActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_campoContrasenaAdminActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_campoContrasenaAdminActionPerformed
+
+    private void btnIngresarAdminMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnIngresarAdminMouseClicked
+        // TODO add your handling code here:
+    }//GEN-LAST:event_btnIngresarAdminMouseClicked
+
+    private void btnIngresarAdminActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnIngresarAdminActionPerformed
+       java.awt.Color colorRojoError = new java.awt.Color(255, 51, 51);
+    javax.swing.border.Border padding = javax.swing.BorderFactory.createEmptyBorder(5, 8, 5, 8);
+    javax.swing.border.Border bordeRojo = javax.swing.BorderFactory.createCompoundBorder(
+        javax.swing.BorderFactory.createLineBorder(colorRojoError, 1), padding
+    );
+    
+    boolean faltanCampos = false;
+
+    // 2. Validamos el campo de Correo
+    if (campoCorreoAdmin.getText().trim().isEmpty()) {
+        campoCorreoAdmin.setBorder(bordeRojo);
+        faltanCampos = true;
+    }
+
+    // 3. Validamos la Contraseña
+    if (new String(campoContrasenaAdmin.getPassword()).trim().isEmpty()) {
+        campoContrasenaAdmin.setBorder(bordeRojo);
+        faltanCampos = true;
+    }
+
+    // 4. Verificamos el resultado
+    if (faltanCampos) {
+        // Ventana flotante moderna de advertencia
+        javax.swing.JOptionPane.showMessageDialog(this, 
+            "Por favor, complete todos los campos obligatorios.", 
+            "Campos Incompletos", 
+            javax.swing.JOptionPane.WARNING_MESSAGE);
+    } else {
+        // ¡Todo está lleno! Aquí colocas tu lógica normal para iniciar sesión
+        System.out.println("Procediendo al login del admin...");
+        
+        String correo = campoCorreoAdmin.getText();
+        String contra = new String(campoContrasenaAdmin.getPassword());
+        adminLogin.procesarLoginAdmin(correo, contra, this);}
+    
+        
+    }//GEN-LAST:event_btnIngresarAdminActionPerformed
+
+    private void btnRegistroActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnRegistroActionPerformed
+        // (Panel contenedor, panel que sale, panel que entra, "Nombre de la carta destino")
+        transicionCardLayout(panelDerecha, panelLogin, panelRegistro, "panelRegistro");
+    }//GEN-LAST:event_btnRegistroActionPerformed
+
+    private void btnRegresar2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnRegresar2ActionPerformed
+        
+        transicionCardLayout(panelDerecha, panelAdmin, panelLogin, "panelLogin");
+    
+        
+        
+    }//GEN-LAST:event_btnRegresar2ActionPerformed
+
+    private void campoNombreRegistroActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_campoNombreRegistroActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_campoNombreRegistroActionPerformed
+
     /**
      * @param args the command line arguments
      */
@@ -1109,25 +1373,33 @@ java.awt.Color colorRojoError = new java.awt.Color(255, 51, 51);
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton btnAdmin;
     private javax.swing.JButton btnIngresar;
+    private javax.swing.JButton btnIngresarAdmin;
     private javax.swing.JButton btnRegistrar;
     private javax.swing.JButton btnRegistro;
     private javax.swing.JButton btnRegresar;
+    private javax.swing.JButton btnRegresar2;
     private javax.swing.JTextField campoApellidoRegistro;
     private javax.swing.JTextField campoCedulaRegistro;
     private javax.swing.JPasswordField campoContrasena;
+    private javax.swing.JPasswordField campoContrasenaAdmin;
     private javax.swing.JTextField campoContrasenaRegistro;
     private javax.swing.JTextField campoCorreo;
+    private javax.swing.JTextField campoCorreoAdmin;
     private javax.swing.JTextField campoCorreoRegistro;
     private javax.swing.JTextField campoNombreRegistro;
     private javax.swing.JTextField campoTelefonoRegistro;
+    private javax.swing.JLabel labelAdmin;
     private javax.swing.JLabel labelApellidoRegistro;
     private javax.swing.JLabel labelAviso1;
     private javax.swing.JLabel labelAviso2;
     private javax.swing.JLabel labelBienvenida;
     private javax.swing.JLabel labelCedulaRegistro;
     private javax.swing.JLabel labelContrasena;
+    private javax.swing.JLabel labelContrasenaAdmin;
     private javax.swing.JLabel labelContrasenaRegistro;
+    private javax.swing.JLabel labelCorreoAdmin;
     private javax.swing.JLabel labelCorreoRegistro;
     private javax.swing.JLabel labelLogo;
     private javax.swing.JLabel labelNombreRegistro;
@@ -1136,6 +1408,7 @@ java.awt.Color colorRojoError = new java.awt.Color(255, 51, 51);
     private javax.swing.JLabel labelTitulo;
     private javax.swing.JLabel labelUsuario;
     private javax.swing.JLabel laberIniciarSesion;
+    private javax.swing.JPanel panelAdmin;
     private javax.swing.JPanel panelDerecha;
     private javax.swing.JPanel panelIzquierda;
     private javax.swing.JPanel panelLogin;
