@@ -181,10 +181,10 @@ public class Panel4 extends javax.swing.JPanel {
                 .addComponent(jLabel3)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(62, Short.MAX_VALUE))
+                .addContainerGap(15, Short.MAX_VALUE))
         );
 
-        add(resumenvuelo, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 470, 597));
+        add(resumenvuelo, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 470, 550));
 
         preciovuelo.setBackground(new java.awt.Color(255, 255, 255));
         preciovuelo.setBorder(javax.swing.BorderFactory.createMatteBorder(3, 3, 3, 3, new java.awt.Color(204, 204, 204)));
@@ -384,11 +384,11 @@ public class Panel4 extends javax.swing.JPanel {
                         .addComponent(jLabel10)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, preciovueloLayout.createSequentialGroup()
-                        .addContainerGap(92, Short.MAX_VALUE)
+                        .addContainerGap(89, Short.MAX_VALUE)
                         .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, 280, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)))
                 .addComponent(jLabel7)
-                .addContainerGap(53, Short.MAX_VALUE))
+                .addContainerGap(51, Short.MAX_VALUE))
             .addGroup(preciovueloLayout.createSequentialGroup()
                 .addGap(50, 50, 50)
                 .addComponent(jLabel1)
@@ -449,7 +449,7 @@ public class Panel4 extends javax.swing.JPanel {
                 .addGap(70, 70, 70))
         );
 
-        add(preciovuelo, new org.netbeans.lib.awtextra.AbsoluteConstraints(465, 0, 435, 597));
+        add(preciovuelo, new org.netbeans.lib.awtextra.AbsoluteConstraints(470, 0, 430, 550));
     }// </editor-fold>//GEN-END:initComponents
 
     private void BtnComprarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BtnComprarActionPerformed

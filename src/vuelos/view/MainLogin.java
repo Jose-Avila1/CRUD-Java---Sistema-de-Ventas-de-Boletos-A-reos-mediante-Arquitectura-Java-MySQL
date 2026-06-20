@@ -1013,8 +1013,8 @@ java.awt.Color colorRojoError = new java.awt.Color(255, 51, 51);
 
     private void btnIngresarMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnIngresarMouseClicked
         java.awt.Color colorRojoError = new java.awt.Color(255, 51, 51);
-    javax.swing.border.Border padding = javax.swing.BorderFactory.createEmptyBorder(5, 8, 5, 8);
-    javax.swing.border.Border bordeRojo = javax.swing.BorderFactory.createCompoundBorder(
+        javax.swing.border.Border padding = javax.swing.BorderFactory.createEmptyBorder(5, 8, 5, 8);
+        javax.swing.border.Border bordeRojo = javax.swing.BorderFactory.createCompoundBorder(
         javax.swing.BorderFactory.createLineBorder(colorRojoError, 1), padding
     );
     

@@ -29,8 +29,7 @@ public class InterfazPrincipal extends javax.swing.JFrame {
     
     public InterfazPrincipal() {
         initComponents();
-   
-
+  
         // Cambiamos su tipografía y color de letras para que combine con el estilo nuevo
         jButtonSiguiente.setForeground(Color.WHITE);
         jButtonSiguiente.setFont(new Font("Arial", Font.PLAIN, 14));
@@ -40,7 +39,7 @@ public class InterfazPrincipal extends javax.swing.JFrame {
 
         // Instancias tu nuevo componente de cabina
         
-        /*// Buscas tu panel vacío de NetBeans donde irá el mapa (ej. jPanelContenedorAsientos)
+        /*Buscas tu panel vacío de NetBeans donde irá el mapa (ej. jPanelContenedorAsientos)
         jPanelSeleccionDeVuelos.setLayout(new BorderLayout());
         jPanelSeleccionDeVuelos.add(cabina, BorderLayout.CENTER);
         jPanelSeleccionDeVuelos.validate();
@@ -114,49 +113,20 @@ public class InterfazPrincipal extends javax.swing.JFrame {
                 this.layoutOrigenDestinoOriginal = this.PanelOrigenDestino.getLayout();
             }
         }
+ 
+    public void restaurarTodoAlEstadoInicial() {
+        // 1. Cerramos la ventana actual que está alterada y sin los componentes en su sitio
+        this.dispose();
 
-        /**
-         * Restaura los paneles originales dentro de PanelOrigenDestino y resetea la barra.
-         */
-        public void restaurarTodoAlEstadoInicial() {
-            if (this.PanelOrigenDestino != null && this.componentesOrigenDestinoRespaldados != null) {
-                // 1. Limpiamos el Panel4 actual del contenedor de abajo
-                this.PanelOrigenDestino.removeAll();
+        // 2. Creamos una ventana completamente nueva desde cero 
+        // Esto llamará a initComponents() y cargará el diseño limpio de NetBeans
+        InterfazPrincipal nuevaInterfaz = new InterfazPrincipal();
 
-                // 2. Le devolvemos el Layout original de NetBeans
-                this.PanelOrigenDestino.setLayout(this.layoutOrigenDestinoOriginal);
-
-                // 3. Reinyectamos todos los componentes iniciales respaldados
-                for (java.awt.Component comp : this.componentesOrigenDestinoRespaldados) {
-                    this.PanelOrigenDestino.add(comp);
-                }
-
-                // 4. Como PanelLogo nunca se borró, reseteamos la barra de progreso al Paso 1
-                // NOTA: Reemplaza "barra" por el nombre real de tu variable de la barra de progreso
-                if (this.barra != null) {
-                    this.barra.setPasoActual(1);
-                }
-
-                // 5. Forzamos el redibujado inmediato de la interfaz
-                this.PanelOrigenDestino.revalidate();
-                this.PanelOrigenDestino.repaint();
-                this.revalidate();
-                this.repaint();
-            }
-        }
-
+        // 3. La hacemos visible en el centro de la pantalla
+        nuevaInterfaz.setVisible(true);
+    }
     
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    // Contenedor del menú lateral
+     // Contenedor del menú lateral
     private javax.swing.JPanel panelLateral;
     private javax.swing.JPanel contenedorTickets;
 
@@ -765,9 +735,6 @@ public class InterfazPrincipal extends javax.swing.JFrame {
                     buscador.actualizarPanelVuelos(jPanelVuelos, resultados,jPanelSeleccionDeVuelos,barra,jPanelSiguiente,jButtonSiguiente);
                                                                      
                      barra.setPasoActual(2); 
-
-
-
         } else {
             System.out.println("No se pudo procesar: Datos de las ciudades incorrectos.");
         }
@@ -777,7 +744,7 @@ public class InterfazPrincipal extends javax.swing.JFrame {
     private void btnMenuActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnMenuActionPerformed
         if (panelLateral == null) configurarMenuLateral(); // Inicializa si no existe
     
-    // Animación simple: si está abierto lo esconde, si está cerrado lo muestra
+        // Animación simple: si está abierto lo esconde, si está cerrado lo muestra
         if (!menuAbierto) {
             panelLateral.setBounds(this.getWidth() - 350, 0, 350, this.getHeight());
             menuAbierto = true;
@@ -788,7 +755,7 @@ public class InterfazPrincipal extends javax.swing.JFrame {
     }//GEN-LAST:event_btnMenuActionPerformed
 
     private void jButtonSiguienteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonSiguienteActionPerformed
-        
+
         // 1. Mostrar ventana de confirmación (JOptionPane)
         int respuesta = JOptionPane.showConfirmDialog(
             null, 
@@ -801,16 +768,12 @@ public class InterfazPrincipal extends javax.swing.JFrame {
         // Si el usuario presiona "Sí" (YES_OPTION)
          if (respuesta == JOptionPane.YES_OPTION) {
             // 1. Guardamos el ancho y el alto actuales del panel contenedor
-           // 1. Guardamos los paneles de búsqueda y asientos en la memoria privada
+            // 1. Guardamos los paneles de búsqueda y asientos en la memoria privada
             guardarPantallaBusquedaOriginal();
             PanelLogo.remove(btnMenu);
              PanelLogo.revalidate();
              PanelLogo.repaint();
              barra.setPasoActual(4);
-             
-             
-             
-            
             
             Panel4 nuevoPanel = new Panel4();
             
@@ -825,7 +788,6 @@ public class InterfazPrincipal extends javax.swing.JFrame {
         }
     }//GEN-LAST:event_jButtonSiguienteActionPerformed
 
-   
     private void mostrarResumenConsola() {
     System.out.println("\n=================================================");
     System.out.println("        RESUMEN DE RESERVA - UNEFA CITY AIRLINES  ");
@@ -843,12 +805,11 @@ public class InterfazPrincipal extends javax.swing.JFrame {
         // Aplicamos el formato a la fecha capturada
         fechaSeleccionada = formatoFecha.format(jDateChooserIda.getDate());
     }
-    System.out.println("   - Fecha:   " + fechaSeleccionada);
-    System.out.println("=================================================\n");
-}
+        System.out.println("   - Fecha:   " + fechaSeleccionada);
+        System.out.println("=================================================\n");
+    }
     
-    
-    
+     
     public static void InterfazPrincipal() {
         try {
             // Establece el Look and Feel nativo del sistema operativo (Windows en tu caso)
@@ -860,35 +821,27 @@ public class InterfazPrincipal extends javax.swing.JFrame {
         java.awt.EventQueue.invokeLater(() -> {
             new InterfazPrincipal().setVisible(true);
         });
-        
-        
-        
     }
     
-
     public void cambiarDePanel(JPanel nuevoPanel) {
-    // 1. Limpieza absoluta
-    
-    
-    PanelOrigenDestino.removeAll();
-    
-    // 2. Le asignamos un diseño de cuadrícula simple (ocupa el 100% del espacio)
-    PanelOrigenDestino.setLayout(new java.awt.GridLayout(1, 1));
-    
-    // 3. Agregamos el nuevo panel
-    PanelOrigenDestino.add(nuevoPanel);
-    
-    // 4. Ciclo de refresco estructural profundo
-    PanelOrigenDestino.revalidate();
-    PanelOrigenDestino.repaint();
-    
-    // 5. Forzar actualización de la ventana completa
-    this.pack(); // Reajusta el contenedor a la pantalla
-    this.repaint();
-}
+        // 1. Limpieza absoluta
 
+        PanelOrigenDestino.removeAll();
 
+        // 2. Le asignamos un diseño de cuadrícula simple (ocupa el 100% del espacio)
+        PanelOrigenDestino.setLayout(new java.awt.GridLayout(1, 1));
 
+        // 3. Agregamos el nuevo panel
+        PanelOrigenDestino.add(nuevoPanel);
+
+        // 4. Ciclo de refresco estructural profundo
+        PanelOrigenDestino.revalidate();
+        PanelOrigenDestino.repaint();
+
+        // 5. Forzar actualización de la ventana completa
+        this.pack(); // Reajusta el contenedor a la pantalla
+        this.repaint();
+    }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JPanel PanelLogo;
