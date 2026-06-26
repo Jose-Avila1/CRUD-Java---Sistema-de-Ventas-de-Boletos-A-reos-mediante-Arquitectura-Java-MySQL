@@ -42,6 +42,7 @@ public class InterfazAdmin extends javax.swing.JFrame {
         campoFecha.setBorder(bordeFinal);
         campoOrigen2.setBorder(bordeFinal);
         campoDestino2.setBorder(bordeFinal);
+        campoPrecio.setBorder(bordeFinal);
     }
     
     
@@ -100,6 +101,8 @@ public class InterfazAdmin extends javax.swing.JFrame {
         jLabel5 = new javax.swing.JLabel();
         campoFecha = new javax.swing.JTextField();
         btnInsertarVuelos = new javax.swing.JButton();
+        jLabel8 = new javax.swing.JLabel();
+        campoPrecio = new javax.swing.JTextField();
         panelSeccion1 = new javax.swing.JPanel();
         labelSeccion1 = new javax.swing.JLabel();
         jScrollPane1 = new javax.swing.JScrollPane();
@@ -476,17 +479,17 @@ public class InterfazAdmin extends javax.swing.JFrame {
         jTable2.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
         jTable2.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null}
+                {null, null, null, null, null},
+                {null, null, null, null, null},
+                {null, null, null, null, null},
+                {null, null, null, null, null}
             },
             new String [] {
-                "NUMERO VUELO", "ORIGEN", "DESTINO", "FECHA SALIDA"
+                "NUMERO VUELO", "ORIGEN", "DESTINO", "FECHA SALIDA", "PRECIO"
             }
         ) {
             boolean[] canEdit = new boolean [] {
-                false, false, false, false
+                false, false, false, false, false
             };
 
             public boolean isCellEditable(int rowIndex, int columnIndex) {
@@ -500,11 +503,6 @@ public class InterfazAdmin extends javax.swing.JFrame {
         jTable2.setShowVerticalLines(false);
         jTable2.getTableHeader().setReorderingAllowed(false);
         jScrollPane2.setViewportView(jTable2);
-        if (jTable2.getColumnModel().getColumnCount() > 0) {
-            jTable2.getColumnModel().getColumn(1).setHeaderValue("ORIGEN");
-            jTable2.getColumnModel().getColumn(2).setHeaderValue("DESTINO");
-            jTable2.getColumnModel().getColumn(3).setHeaderValue("FECHA SALIDA");
-        }
 
         btnEliminar2.setBackground(new java.awt.Color(11, 29, 58));
         btnEliminar2.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
@@ -544,7 +542,7 @@ public class InterfazAdmin extends javax.swing.JFrame {
         labelSeccion4.setAlignmentX(0.5F);
 
         jLabel3.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
-        jLabel3.setText("ORIGEN:");
+        jLabel3.setText("Origen:");
 
         campoOrigen.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -558,7 +556,7 @@ public class InterfazAdmin extends javax.swing.JFrame {
         });
 
         jLabel4.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
-        jLabel4.setText("DESTINO:");
+        jLabel4.setText("Destino:");
 
         campoDestino.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -572,7 +570,7 @@ public class InterfazAdmin extends javax.swing.JFrame {
         });
 
         jLabel5.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
-        jLabel5.setText("FECHA SALIDA:");
+        jLabel5.setText("Fecha salida:");
 
         campoFecha.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -592,6 +590,9 @@ public class InterfazAdmin extends javax.swing.JFrame {
                 btnInsertarVuelosActionPerformed(evt);
             }
         });
+
+        jLabel8.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
+        jLabel8.setText("Precio:");
 
         javax.swing.GroupLayout panelSeccion2Layout = new javax.swing.GroupLayout(panelSeccion2);
         panelSeccion2.setLayout(panelSeccion2Layout);
@@ -619,10 +620,18 @@ public class InterfazAdmin extends javax.swing.JFrame {
                             .addComponent(jLabel5)
                             .addComponent(campoOrigen, javax.swing.GroupLayout.PREFERRED_SIZE, 127, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(jLabel3)))
-                    .addGroup(panelSeccion2Layout.createSequentialGroup()
-                        .addGap(102, 102, 102)
-                        .addComponent(btnInsertarVuelos, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 62, Short.MAX_VALUE)
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, panelSeccion2Layout.createSequentialGroup()
+                        .addContainerGap()
+                        .addGroup(panelSeccion2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(panelSeccion2Layout.createSequentialGroup()
+                                .addComponent(jLabel8)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                            .addGroup(panelSeccion2Layout.createSequentialGroup()
+                                .addComponent(campoPrecio)
+                                .addGap(42, 42, 42)))
+                        .addComponent(btnInsertarVuelos, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(17, 17, 17)))
+                .addGap(62, 62, 62)
                 .addGroup(panelSeccion2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, panelSeccion2Layout.createSequentialGroup()
                         .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 494, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -646,7 +655,7 @@ public class InterfazAdmin extends javax.swing.JFrame {
                     .addComponent(labelSeccion2)
                     .addComponent(labelSeccion4))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(panelSeccion2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                .addGroup(panelSeccion2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(panelSeccion2Layout.createSequentialGroup()
                         .addGap(7, 7, 7)
                         .addGroup(panelSeccion2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
@@ -664,8 +673,15 @@ public class InterfazAdmin extends javax.swing.JFrame {
                         .addGroup(panelSeccion2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(campoDestino, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(campoFecha, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(btnInsertarVuelos, javax.swing.GroupLayout.PREFERRED_SIZE, 38, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGroup(panelSeccion2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(panelSeccion2Layout.createSequentialGroup()
+                                .addGap(35, 35, 35)
+                                .addComponent(btnInsertarVuelos, javax.swing.GroupLayout.PREFERRED_SIZE, 38, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addGroup(panelSeccion2Layout.createSequentialGroup()
+                                .addGap(18, 18, 18)
+                                .addComponent(jLabel8)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(campoPrecio, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))))
                     .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 219, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addGroup(panelSeccion2Layout.createSequentialGroup()
                         .addGap(24, 24, 24)
@@ -691,17 +707,17 @@ public class InterfazAdmin extends javax.swing.JFrame {
         jTable1.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
         jTable1.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null}
+                {null, null, null, null, null},
+                {null, null, null, null, null},
+                {null, null, null, null, null},
+                {null, null, null, null, null}
             },
             new String [] {
-                "ID_USU", "NOMBRE USUARIO", "ID_VUELO", "NUMERO ASIENTO"
+                "ID_BOLETO", "ID_USU", "NOMBRE USUARIO", "ID_VUELO", "NUMERO ASIENTO"
             }
         ) {
             boolean[] canEdit = new boolean [] {
-                false, false, false, false
+                false, false, false, false, false
             };
 
             public boolean isCellEditable(int rowIndex, int columnIndex) {
@@ -739,31 +755,32 @@ public class InterfazAdmin extends javax.swing.JFrame {
         panelSeccion1Layout.setHorizontalGroup(
             panelSeccion1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(panelSeccion1Layout.createSequentialGroup()
-                .addContainerGap(202, Short.MAX_VALUE)
+                .addContainerGap(147, Short.MAX_VALUE)
                 .addGroup(panelSeccion1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, panelSeccion1Layout.createSequentialGroup()
-                        .addComponent(labelSeccion1)
-                        .addGap(290, 290, 290))
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, panelSeccion1Layout.createSequentialGroup()
-                        .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 494, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 549, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(31, 31, 31)
                         .addComponent(labelAyuda)
                         .addGap(133, 133, 133))
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, panelSeccion1Layout.createSequentialGroup()
                         .addComponent(btnEliminar, javax.swing.GroupLayout.PREFERRED_SIZE, 82, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(382, 382, 382))))
+            .addGroup(panelSeccion1Layout.createSequentialGroup()
+                .addGap(282, 282, 282)
+                .addComponent(labelSeccion1)
+                .addGap(0, 0, Short.MAX_VALUE))
         );
         panelSeccion1Layout.setVerticalGroup(
             panelSeccion1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(panelSeccion1Layout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(labelSeccion1)
                 .addGroup(panelSeccion1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(panelSeccion1Layout.createSequentialGroup()
-                        .addGap(25, 25, 25)
+                        .addGap(68, 68, 68)
                         .addComponent(labelAyuda))
                     .addGroup(panelSeccion1Layout.createSequentialGroup()
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addGap(6, 6, 6)
+                        .addComponent(labelSeccion1)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 253, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addGap(32, 32, 32)
                 .addComponent(btnEliminar, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -876,7 +893,7 @@ public class InterfazAdmin extends javax.swing.JFrame {
 
     private void btnInsertarVuelosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnInsertarVuelosActionPerformed
         
-        admin.agregarNuevoVuelo(campoVuelo, campoOrigen, campoDestino, campoFecha, jTable2);
+        admin.agregarNuevoVuelo(campoVuelo, campoOrigen, campoDestino, campoFecha,campoPrecio, jTable2);
         
         
         
@@ -904,6 +921,7 @@ public class InterfazAdmin extends javax.swing.JFrame {
 
     private void btnEliminar4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEliminar4ActionPerformed
         admin.eliminarOrigenSeleccionado(jTable3);
+        admin.cargarTablasOrigenYDestino(jTable3, jTable4);
     }//GEN-LAST:event_btnEliminar4ActionPerformed
 
     private void btnEliminar5ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEliminar5ActionPerformed
@@ -997,6 +1015,7 @@ public class InterfazAdmin extends javax.swing.JFrame {
     private javax.swing.JTextField campoFecha;
     private javax.swing.JTextField campoOrigen;
     private javax.swing.JTextField campoOrigen2;
+    private javax.swing.JTextField campoPrecio;
     private javax.swing.JTextField campoVuelo;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
@@ -1005,6 +1024,7 @@ public class InterfazAdmin extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel5;
     private javax.swing.JLabel jLabel6;
     private javax.swing.JLabel jLabel7;
+    private javax.swing.JLabel jLabel8;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JScrollPane jScrollPane3;

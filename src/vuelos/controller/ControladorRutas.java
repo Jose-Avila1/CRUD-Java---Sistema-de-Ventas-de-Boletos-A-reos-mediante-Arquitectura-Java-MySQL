@@ -3,8 +3,13 @@ package vuelos.controller;
 import javax.swing.*;
 import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
+import vuelos.database.Conexion;
 
 // wall
 
@@ -29,17 +34,32 @@ public class ControladorRutas {
     }
         //Aqui es donde hay que llenar las ciudades desde las bd
     private List<String> obtenerCiudades() {
-        List<String> ciudades = new ArrayList<>();
-        ciudades.add("");
-        ciudades.add("Maracaibo");
-        ciudades.add("Caracas");
-        ciudades.add("Valencia");
-        ciudades.add("Barquisimeto");
-        ciudades.add("Mérida");
-        ciudades.add("Porlamar");
-        ciudades.add("San Cristóbal");
-        return ciudades;
+    List<String> ciudades = new ArrayList<>();
+    
+    // 1. Añadimos una opción en blanco al inicio (útil para ComboBoxes)
+    ciudades.add("");
+    
+    // 2. Consulta SQL para traer todas las ciudades de la tabla aeropuertos
+    String sql = "SELECT ciudad FROM aeropuertos";
+    
+    // 3. Establecemos la conexión usando tu clase Conexion con bloques try-with-resources
+    try (Connection con = Conexion.conectar();
+         PreparedStatement pstmt = con.prepareStatement(sql);
+         ResultSet rs = pstmt.executeQuery()) {
+         
+        // 4. Recorremos el resultado y agregamos cada ciudad a la lista
+        while (rs.next()) {
+            String ciudad = rs.getString("ciudad");
+            ciudades.add(ciudad);
+        }
+        
+    } catch (SQLException e) {
+        System.out.println("Error al obtener las ciudades de los aeropuertos: " + e.getMessage());
     }
+    
+    // 5. Retornamos la lista con los datos reales de la base de datos
+    return ciudades;
+}
 
     private void configurarComportamiento() {
         configurarCombo(comboOrigen, true);
