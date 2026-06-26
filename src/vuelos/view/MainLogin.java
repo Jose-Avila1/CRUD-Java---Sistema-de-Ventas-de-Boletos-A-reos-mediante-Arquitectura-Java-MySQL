@@ -878,32 +878,58 @@ java.awt.Color colorRojoError = new java.awt.Color(255, 51, 51);
             "Campos Incompletos", 
             javax.swing.JOptionPane.WARNING_MESSAGE);
     } else {
-        // ¡Todo está lleno! Aquí colocas tu lógica normal para iniciar sesión
-        System.out.println("Procediendo al login...");
-        
-         try {
+        // 1. Obtener los datos del formulario
+        String correo = campoCorreo.getText().trim();
+        String passwordPlano = new String(campoContrasena.getPassword());
+
+        // 2. Realizar la verificación contra la base de datos
+        if (verificarCredenciales(correo, passwordPlano)) {
+            System.out.println("Login exitoso, ingresando...");
             InterfazPrincipal principal = new InterfazPrincipal();
-            principal.InterfazPrincipal();
-            System.out.println("Interfaz principal inicializada correctamente");
-            this.dispose();
-            
-        } catch (Exception e) {
-            
-            System.out.println(e);
+            principal.setVisible(true);
+            this.dispose(); // Cierra la ventana de login
+        } else {
+            javax.swing.JOptionPane.showMessageDialog(this, 
+                "Correo o contraseña incorrectos.", 
+                "Error de Acceso", 
+                javax.swing.JOptionPane.ERROR_MESSAGE);
         }
-        
-        vuelos.model.UsuarioInicio usuarioInicio = new vuelos.model.UsuarioInicio(
-                campoCorreo.getText(),
-                new String(campoContrasena.getText()));
-        
-        System.out.println(usuarioInicio.getCorreo());
-        System.out.println(usuarioInicio.getPassword());
     }
+} // <--- Esta llave cierra el método btnIngresarActionPerformed
+    
+            private boolean verificarCredenciales(String correo, String passwordPlano) {
+          // 1. Modificamos el SELECT para incluir el id_usu de tu tabla
+          String sql = "SELECT id_usu, contrasenia FROM usuarios WHERE correo = ?"; 
+          String hashIngresado = vuelos.database.Conexion.encriptarSHA256(passwordPlano);
 
+          try (java.sql.Connection conn = vuelos.database.Conexion.conectar();
+               java.sql.PreparedStatement ps = conn.prepareStatement(sql)) {
 
-        
-       
-        
+              ps.setString(1, correo);
+
+              try (java.sql.ResultSet rs = ps.executeQuery()) {
+                  if (rs.next()) {
+                      String hashEnBD = rs.getString("contrasenia");
+
+                      if (hashEnBD.equals(hashIngresado)) {
+
+                          // === ¡AQUÍ SE GUARDA EL ID EN MEMORIA! ===
+                          vuelos.model.Usuario.idUsuarioLogueado = rs.getInt("id_usu");
+
+                          return true;
+                      }
+                  }
+              }
+          } catch (java.sql.SQLException e) {
+              e.printStackTrace();
+          }
+          return false;
+      }
+    //aqui estaba el error
+       {
+    
+    
+    
     }//GEN-LAST:event_btnIngresarActionPerformed
 
     private void campoContrasenaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_campoContrasenaActionPerformed
@@ -1154,20 +1180,46 @@ java.awt.Color colorRojoError = new java.awt.Color(255, 51, 51);
 
     private void btnRegistrarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnRegistrarActionPerformed
         
-        vuelos.model.Usuario nuevoUsuario = new vuelos.model.Usuario(
-            campoNombreRegistro.getText(),
-            campoApellidoRegistro.getText(),
-            campoCedulaRegistro.getText(),
-            campoTelefonoRegistro.getText(),
-            campoCorreoRegistro.getText(),
-            campoContrasenaRegistro.getText());
+   // 1. Encriptar la contraseña (usando tu método existente en Conexion)
+    String passwordEncriptada = vuelos.database.Conexion.encriptarSHA256(campoContrasenaRegistro.getText());
+    
+    // 2. Definir la consulta SQL
+    String sql = "INSERT INTO usuarios (nombre, apellido, cedula, telefono, correo, contrasenia) VALUES (?, ?, ?, ?, ?, ?)";
+    
+    // 3. Ejecutar la inserción
+    try (java.sql.Connection conn = vuelos.database.Conexion.conectar();
+         java.sql.PreparedStatement ps = conn.prepareStatement(sql)) {
         
-        System.out.println(nuevoUsuario.getNombre());
-        System.out.println(nuevoUsuario.getApellido());
-        System.out.println(nuevoUsuario.getCedula());
-        System.out.println(nuevoUsuario.getTelefono());
-        System.out.println(nuevoUsuario.getCorreo());
-        System.out.println(nuevoUsuario.getContrasena());
+        ps.setString(1, campoNombreRegistro.getText());
+        ps.setString(2, campoApellidoRegistro.getText());
+        ps.setString(3, campoCedulaRegistro.getText());
+        ps.setString(4, campoTelefonoRegistro.getText());
+        ps.setString(5, campoCorreoRegistro.getText());
+        ps.setString(6, passwordEncriptada); // <--- Aquí va el hash
+        
+        int resultado = ps.executeUpdate(); // Ejecuta el guardado
+        
+        if (resultado > 0) {
+            javax.swing.JOptionPane.showMessageDialog(this, "Usuario registrado exitosamente.");
+            
+            // 4. Limpiar los campos después del éxito
+            limpiarCamposRegistro();
+        }
+        
+    } catch (java.sql.SQLException e) {
+        javax.swing.JOptionPane.showMessageDialog(this, "Error al registrar: " + e.getMessage());
+        e.printStackTrace();
+    }
+}
+
+        // limpiar campos despues del registro
+            private void limpiarCamposRegistro() {
+                campoNombreRegistro.setText("");
+                 campoApellidoRegistro.setText("");
+                campoCedulaRegistro.setText("");
+                 campoTelefonoRegistro.setText("");
+                campoCorreoRegistro.setText("");
+                 campoContrasenaRegistro.setText("");
         
     }//GEN-LAST:event_btnRegistrarActionPerformed
 
@@ -1311,15 +1363,63 @@ java.awt.Color colorRojoError = new java.awt.Color(255, 51, 51);
             javax.swing.JOptionPane.WARNING_MESSAGE);
     } else {
         // ¡Todo está lleno! Aquí colocas tu lógica normal para iniciar sesión
-        System.out.println("Procediendo al login del admin...");
-        
-        String correo = campoCorreoAdmin.getText();
-        String contra = new String(campoContrasenaAdmin.getPassword());
-        adminLogin.procesarLoginAdmin(correo, contra, this);}
-    
-        
+          // 1. Obtener los datos del formulario
+            String correo = campoCorreoAdmin.getText().trim();
+            String passwordPlano = new String(campoContrasenaAdmin.getPassword());
+
+        // 2. Realizar la verificación contra la base de datos
+        if (verificarCredencialesAdmin(correo, passwordPlano)) {
+            System.out.println("Login exitoso, ingresando...");
+            InterfazAdmin principal = new InterfazAdmin();
+            principal.setVisible(true);
+            this.dispose(); // Cierra la ventana de login
+        } else {
+            javax.swing.JOptionPane.showMessageDialog(this, 
+                "Correo o contraseña incorrectos.", 
+                "Error de Acceso", 
+                javax.swing.JOptionPane.ERROR_MESSAGE);
+        }
+    }
+            // la llave de abajo cierra el método btn
     }//GEN-LAST:event_btnIngresarAdminActionPerformed
 
+ private boolean verificarCredencialesAdmin(String correo, String passwordPlano) {
+    // 1. Buscamos el hash almacenado para ese correo
+    String sql = "SELECT usuario FROM administradores WHERE TRIM(correo) = TRIM(?)";
+    
+    try (java.sql.Connection conn = vuelos.database.Conexion.conectar();
+         java.sql.PreparedStatement ps = conn.prepareStatement(sql)) {
+        
+        ps.setString(1, correo);
+        
+        try (java.sql.ResultSet rs = ps.executeQuery()) {
+            if (rs.next()) {
+                // 2. Obtenemos el hash guardado en la BD
+                String hashEnBD = rs.getString("usuario");
+                
+                // 3. Calculamos el hash de la contraseña que el usuario acaba de escribir
+                String hashCalculado = vuelos.database.Conexion.encriptarSHA256(passwordPlano);
+                
+                // 4. Comparamos los dos hashes
+                if (hashEnBD.equals(hashCalculado)) {
+                    System.out.println("¡Contraseña correcta!");
+                    return true;
+                } else {
+                    System.out.println("¡Contraseña incorrecta!");
+                    return false;
+                }
+            } else {
+                System.out.println("No se encontró el correo.");
+                return false;
+            }
+        }
+    } catch (java.sql.SQLException e) { 
+        e.printStackTrace(); 
+    }
+    return false;
+}
+    
+    
     private void btnRegistroActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnRegistroActionPerformed
         // (Panel contenedor, panel que sale, panel que entra, "Nombre de la carta destino")
         transicionCardLayout(panelDerecha, panelLogin, panelRegistro, "panelRegistro");

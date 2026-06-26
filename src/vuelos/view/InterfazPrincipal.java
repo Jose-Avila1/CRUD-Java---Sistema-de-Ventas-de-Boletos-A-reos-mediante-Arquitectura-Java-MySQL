@@ -395,8 +395,18 @@ public class InterfazPrincipal extends javax.swing.JFrame {
         jPanelSeleccionDeDatos.setBorder(javax.swing.BorderFactory.createTitledBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)), "Detalle de salida"));
 
         jComboBoxOrigen.setEditable(true);
+        jComboBoxOrigen.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jComboBoxOrigenActionPerformed(evt);
+            }
+        });
 
         jComboBoxDestino.setEditable(true);
+        jComboBoxDestino.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jComboBoxDestinoActionPerformed(evt);
+            }
+        });
 
         jLabelDestino.setFont(new java.awt.Font("Segoe UI", 0, 11)); // NOI18N
         jLabelDestino.setText("Destino:");
@@ -712,14 +722,14 @@ public class InterfazPrincipal extends javax.swing.JFrame {
                     
                     String origenSeleccionado = jComboBoxOrigen.getSelectedItem().toString();
                     String destinoSeleccionado = jComboBoxDestino.getSelectedItem().toString();
-                    SimpleDateFormat formatoFecha = new SimpleDateFormat("dd/MM/yyyy");
+                    SimpleDateFormat formatoFecha = new SimpleDateFormat("yyyy/MM/dd");
                    
                     String fechaSeleccionada = ""; 
         
                     // Reemplaza "jDateChooser" por el nombre real de tu variable de calendario
                     if (jDateChooserIda.getDate() != null) {
                         // Solo si el usuario eligió una fecha, la formateamos
-                        SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy"); // O el formato que uses
+                        SimpleDateFormat sdf = new SimpleDateFormat("yyyy/MM/dd"); // O el formato que uses
                         fechaSeleccionada = sdf.format(jDateChooserIda.getDate());
                     } else {
                         // Si no seleccionó fecha, queda vacía o puedes asignarle null si tu BD lo prefiere
@@ -788,6 +798,14 @@ public class InterfazPrincipal extends javax.swing.JFrame {
         }
     }//GEN-LAST:event_jButtonSiguienteActionPerformed
 
+    private void jComboBoxOrigenActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jComboBoxOrigenActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jComboBoxOrigenActionPerformed
+
+    private void jComboBoxDestinoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jComboBoxDestinoActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jComboBoxDestinoActionPerformed
+
     private void mostrarResumenConsola() {
     System.out.println("\n=================================================");
     System.out.println("        RESUMEN DE RESERVA - UNEFA CITY AIRLINES  ");
@@ -801,7 +819,7 @@ public class InterfazPrincipal extends javax.swing.JFrame {
     // Validamos que el componente exista y que el usuario haya seleccionado una fecha
     if (jDateChooserIda != null && jDateChooserIda.getDate() != null) {
         // Creamos el formato deseado (Ejemplo: 15/08/2026)
-        SimpleDateFormat formatoFecha = new SimpleDateFormat("dd/MM/yyyy");
+        SimpleDateFormat formatoFecha = new SimpleDateFormat("yyyy/MM/dd");
         // Aplicamos el formato a la fecha capturada
         fechaSeleccionada = formatoFecha.format(jDateChooserIda.getDate());
     }

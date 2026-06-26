@@ -10,13 +10,26 @@ import java.awt.Window;
 import javax.swing.ImageIcon;
 import javax.swing.JOptionPane;
 import javax.swing.SwingUtilities;
+import vuelos.controller.BuscadorVuelos;
+import vuelos.controller.BuscadorVuelos.VueloInfo;
+import vuelos.controller.RegistroBoleto;
 
 /**
  *
  * @author Jose
  */
 public class Panel4 extends javax.swing.JPanel {
-
+    
+    private RegistroBoleto registro = new RegistroBoleto();
+    private String nVuelo;
+    private String origen;
+    private String destino;
+    private String fecha;
+    private String precioText;
+    private double totalPago;
+    private String asientosFinales;
+    
+    private MapaCabina ventanaMapa;
     /**
      * Creates new form Panel4
      */
@@ -42,6 +55,65 @@ public class Panel4 extends javax.swing.JPanel {
             } catch (Exception e) {
                 System.err.println("Error al aplicar los bordes: " + e.getMessage());
             }
+            
+                        // Supongamos que "ventanaMapa" es el objeto o instancia de tu pantalla de asientos
+                this.asientosFinales = MapaCabina.getAsientosParaEnviar();
+                 asientosSelec.setText(asientosFinales);
+
+            // Esta variable 'asientosFinales' ya contiene el formato "B-3,B-4,B-5" 
+            // Lista para meterla directo en tu INSERT de la base de datos
+            System.out.println("Asientos a registrar: " + asientosFinales);
+            
+                        // Validamos primero que la búsqueda no haya quedado vacía
+            if (!BuscadorVuelos.listaVuelosEncontrados.isEmpty()) {
+
+                // Obtenemos el primer vuelo de la lista (posición 0)
+                VueloInfo vueloSeleccionado = BuscadorVuelos.listaVuelosEncontrados.get(BuscadorVuelos.indiceVueloSeleccionado);
+
+                // ¡Aquí tienes tus variables del rs listas para usar!
+              // 1. Extraemos los textos directamente de las variables públicas (sin usar paréntesis)
+                   // 1. Extraemos los textos directamente de las variables públicas
+                this.nVuelo  = vueloSeleccionado.numeroVuelo;   //
+                this.origen  = vueloSeleccionado.origen;        //
+                this.destino = vueloSeleccionado.destino;       //
+                this.fecha   = vueloSeleccionado.fechaSalida;    //
+                this.precioText = vueloSeleccionado.precioBase; //
+
+                // 2. Convertimos el texto del precio a un número decimal (double)
+                double precioIndividual = Double.parseDouble(precioText);
+
+                // 3. Contamos cuántos asientos se seleccionaron en el mapa
+                int cantidadAsientos = 0;
+                String asientosSeleccionados = MapaCabina.getAsientosParaEnviar(); //
+
+                if (asientosSeleccionados != null && !asientosSeleccionados.trim().isEmpty()) {
+                    // Separa por comas ("B-3,B-4") y cuenta los elementos
+                    cantidadAsientos = asientosSeleccionados.split(",").length;
+                }
+
+                // 4. Calculamos el total matemático
+                double total = precioIndividual * cantidadAsientos;
+                double impuesto = total * 0.05;
+                this.totalPago = total + impuesto;
+                
+                // 5. Asignamos los datos corregidos a tus JLabels de la interfaz
+                labelcodigovuelo.setText(nVuelo); //
+                labelruta.setText(origen + "-" + destino); //
+                labelsalida.setText(fecha); //
+
+                // Mostramos el total de la multiplicación en tu etiqueta de total
+                labeltotal.setText(String.valueOf(total+"$")); //
+                labelbase.setText(String.valueOf(total+"$"));
+                labelimpuesto.setText(String.valueOf(impuesto+"$"));
+                labeltotalpago.setText(String.valueOf(totalPago+"$"));
+
+                
+
+            } else {
+                System.out.println("No se encontraron vuelos en la búsqueda.");
+}
+            
+            
     }
       public static void main(String args[]) {
         /* Set the Nimbus look and feel */
@@ -88,18 +160,18 @@ public class Panel4 extends javax.swing.JPanel {
         jLabel4 = new javax.swing.JLabel();
         jLabel14 = new javax.swing.JLabel();
         jPanel2 = new javax.swing.JPanel();
-        jLabel19 = new javax.swing.JLabel();
+        labeltotal = new javax.swing.JLabel();
         jLabel18 = new javax.swing.JLabel();
-        jTextField1 = new javax.swing.JTextField();
         jLabel2 = new javax.swing.JLabel();
         jLabel20 = new javax.swing.JLabel();
         jLabel21 = new javax.swing.JLabel();
         jLabel22 = new javax.swing.JLabel();
         jLabel23 = new javax.swing.JLabel();
-        jTextField2 = new javax.swing.JTextField();
-        jTextField3 = new javax.swing.JTextField();
-        jTextField4 = new javax.swing.JTextField();
-        jTextField5 = new javax.swing.JTextField();
+        asientosSelec = new javax.swing.JLabel();
+        jLabel25 = new javax.swing.JLabel();
+        labelcodigovuelo = new javax.swing.JLabel();
+        labelruta = new javax.swing.JLabel();
+        labelsalida = new javax.swing.JLabel();
         preciovuelo = new javax.swing.JPanel();
         jLabel1 = new javax.swing.JLabel();
         jLabel5 = new javax.swing.JLabel();
@@ -113,18 +185,18 @@ public class Panel4 extends javax.swing.JPanel {
         NtarjetaF = new javax.swing.JTextField();
         jLabel11 = new javax.swing.JLabel();
         jLabel12 = new javax.swing.JLabel();
-        FechaN = new javax.swing.JFormattedTextField();
         Cvv = new javax.swing.JPasswordField();
         jLabel13 = new javax.swing.JLabel();
         NombreTarjeta = new javax.swing.JTextField();
         BtnComprar = new vuelos.controller.BotonEstilizado("Comprar");
         ;
+        FechaN = new com.toedter.calendar.JDateChooser();
         jPanel1 = new javax.swing.JPanel();
         BtnVisa = new javax.swing.JButton();
         BtnMasterCard = new javax.swing.JButton();
-        jLabel15 = new javax.swing.JLabel();
-        jLabel16 = new javax.swing.JLabel();
-        jLabel17 = new javax.swing.JLabel();
+        labelbase = new javax.swing.JLabel();
+        labelimpuesto = new javax.swing.JLabel();
+        labeltotalpago = new javax.swing.JLabel();
 
         setMinimumSize(new java.awt.Dimension(850, 550));
         setPreferredSize(new java.awt.Dimension(850, 550));
@@ -140,58 +212,51 @@ public class Panel4 extends javax.swing.JPanel {
         jLabel4.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagenes/images.png"))); // NOI18N
 
         jLabel14.setFont(new java.awt.Font("Segoe UI", 1, 20)); // NOI18N
-        jLabel14.setText("!UNEFACITY¡");
+        jLabel14.setText("¡UNEFACITY!");
 
         jPanel2.setBackground(new java.awt.Color(255, 255, 255));
         jPanel2.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
-        jLabel19.setFont(new java.awt.Font("Segoe UI", 1, 15)); // NOI18N
-        jLabel19.setText("Código Vuelo:");
-        jPanel2.add(jLabel19, new org.netbeans.lib.awtextra.AbsoluteConstraints(53, 23, -1, -1));
+        labeltotal.setFont(new java.awt.Font("Segoe UI", 0, 15)); // NOI18N
+        jPanel2.add(labeltotal, new org.netbeans.lib.awtextra.AbsoluteConstraints(140, 150, 100, 20));
 
         jLabel18.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
         jLabel18.setText("---------------------------------------------------------");
         jPanel2.add(jLabel18, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 10, 288, 10));
 
-        jTextField1.setText("jTextField1");
-        jTextField1.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jTextField1ActionPerformed(evt);
-            }
-        });
-        jPanel2.add(jTextField1, new org.netbeans.lib.awtextra.AbsoluteConstraints(155, 26, -1, -1));
-
         jLabel2.setFont(new java.awt.Font("Segoe UI", 1, 15)); // NOI18N
         jLabel2.setText("Ruta:");
-        jPanel2.add(jLabel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 50, -1, -1));
+        jPanel2.add(jLabel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 60, -1, -1));
 
         jLabel20.setFont(new java.awt.Font("Segoe UI", 1, 15)); // NOI18N
         jLabel20.setText("Salida:");
-        jPanel2.add(jLabel20, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 80, -1, 20));
+        jPanel2.add(jLabel20, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 90, -1, 20));
 
         jLabel21.setFont(new java.awt.Font("Segoe UI", 1, 15)); // NOI18N
-        jLabel21.setText("Asiento:");
-        jPanel2.add(jLabel21, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 110, -1, 20));
+        jLabel21.setText("Asientos:");
+        jPanel2.add(jLabel21, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 120, -1, 20));
 
         jLabel22.setFont(new java.awt.Font("Tahoma", 0, 15)); // NOI18N
         jLabel22.setText("---------------------------------------------------------");
-        jPanel2.add(jLabel22, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 130, 288, 10));
+        jPanel2.add(jLabel22, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 140, 288, 10));
 
         jLabel23.setFont(new java.awt.Font("Segoe UI", 1, 15)); // NOI18N
         jLabel23.setText("Total neto:");
-        jPanel2.add(jLabel23, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 140, -1, -1));
+        jPanel2.add(jLabel23, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 150, -1, -1));
+        jPanel2.add(asientosSelec, new org.netbeans.lib.awtextra.AbsoluteConstraints(120, 120, 210, 20));
 
-        jTextField2.setText("jTextField2");
-        jPanel2.add(jTextField2, new org.netbeans.lib.awtextra.AbsoluteConstraints(90, 50, -1, -1));
+        jLabel25.setFont(new java.awt.Font("Segoe UI", 1, 15)); // NOI18N
+        jLabel25.setText("Código Vuelo:");
+        jPanel2.add(jLabel25, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 30, -1, -1));
 
-        jTextField3.setText("jTextField3");
-        jPanel2.add(jTextField3, new org.netbeans.lib.awtextra.AbsoluteConstraints(100, 80, -1, -1));
+        labelcodigovuelo.setFont(new java.awt.Font("Segoe UI", 0, 15)); // NOI18N
+        jPanel2.add(labelcodigovuelo, new org.netbeans.lib.awtextra.AbsoluteConstraints(160, 30, 80, 20));
 
-        jTextField4.setText("jTextField4");
-        jPanel2.add(jTextField4, new org.netbeans.lib.awtextra.AbsoluteConstraints(110, 110, -1, -1));
+        labelruta.setFont(new java.awt.Font("Segoe UI", 0, 15)); // NOI18N
+        jPanel2.add(labelruta, new org.netbeans.lib.awtextra.AbsoluteConstraints(100, 60, 230, 20));
 
-        jTextField5.setText("jTextField5");
-        jPanel2.add(jTextField5, new org.netbeans.lib.awtextra.AbsoluteConstraints(130, 140, -1, -1));
+        labelsalida.setFont(new java.awt.Font("Segoe UI", 0, 15)); // NOI18N
+        jPanel2.add(labelsalida, new org.netbeans.lib.awtextra.AbsoluteConstraints(110, 90, 120, 20));
 
         javax.swing.GroupLayout resumenvueloLayout = new javax.swing.GroupLayout(resumenvuelo);
         resumenvuelo.setLayout(resumenvueloLayout);
@@ -238,7 +303,7 @@ public class Panel4 extends javax.swing.JPanel {
         jLabel5.setText("Tarifa Base: ");
 
         jLabel6.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
-        jLabel6.setText("Tasas e Impuestos: ");
+        jLabel6.setText("Tasas e Impuestos(5%): ");
 
         jLabel7.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
 
@@ -263,6 +328,11 @@ public class Panel4 extends javax.swing.JPanel {
                 NtarjetaFActionPerformed(evt);
             }
         });
+        NtarjetaF.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                NtarjetaFKeyTyped(evt);
+            }
+        });
 
         jLabel11.setFont(new java.awt.Font("Segoe UI", 1, 13)); // NOI18N
         jLabel11.setText("Fecha de vencimiento:");
@@ -270,18 +340,15 @@ public class Panel4 extends javax.swing.JPanel {
         jLabel12.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
         jLabel12.setText("CVV:");
 
-        FechaN.setBorder(javax.swing.BorderFactory.createMatteBorder(1, 1, 1, 1, new java.awt.Color(204, 204, 204)));
-        FechaN.setMargin(new java.awt.Insets(2, 6, 2, 6));
-        FechaN.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                FechaNActionPerformed(evt);
-            }
-        });
-
         Cvv.setBorder(javax.swing.BorderFactory.createMatteBorder(1, 1, 1, 1, new java.awt.Color(204, 204, 204)));
         Cvv.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 CvvActionPerformed(evt);
+            }
+        });
+        Cvv.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                CvvKeyTyped(evt);
             }
         });
 
@@ -292,6 +359,11 @@ public class Panel4 extends javax.swing.JPanel {
         NombreTarjeta.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 NombreTarjetaActionPerformed(evt);
+            }
+        });
+        NombreTarjeta.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                NombreTarjetaKeyTyped(evt);
             }
         });
 
@@ -321,8 +393,8 @@ public class Panel4 extends javax.swing.JPanel {
                         .addGroup(FormularioLayout.createSequentialGroup()
                             .addComponent(jLabel11)
                             .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                            .addComponent(FechaN, javax.swing.GroupLayout.PREFERRED_SIZE, 103, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addGap(22, 22, 22)
+                            .addComponent(FechaN, javax.swing.GroupLayout.PREFERRED_SIZE, 127, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                             .addComponent(jLabel12)
                             .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                             .addComponent(Cvv, javax.swing.GroupLayout.PREFERRED_SIZE, 55, javax.swing.GroupLayout.PREFERRED_SIZE)))
@@ -342,11 +414,12 @@ public class Panel4 extends javax.swing.JPanel {
                     .addComponent(NtarjetaF, javax.swing.GroupLayout.PREFERRED_SIZE, 29, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(Ntarjeta))
                 .addGap(34, 34, 34)
-                .addGroup(FormularioLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(FechaN, javax.swing.GroupLayout.PREFERRED_SIZE, 28, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jLabel11)
-                    .addComponent(jLabel12)
-                    .addComponent(Cvv, javax.swing.GroupLayout.PREFERRED_SIZE, 28, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGroup(FormularioLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addGroup(FormularioLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                        .addComponent(jLabel11)
+                        .addComponent(jLabel12)
+                        .addComponent(Cvv, javax.swing.GroupLayout.PREFERRED_SIZE, 28, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(FechaN, javax.swing.GroupLayout.PREFERRED_SIZE, 28, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(33, 33, 33)
                 .addGroup(FormularioLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel13)
@@ -406,14 +479,11 @@ public class Panel4 extends javax.swing.JPanel {
                 .addContainerGap(16, Short.MAX_VALUE))
         );
 
-        jLabel15.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
-        jLabel15.setText("19$");
+        labelbase.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
 
-        jLabel16.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
-        jLabel16.setText("3.5$");
+        labelimpuesto.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
 
-        jLabel17.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
-        jLabel17.setText("22.5$");
+        labeltotalpago.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
 
         javax.swing.GroupLayout preciovueloLayout = new javax.swing.GroupLayout(preciovuelo);
         preciovuelo.setLayout(preciovueloLayout);
@@ -439,18 +509,19 @@ public class Panel4 extends javax.swing.JPanel {
                 .addGap(0, 0, Short.MAX_VALUE)
                 .addGroup(preciovueloLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(preciovueloLayout.createSequentialGroup()
-                        .addComponent(jLabel5)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(jLabel15))
-                    .addGroup(preciovueloLayout.createSequentialGroup()
-                        .addComponent(jLabel6)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jLabel16))
-                    .addGroup(preciovueloLayout.createSequentialGroup()
                         .addComponent(jLabel9)
                         .addGap(18, 18, 18)
-                        .addComponent(jLabel17))
-                    .addComponent(jLabel8, javax.swing.GroupLayout.PREFERRED_SIZE, 230, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addComponent(labeltotalpago, javax.swing.GroupLayout.PREFERRED_SIZE, 76, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(jLabel8, javax.swing.GroupLayout.PREFERRED_SIZE, 230, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addGroup(preciovueloLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                        .addGroup(preciovueloLayout.createSequentialGroup()
+                            .addComponent(jLabel5)
+                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                            .addComponent(labelbase, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                        .addGroup(preciovueloLayout.createSequentialGroup()
+                            .addComponent(jLabel6)
+                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                            .addComponent(labelimpuesto, javax.swing.GroupLayout.PREFERRED_SIZE, 45, javax.swing.GroupLayout.PREFERRED_SIZE))))
                 .addGap(97, 97, 97))
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, preciovueloLayout.createSequentialGroup()
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
@@ -468,19 +539,19 @@ public class Panel4 extends javax.swing.JPanel {
                         .addComponent(jLabel7, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                     .addGroup(preciovueloLayout.createSequentialGroup()
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addGroup(preciovueloLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                        .addGroup(preciovueloLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(jLabel5)
-                            .addComponent(jLabel15))
+                            .addComponent(labelbase, javax.swing.GroupLayout.PREFERRED_SIZE, 17, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addGap(11, 11, 11)
-                        .addGroup(preciovueloLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(jLabel6)
-                            .addComponent(jLabel16))
+                        .addGroup(preciovueloLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                            .addComponent(jLabel6, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(labelimpuesto, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(jLabel8, javax.swing.GroupLayout.PREFERRED_SIZE, 17, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addGroup(preciovueloLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                        .addGroup(preciovueloLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                             .addComponent(jLabel9)
-                            .addComponent(jLabel17))
+                            .addComponent(labeltotalpago, javax.swing.GroupLayout.PREFERRED_SIZE, 20, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addGap(48, 48, 48)
                         .addComponent(jLabel10)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
@@ -495,7 +566,34 @@ public class Panel4 extends javax.swing.JPanel {
     }// </editor-fold>//GEN-END:initComponents
 
     private void BtnComprarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BtnComprarActionPerformed
-        
+                 String numeroTarjeta = NtarjetaF.getText().trim();
+                 String codigoCvv = Cvv.getText().trim();
+                // Pasamos por .getText() antes de evaluar si está vacío
+            if (NtarjetaF.getText().trim().isEmpty() || 
+                FechaN.getDate() == null || 
+                Cvv.getText().trim().isEmpty() || 
+                NombreTarjeta.getText().trim().isEmpty()) {
+
+                JOptionPane.showMessageDialog(null, "Complete todos los campos del vuelo.", "Campos Vacíos", JOptionPane.WARNING_MESSAGE);
+                return;
+            }
+            
+                if (numeroTarjeta.length() != 16) {
+                    JOptionPane.showMessageDialog(null, 
+                        "El número de tarjeta debe tener exactamente 16 dígitos.", 
+                        "Tarjeta Inválida", 
+                        JOptionPane.ERROR_MESSAGE);
+                    return; // Detiene la operación de compra
+                }
+                else if(codigoCvv.length() != 3){
+                     JOptionPane.showMessageDialog(null, 
+                        "El Cvv debe tener exactamente 3 dígitos.", 
+                        "Tarjeta Inválida", 
+                        JOptionPane.ERROR_MESSAGE);
+                    return;
+                
+                }
+                
         //Mostramos mensaje de compra exitosa
         JOptionPane.showMessageDialog(
             Panel4.this, 
@@ -503,7 +601,9 @@ public class Panel4 extends javax.swing.JPanel {
             "Compra Completada", 
             JOptionPane.INFORMATION_MESSAGE
         );
-        
+            registro.registrar(nVuelo, totalPago, asientosFinales);
+            
+            
         //volvemos a la interfaz principal
         
         // 2. Localizamos la ventana JFrame principal en la memoria del programa
@@ -519,10 +619,6 @@ public class Panel4 extends javax.swing.JPanel {
     private void NtarjetaFActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_NtarjetaFActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_NtarjetaFActionPerformed
-
-    private void FechaNActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_FechaNActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_FechaNActionPerformed
 
     private void CvvActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_CvvActionPerformed
         // TODO add your handling code here:
@@ -556,9 +652,45 @@ public class Panel4 extends javax.swing.JPanel {
         System.out.println("Método de pago seleccionado: VISA");
     }//GEN-LAST:event_BtnVisaActionPerformed
 
-    private void jTextField1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextField1ActionPerformed
+    private void NtarjetaFKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_NtarjetaFKeyTyped
         // TODO add your handling code here:
-    }//GEN-LAST:event_jTextField1ActionPerformed
+            char c = evt.getKeyChar();
+
+        // 1. Si no es un número entre 0 y 9, cancelamos la pulsación de la tecla
+        if (!Character.isDigit(c)) {
+            evt.consume();
+            return;
+        }
+
+        // 2. Si ya hay 16 caracteres escritos, bloqueamos la entrada de más dígitos
+        if (NtarjetaF.getText().length() >= 16) {
+            evt.consume();
+        }
+    }//GEN-LAST:event_NtarjetaFKeyTyped
+
+    private void CvvKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_CvvKeyTyped
+                char c = evt.getKeyChar();
+
+          // 1. Si NO es un dígito (0-9), cancelamos la pulsación inmediatamente
+          if (!Character.isDigit(c)) {
+              evt.consume();
+              return;
+          }
+
+          // 2. Tu validación existente: bloquear la entrada si ya alcanzó los 3 caracteres
+          if (Cvv.getText().length() >= 3) {
+              evt.consume();
+          }
+    }//GEN-LAST:event_CvvKeyTyped
+
+    private void NombreTarjetaKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_NombreTarjetaKeyTyped
+             char c = evt.getKeyChar();
+
+            // Si NO es una letra Y tampoco es un espacio en blanco, cancelamos la pulsación
+            if (!Character.isLetter(c) && c != ' ') {
+                evt.consume(); // Bloquea números y caracteres especiales
+            }
+    }//GEN-LAST:event_NombreTarjetaKeyTyped
     javax.swing.border.Border bordeSeleccionado = javax.swing.BorderFactory.createLineBorder(new java.awt.Color(20, 50, 95), 2, true);
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
@@ -566,27 +698,25 @@ public class Panel4 extends javax.swing.JPanel {
     private javax.swing.JButton BtnMasterCard;
     private javax.swing.JButton BtnVisa;
     private javax.swing.JPasswordField Cvv;
-    private javax.swing.JFormattedTextField FechaN;
+    private com.toedter.calendar.JDateChooser FechaN;
     private javax.swing.JPanel Formulario;
     private javax.swing.JTextField NombreTarjeta;
     private javax.swing.JLabel Ntarjeta;
     private javax.swing.JTextField NtarjetaF;
+    private javax.swing.JLabel asientosSelec;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel10;
     private javax.swing.JLabel jLabel11;
     private javax.swing.JLabel jLabel12;
     private javax.swing.JLabel jLabel13;
     private javax.swing.JLabel jLabel14;
-    private javax.swing.JLabel jLabel15;
-    private javax.swing.JLabel jLabel16;
-    private javax.swing.JLabel jLabel17;
     private javax.swing.JLabel jLabel18;
-    private javax.swing.JLabel jLabel19;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel20;
     private javax.swing.JLabel jLabel21;
     private javax.swing.JLabel jLabel22;
     private javax.swing.JLabel jLabel23;
+    private javax.swing.JLabel jLabel25;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel5;
@@ -596,11 +726,13 @@ public class Panel4 extends javax.swing.JPanel {
     private javax.swing.JLabel jLabel9;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
-    private javax.swing.JTextField jTextField1;
-    private javax.swing.JTextField jTextField2;
-    private javax.swing.JTextField jTextField3;
-    private javax.swing.JTextField jTextField4;
-    private javax.swing.JTextField jTextField5;
+    private javax.swing.JLabel labelbase;
+    private javax.swing.JLabel labelcodigovuelo;
+    private javax.swing.JLabel labelimpuesto;
+    private javax.swing.JLabel labelruta;
+    private javax.swing.JLabel labelsalida;
+    private javax.swing.JLabel labeltotal;
+    private javax.swing.JLabel labeltotalpago;
     private javax.swing.JPanel preciovuelo;
     private javax.swing.JPanel resumenvuelo;
     // End of variables declaration//GEN-END:variables

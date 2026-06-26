@@ -1,6 +1,9 @@
 package vuelos.model;
 
 public class Usuario {
+    
+    public static int idUsuarioLogueado;
+    
     // 1. Atributos privados (Encapsulamiento)
     private String nombre;
     private String apellido;

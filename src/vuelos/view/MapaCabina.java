@@ -4,16 +4,22 @@ import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.util.ArrayList;
 import vuelos.controller.BuscadorVuelos; 
+import java.util.List;
 
 public class MapaCabina extends JPanel {
 
     private BuscadorVuelos controladorVuelos;
     private String numeroVueloActual;
+    // Lista dinámica para guardar los asientos que se van marcando
+        private static List<String> listaAsientosHabilitados = new ArrayList<>();
     
-    // NUEVOS ATRIBUTOS: Referencia al botón real y contador de asientos elegidos
     private JButton btnSiguienteReal;
     private int asientosSeleccionadosContador = 0;
+    
+    // Variable global para guardar los asientos en formato de texto listo para la BD
+        private String asientosUnificados = "";
 
     // EL CONSTRUCTOR AHORA RECIBE TAMBIÉN EL BOTÓN SIGUIENTE DE LA INTERFAZ PRINCIPAL
     public MapaCabina(BuscadorVuelos controlador, String numeroVuelo, JButton btnSiguiente) {
@@ -21,6 +27,8 @@ public class MapaCabina extends JPanel {
         this.numeroVueloActual = numeroVuelo;
         this.btnSiguienteReal = btnSiguiente;
 
+        listaAsientosHabilitados.clear(); // Limpia selecciones viejas al abrir el mapa
+        
         // Forzamos que empiece deshabilitado hasta que el usuario marque un asiento
         if (this.btnSiguienteReal != null) {
             this.btnSiguienteReal.setEnabled(false);
@@ -128,23 +136,31 @@ public class MapaCabina extends JPanel {
                             private boolean seleccionado = false;
 
                             @Override
-                            public void actionPerformed(ActionEvent e) {
-                                if (!seleccionado) {
-                                    botonAsiento.setIcon(selIcon);
-                                    seleccionado = true;
-                                    asientosSeleccionadosContador++; // Añade asiento
-                                    System.out.println("Asiento seleccionado: " + numeroFila + letraColumna + " para el vuelo " + numeroVueloActual);
-                                } else {
-                                    botonAsiento.setIcon(dispIcon);
-                                    seleccionado = false;
-                                    asientosSeleccionadosContador--; // Quita asiento
+                                public void actionPerformed(ActionEvent e) {
+                                    // Armamos el formato del asiento combinando la letra y el número (Ej: "B-3")
+                                    String asientoIdentificador = letraColumna + "-" + numeroFila; 
+
+                                    if (!seleccionado) {
+                                        botonAsiento.setIcon(selIcon);
+                                        seleccionado = true;
+                                        asientosSeleccionadosContador++; // Incrementa el contador visual
+
+                                        // ¡AGREGADO!: Metemos el asiento en la lista dinámica
+                                        listaAsientosHabilitados.add(asientoIdentificador);
+                                    } else {
+                                        botonAsiento.setIcon(dispIcon);
+                                        seleccionado = false;
+                                        asientosSeleccionadosContador--; // Decrementa el contador visual
+
+                                        // ¡AGREGADO!: Si se desmarca, lo sacamos de la lista
+                                        listaAsientosHabilitados.remove(asientoIdentificador);
+                                    }
+
+                                    // Modifica el estado del botón Siguiente en tiempo real
+                                    if (btnSiguienteReal != null) {
+                                        btnSiguienteReal.setEnabled(asientosSeleccionadosContador > 0);
+                                    }
                                 }
-                                
-                                // EVALUACIÓN DINÁMICA: Modifica el estado del botón Siguiente en tiempo real
-                                if (btnSiguienteReal != null) {
-                                    btnSiguienteReal.setEnabled(asientosSeleccionadosContador > 0);
-                                }
-                            }
                         });
                     }
                     panel.add(botonAsiento);
@@ -152,6 +168,11 @@ public class MapaCabina extends JPanel {
             }
         }
     }
+    
+                   public static String getAsientosParaEnviar() {
+                     return String.join(",", listaAsientosHabilitados);
+                 }
+    
 }
 
 
