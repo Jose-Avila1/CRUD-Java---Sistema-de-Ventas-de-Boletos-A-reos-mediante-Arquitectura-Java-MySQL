@@ -40,7 +40,7 @@ public class RegistroBoleto {
             int filasAfectadas = pstmt.executeUpdate();
             
             if (filasAfectadas > 0) {
-                System.out.println("¡Boleto guardado exitosamente en la base de datos!");
+                //System.out.println("¡Boleto guardado exitosamente en la base de datos!");
                 JOptionPane.showMessageDialog(null, "¡Compra registrada con éxito!", "Éxito", JOptionPane.INFORMATION_MESSAGE);
             }
             

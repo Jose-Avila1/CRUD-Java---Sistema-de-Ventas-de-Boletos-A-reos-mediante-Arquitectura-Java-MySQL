@@ -899,7 +899,7 @@ java.awt.Color colorRojoError = new java.awt.Color(255, 51, 51);
     
             private boolean verificarCredenciales(String correo, String passwordPlano) {
           // 1. Modificamos el SELECT para incluir el id_usu de tu tabla
-          String sql = "SELECT id_usu, contrasenia FROM usuarios WHERE correo = ?"; 
+          String sql = "SELECT id_usu,nombre, contrasenia FROM usuarios WHERE correo = ?"; 
           String hashIngresado = vuelos.database.Conexion.encriptarSHA256(passwordPlano);
 
           try (java.sql.Connection conn = vuelos.database.Conexion.conectar();
@@ -915,6 +915,7 @@ java.awt.Color colorRojoError = new java.awt.Color(255, 51, 51);
 
                           // === ¡AQUÍ SE GUARDA EL ID EN MEMORIA! ===
                           vuelos.model.Usuario.idUsuarioLogueado = rs.getInt("id_usu");
+                          vuelos.model.Usuario.nombreUsu = rs.getString("nombre");
 
                           return true;
                       }
