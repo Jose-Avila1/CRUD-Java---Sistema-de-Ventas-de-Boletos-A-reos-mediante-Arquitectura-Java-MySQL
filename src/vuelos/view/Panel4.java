@@ -92,9 +92,9 @@ public class Panel4 extends javax.swing.JPanel {
                 }
 
                 // 4. Calculamos el total matemático
-                double total = precioIndividual * cantidadAsientos;
-                double impuesto = total * 0.05;
-                this.totalPago = total + impuesto;
+                double total = Math.round(precioIndividual * cantidadAsientos);
+                double impuesto = Math.round(total * 0.05);
+                this.totalPago = Math.round(total + impuesto);
                 
                 // 5. Asignamos los datos corregidos a tus JLabels de la interfaz
                 labelcodigovuelo.setText(nVuelo); //
@@ -115,12 +115,12 @@ public class Panel4 extends javax.swing.JPanel {
             
             
     }
-      public static void main(String args[]) {
+    /*  public static void main(String args[]) {
         /* Set the Nimbus look and feel */
         //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
         /* If Nimbus (introduced in Java SE 6) is not available, stay with the default look and feel.
-         * For details see http://download.oracle.com/javase/tutorial/uiswing/lookandfeel/plaf.html 
-         */
+        * For details see http://download.oracle.com/javase/tutorial/uiswing/lookandfeel/plaf.html 
+         
         try {
             for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
                 if ("Nimbus".equals(info.getName())) {
@@ -139,13 +139,14 @@ public class Panel4 extends javax.swing.JPanel {
         }
         //</editor-fold>
         
-        /* Create and display the form */
+        /* Create and display the form 
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
                 new Panel4().setVisible(true);
             }
         });
-    }
+    }*/
+    
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always

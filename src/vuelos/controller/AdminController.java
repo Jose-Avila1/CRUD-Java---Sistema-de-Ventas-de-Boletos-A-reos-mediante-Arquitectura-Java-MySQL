@@ -1,5 +1,7 @@
 package vuelos.controller;
 
+import com.toedter.calendar.JCalendar;
+import com.toedter.calendar.JDateChooser;
 import javax.swing.*;
 import javax.swing.table.DefaultTableModel;
 import java.awt.Window;
@@ -7,6 +9,7 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.text.SimpleDateFormat;
 import vuelos.database.Conexion;
 
 public class AdminController {
@@ -148,7 +151,27 @@ public class AdminController {
     } catch (SQLException e) {
         System.out.println("Error al cargar vuelos: " + e.getMessage());
     }
+    
 }
+
+    public void cargarComboAeropuertos(JComboBox<String> combo) {
+        combo.removeAllItems(); // Limpiar antes de cargar
+        String sql = "SELECT ciudad FROM aeropuertos"; // O el campo que quieras mostrar
+
+        try (Connection con = Conexion.conectar();
+             PreparedStatement pstmt = con.prepareStatement(sql);
+             ResultSet rs = pstmt.executeQuery()) {
+
+            while (rs.next()) {
+                combo.addItem(rs.getString("ciudad"));
+            }
+        } catch (SQLException e) {
+            JOptionPane.showMessageDialog(null, "Error al cargar combo: " + e.getMessage());
+        }
+    }
+   
+   
+   
 
     /**
      * Inserta un nuevo vuelo leyendo los 4 cuadros de texto de tu diseño.
@@ -156,17 +179,26 @@ public class AdminController {
      */
     
 
-     public void agregarNuevoVuelo(JTextField txtNum, JTextField txtOrig, JTextField txtDest, JTextField txtFecha, JTextField txtPrecio, JTable tablaVuelos) {
+     public void agregarNuevoVuelo(JTextField txtNum, JComboBox<String> txtOrig, JComboBox<String> txtDest, JDateChooser txtFecha, JTextField txtPrecio, JTable tablaVuelos) {
     String num = txtNum.getText().trim();
-    String orig = txtOrig.getText().trim();
-    String dest = txtDest.getText().trim();
-    String fecha = txtFecha.getText().trim();
+    String orig = txtOrig.getSelectedItem().toString().trim();
+    String dest = txtDest.getSelectedItem().toString().trim();
+    //String fecha = txtFecha.getText().trim();
     String precio = txtPrecio.getText().trim();
-
-    if (num.isEmpty() || orig.isEmpty() || dest.isEmpty() || fecha.isEmpty() || precio.isEmpty()) {
+    
+    if (num.isEmpty() || orig.isEmpty() || dest.isEmpty() || txtFecha.getDate() == null || precio.isEmpty()) {
         JOptionPane.showMessageDialog(null, "Complete todos los campos del vuelo.", "Campos Vacíos", JOptionPane.WARNING_MESSAGE);
-        return;
+        return; // Salimos de la función si falta algo
     }
+    if (orig.equals(dest)) {
+        JOptionPane.showMessageDialog(null, "El origen y el destino no pueden ser iguales.", 
+                                  "Error de Selección", JOptionPane.ERROR_MESSAGE);
+        return; // Detenemos el proceso aquí
+    }
+    
+    SimpleDateFormat formato = new SimpleDateFormat("yyyy-MM-dd");
+    String fecha = formato.format(txtFecha.getDate());
+    
 
     // CORREGIDO: Añadido 'precio' a las columnas y su respectivo '?' en VALUES (ahora son 5)
     String sql = "INSERT INTO vuelos (numero_vuelo, id_origen, id_destino, fecha_salida, precio_base) VALUES (?, ?, ?, ?, ?)";
@@ -182,20 +214,25 @@ public class AdminController {
         pstmt.setString(5, precio); // CORREGIDO: Ahora enviamos el precio a la base de datos
 
         if (pstmt.executeLargeUpdate() > 0) {
-            // Añadido 'precio' también al modelo visual de la tabla
-            ((DefaultTableModel) tablaVuelos.getModel()).addRow(new Object[]{num, orig, dest, fecha, precio});
+            //((DefaultTableModel) tablaVuelos.getModel()).addRow(new Object[]{num, orig, dest, fecha, precio});
+            cargarTablaVuelos(tablaVuelos);
             JOptionPane.showMessageDialog(null, "Vuelo registrado exitosamente.");
             
             // Limpieza automática de tus cuadros de texto
             txtNum.setText("");
-            txtOrig.setText("");
-            txtDest.setText("");
-            txtFecha.setText("");
+            txtOrig.setSelectedIndex(-1);
+            txtDest.setSelectedIndex(-1);
+            txtFecha.setCalendar(null);
             txtPrecio.setText("");
         }
         
     } catch (SQLException e) {
-        JOptionPane.showMessageDialog(null, "Error al insertar vuelo: " + e.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
+        if (e.getErrorCode() == 1062) {
+            JOptionPane.showMessageDialog(null, "El numero de vuelo ( "+ num +" ) ya fue registrado", "Error", JOptionPane.ERROR_MESSAGE);
+        } else {
+            // Para cualquier otro error, mostramos el mensaje original
+            JOptionPane.showMessageDialog(null, "Error al insertar vuelo: " + e.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
+        }
     }
 }
 
@@ -243,23 +280,24 @@ public class AdminController {
      * Carga de forma independiente la JTable de Orígenes y la JTable de Destinos.
      * COLOCAR EN: Al abrir la Sección 3 para rellenar ambas tablas a la vez.
      */
-   public void cargarTablasOrigenYDestino(JTable tablaOrigenes, JTable tablaDestinos) {
+   public void cargarTablasOrigenYDestino(JTable tablaOrigenes) {
     DefaultTableModel modOrig = (DefaultTableModel) tablaOrigenes.getModel();
-    DefaultTableModel modDest = (DefaultTableModel) tablaDestinos.getModel();
 
     modOrig.setRowCount(0);
-    modDest.setRowCount(0);
 
     // 1. CONSULTA SQL: LEER CIUDADES DE ORIGEN
-    String sqlOrig = "SELECT ciudad FROM aeropuertos";
+    String sqlOrig = "SELECT id_aeropuerto, ciudad FROM aeropuertos";
     // CAMBIO AQUÍ: Usamos tu clase Conexion
     try (Connection con = Conexion.conectar();
          PreparedStatement pstmt = con.prepareStatement(sqlOrig);
          ResultSet rs = pstmt.executeQuery()) {
         
         while (rs.next()) {
-            modOrig.addRow(new Object[]{ rs.getString("ciudad") });
-        }
+        modOrig.addRow(new Object[]{ 
+            rs.getInt("id_aeropuerto"), 
+            rs.getString("ciudad") 
+        });
+    }
     } catch (SQLException e) { 
         System.out.println("Error en orígenes: " + e.getMessage()); 
     }
@@ -271,15 +309,13 @@ public class AdminController {
          PreparedStatement pstmt = con.prepareStatement(sqlDest);
          ResultSet rs = pstmt.executeQuery()) {
         
-        while (rs.next()) {
+        /*while (rs.next()) {
             modDest.addRow(new Object[]{ rs.getString("ciudad") });
-        }
+        }*/
     } catch (SQLException e) { 
         System.out.println("Error en destinos: " + e.getMessage()); 
     }
-    
-    // NOTA: Se eliminaron los datos de prueba manuales (Maracaibo, Bogotá, etc.) 
-    // para que no se dupliquen con los de la base de datos.
+
 }
 
     /**
@@ -310,67 +346,79 @@ public class AdminController {
          PreparedStatement pstmt = con.prepareStatement(sql)) {
         
         pstmt.setString(1, origen);
-        
+       
         if (pstmt.executeUpdate() > 0) {
-            // Inserta visualmente en la tabla solo si se guardó con éxito en MySQL
-            ((DefaultTableModel) tablaOrigenes.getModel()).addRow(new Object[]{origen});
             txtOrigen.setText("");
             JOptionPane.showMessageDialog(null, "Origen agregado exitosamente.");
+            cargarTablasOrigenYDestino(tablaOrigenes); // Llama a tu método de carga
         }
         
     } catch (SQLException e) { 
         JOptionPane.showMessageDialog(null, "Error al insertar origen: " + e.getMessage(), "Error", JOptionPane.ERROR_MESSAGE); 
   }
-    
-    // NOTA: Se eliminaron las líneas duplicadas de addRow y setText que estaban aquí abajo.
 }
 
-    /**
-     * Elimina el origen seleccionado.
-     * COLOCAR EN: El botón "ELIMINAR" de la izquierda (Origen) en la Sección 3.
-     */
-        public void eliminarOrigenSeleccionado(JTable tablaOrigenes) {
+
+    public void eliminarOrigenSeleccionado(JTable tablaOrigenes) {
         int filaSel = tablaOrigenes.getSelectedRow();
-    
-         // 1. Validamos primero si hay una fila seleccionada antes de pedir datos
         if (filaSel == -1) {
-        JOptionPane.showMessageDialog(null, "Seleccione un origen para eliminar.", "Aviso", JOptionPane.WARNING_MESSAGE);
-        return;
-         }
+            JOptionPane.showMessageDialog(null, "Seleccione un origen para eliminar.", "Aviso", JOptionPane.WARNING_MESSAGE);
+            return;
+        }
 
-         // 2. Extraemos la ciudad de la fila seleccionada de forma segura
-         String origen = (String) tablaOrigenes.getValueAt(filaSel, 0);
+        // 1. EXTRAER ID Y CIUDAD
+        // La columna 0 es el id_aeropuerto, la columna 1 es la ciudad
+        int id = (int) tablaOrigenes.getValueAt(filaSel, 0); 
+        String ciudad = (String) tablaOrigenes.getValueAt(filaSel, 1);
 
-         // 3. Cuadro de confirmación corregido con YES_NO_OPTION
-        int confirmar = JOptionPane.showConfirmDialog(
-        null, 
-        "¿Está seguro que desea eliminar el origen: " + origen + "?", 
-        "Confirmar", 
-        JOptionPane.YES_NO_OPTION
-        );
-    
-        // Si el usuario no presiona "SÍ", detenemos la ejecución
+        int confirmar = JOptionPane.showConfirmDialog(null, 
+                "¿Está seguro que desea eliminar el origen: " + ciudad + "?", 
+                "Confirmar", JOptionPane.YES_NO_OPTION);
+
         if (confirmar != JOptionPane.YES_OPTION) return;
 
-        // 4. Consulta SQL para eliminar de la base de datos
-        String sql = "DELETE FROM aeropuertos WHERE ciudad = ?";
-    
-        // 5. Conexión y ejecución mediante tu clase Conexion
-         try (Connection con = Conexion.conectar();
-         PreparedStatement pstmt = con.prepareStatement(sql)) {
-        
-        pstmt.setString(1, origen);
-        
-        if (pstmt.executeUpdate() > 0) {
-            // Remueve la fila de la tabla visual solo si se borró con éxito en MySQL
-            ((DefaultTableModel) tablaOrigenes.getModel()).removeRow(filaSel);
-            JOptionPane.showMessageDialog(null, "Origen eliminado correctamente.");
+        String sql = "DELETE FROM aeropuertos WHERE id_aeropuerto = ?";
+
+        try (Connection con = Conexion.conectar();
+             PreparedStatement pstmt = con.prepareStatement(sql)) {
+
+            pstmt.setInt(1, id); // Usamos el ID obtenido de la columna 0
+
+            if (pstmt.executeUpdate() > 0) {
+                ((DefaultTableModel) tablaOrigenes.getModel()).removeRow(filaSel);
+                JOptionPane.showMessageDialog(null, "Origen eliminado correctamente.");
+            }
+        } catch (SQLException e) {
+            JOptionPane.showMessageDialog(null, "Error al eliminar: " + e.getMessage());
         }
-        
-     } catch (SQLException e) { 
-        JOptionPane.showMessageDialog(null, "Error al eliminar en la base de datos: " + e.getMessage(), "Error", JOptionPane.ERROR_MESSAGE); 
     }
-}
+        
+    public void cargarDatosParaEditar(JTable tabla, JTextField campoCiudad) {
+        int fila = tabla.getSelectedRow();
+        if (fila != -1) {
+                campoCiudad.setText(tabla.getValueAt(fila, 1).toString());
+        }
+    }
+    
+    public void guardarEdicion(int id, String nuevoValor, JTable tabla) {
+
+        String sql = "UPDATE aeropuertos SET ciudad = ? WHERE id_aeropuerto = ?";// Ejemplo usando ID
+
+        try (Connection con = Conexion.conectar();
+             PreparedStatement pstmt = con.prepareStatement(sql)) {
+
+            pstmt.setString(1, nuevoValor);
+            pstmt.setInt(2, id); 
+
+            pstmt.executeUpdate();
+            cargarTablasOrigenYDestino(tabla);
+            //JOptionPane.showMessageDialog(null, "Cambios guardados con éxito."); //es para mostrar un mesaje de confirmacion
+
+
+        } catch (SQLException e) {
+            JOptionPane.showMessageDialog(null, "Error al guardar: " + e.getMessage());
+        }
+    }
 
     /**
      * Agrega un destino a la BD y a su tabla correspondiente.
