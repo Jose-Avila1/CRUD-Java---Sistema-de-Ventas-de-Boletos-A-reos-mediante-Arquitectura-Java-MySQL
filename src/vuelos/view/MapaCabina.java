@@ -36,11 +36,12 @@ public class MapaCabina extends JPanel {
 
         // 1. Configuración del panel base contenedor
         setLayout(new BorderLayout());
-        setPreferredSize(new Dimension(500, 350));
+        setPreferredSize(new Dimension(300, 350));
 
         // 2. Crear el contenedor por capas (JLayeredPane)
         JLayeredPane layeredPane = new JLayeredPane();
-        layeredPane.setPreferredSize(new Dimension(680, 380));
+        layeredPane.setPreferredSize(new Dimension(300, 380));
+        
 
         // 4. CAPA SUPERIOR: Cuadrícula de asientos (GridLayout)
         JPanel panelAsientos = new JPanel(new GridLayout(7, 7, 5, 5));

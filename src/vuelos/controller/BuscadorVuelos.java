@@ -164,6 +164,39 @@ public class BuscadorVuelos {
 
                         Siguiente.setVisible(true);
 
+                        //Hacer una ventana para saber el precio de boletos en el vuelo seleccionado
+                        String nmrVuelo = vuelo.numeroVuelo;
+                        String sql = "SELECT precio_base from vuelos where numero_vuelo = ?";
+                        float precio_vuelo = 0;
+
+                        try (Connection con = Conexion.conectar();
+                                PreparedStatement pstmt = con.prepareStatement(sql)) {
+
+                            pstmt.setString(1, nmrVuelo);
+
+                            try (ResultSet rs = pstmt.executeQuery()) {
+                                if (rs.next()) { // Usamos 'if' en lugar de 'while' porque sabemos que es un solo resultado
+                                    precio_vuelo = rs.getFloat(1);
+
+                                }
+                            }
+                        } catch (SQLException er) {
+                            System.out.println("Error al encontrar el precio: " + er.getMessage());
+                        }
+                        
+                        System.out.println(precio_vuelo);
+                        
+                        
+                        JOptionPane.showMessageDialog(
+                            null, 
+                            "<html><div style='text-align: center; font-family: Arial; font-size: 12px;'>"
+                            + "El precio base por cada asiento seleccionado para el vuelo <b>" + nmrVuelo + "</b> es de:<br><br>"
+                            + "<span style='font-size: 16px; color: #4CAF50; font-weight: bold;'>$" + String.format("%.2f", precio_vuelo) + " USD</span>"
+                            + "</div></html>", 
+                            "Información de Tarifa", 
+                            JOptionPane.INFORMATION_MESSAGE
+                        );
+
                         // Reemplazar el contenedor central con el avión y blindar el panel izquierdo
                         SwingUtilities.invokeLater(new Runnable() {
                             @Override
